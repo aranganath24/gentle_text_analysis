@@ -1,9 +1,11 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAME HERE"
+title: "A Gentle Introduction to Text Analysis in R"
+author:
+- Nickoal Eichmann-Kalwara
+- Aditya Ranganath
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
-# Down the rabbit-hole
+# Introduction
 

@@ -1,0 +1,7 @@
+introduction
+getting-started-with-r-studio
+reading-in-a-text-corpus
+creating-a-term-document-matrix
+visualizing-word-frequencies
+creating-a-chart-of-word-frequencies
+creating-a-word-cloud-of-word-frequencies

@@ -1,0 +1,16 @@
+# Getting Started with R Studio
+
+# Reading in a Text Corpus
+
+# Creating a Term Document Matrix
+
+# Visualizing Word Frequencies
+
+## Creating a Chart of Word Frequencies
+
+## Creating a Word Cloud of Word Frequencies
+
+
+
+
+
