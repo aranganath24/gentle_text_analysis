@@ -75,16 +75,39 @@ word_frequencies<-sort(rowSums(tdm_diario_adverts), decreasing=TRUE)
 df_word_frequencies <- data.frame(word = names(word_frequencies),freq=word_frequencies)
 ```
 
+
+## Creating a Chart of Word Frequencies
+
+```{r}
+# ten most frequent words
+df_ten<-df_word_frequencies %>% 
+        slice_max(freq, n=10)
+```
+
+```{r}
+diario_frequency_graph<-
+  ggplot(df_ten, aes(x=reorder(word, freq), y=freq))+
+    geom_bar(stat="identity")+
+      coord_flip()+
+      xlab("")+
+      ylab("Frequency")+
+      ggtitle("Ten Most Frequent Words in Diario Advertisements")+
+      labs(caption = "Source: El Diario Project")
+```
+
+
+```{r}
+diario_frequency_graph
+```
+
+
+## Creating a Word Cloud of Word Frequencies
+
+
 ```{r}
 # make word cloud
 wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
 ```
-
-
-## Creating a Chart of Word Frequencies
-
-## Creating a Word Cloud of Word Frequencies
-
 
 
 
