@@ -124,7 +124,7 @@ tidy_diario_head<-head(tidy_diario, 25)
 tidy_diario
 ```
 
-```{r}
+```{r, echo=F}
 tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
   deferRender = TRUE,
   scrollY = 350,
@@ -149,7 +149,7 @@ diario_bigram_head<-head(diario_bigram, 25)
 diario_bigram
 ```
 
-```{r}
+```{r, echo=F}
 diario_bigram_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
   deferRender = TRUE,
   scrollY = 350,
