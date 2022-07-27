@@ -27,6 +27,10 @@ setwd("/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts")
 diario_adverts<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
 ```
 
+
+# Creating a Term Document Matrix
+
+
 ```{r}
 # creates tdm
 tdm_diario_adverts<-as.matrix(TermDocumentMatrix(diario_adverts, 
@@ -59,11 +63,23 @@ tdm_diario_adverts_selection %>% datatable(extensions=c("Scroller", "FixedColumn
 ))
 ```
 
-
-
-# Creating a Term Document Matrix
-
 # Visualizing Word Frequencies
+
+```{r}
+# word frequencies
+word_frequencies<-sort(rowSums(tdm_diario_adverts), decreasing=TRUE)
+```
+
+```{r}
+# Make data frame
+df_word_frequencies <- data.frame(word = names(word_frequencies),freq=word_frequencies)
+```
+
+```{r}
+# make word cloud
+wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
+```
+
 
 ## Creating a Chart of Word Frequencies
 
