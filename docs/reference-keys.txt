@@ -6,3 +6,4 @@ creating-a-term-document-matrix
 visualizing-word-frequencies
 creating-a-chart-of-word-frequencies
 creating-a-word-cloud-of-word-frequencies
+create-bigram

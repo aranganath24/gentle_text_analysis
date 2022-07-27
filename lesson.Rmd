@@ -110,5 +110,56 @@ wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipti
 ```
 
 
+# Create bigram
+
+```{r}
+tidy_diario<-tidy(diario_adverts)
+```
+
+```{r}
+tidy_diario_head<-head(tidy_diario, 25)
+```
+
+```{r, eval=F}
+tidy_diario
+```
+
+```{r}
+tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+
+```{r}
+diario_bigram<-tidy_diario %>% 
+                  unnest_tokens(bigram, text, token="ngrams", n=2)
+```
+
+```{r, echo=F}
+diario_bigram_head<-head(diario_bigram, 25)
+```
+
+```{r, eval=F}
+diario_bigram
+```
+
+```{r}
+diario_bigram_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+
 
 
