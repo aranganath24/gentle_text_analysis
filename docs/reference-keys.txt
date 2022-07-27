@@ -1,5 +1,6 @@
 introduction
 getting-started-with-r-studio
+load-libraries
 reading-in-a-text-corpus
 creating-a-term-document-matrix
 visualizing-word-frequencies

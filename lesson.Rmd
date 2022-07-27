@@ -1,6 +1,65 @@
 # Getting Started with R Studio
 
+## Load libraries
+
+```{r}
+library(tm)
+library(tidyverse)
+library(wordcloud2)
+```
+
+
 # Reading in a Text Corpus
+
+```{r}
+setwd("/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts")
+```
+
+```{r, echo=-1}
+setwd("/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts")
+# read in diario adverts
+diario_files<-list.files(pattern=".txt")
+```
+
+```{r, echo=-1}
+setwd("/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts")
+# Create corpus from diario adverts
+diario_adverts<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
+```
+
+```{r}
+# creates tdm
+tdm_diario_adverts<-as.matrix(TermDocumentMatrix(diario_adverts, 
+                                  control=list(removePunctuation = TRUE,
+                                          stopwords = TRUE,
+                                          tolower = TRUE,
+                                          stemming = FALSE,
+                                          removeNumbers = TRUE,
+                                          bounds = list(global = c(3, Inf)))))
+```
+
+```{r, echo=F, warning=F, message=F}
+library(DT)
+tdm_diario_adverts_selection<-tdm_diario_adverts[1:25,1:25]
+```
+
+```{r, eval=F}
+# prints "tdm_diario_adverts"
+tdm_diario_adverts
+```
+
+```{r, echo=F}
+tdm_diario_adverts_selection %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+
 
 # Creating a Term Document Matrix
 
