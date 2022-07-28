@@ -138,7 +138,8 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 
 ```{r}
 diario_bigram<-tidy_diario %>% 
-                  unnest_tokens(bigram, text, token="ngrams", n=2)
+                  unnest_tokens(bigram, text, token="ngrams", n=2) %>% 
+                  count(bigram, sort=TRUE)
 ```
 
 ```{r, echo=F}
@@ -158,6 +159,67 @@ diario_bigram_head %>% datatable(extensions=c("Scroller", "FixedColumns"), optio
   scroller = TRUE,
   fixedColumns = list(leftColumns = 1)
 ))
+```
+
+```{r}
+diario_bigram_separated<-diario_bigram %>% 
+                          separate(bigram, c("word1", "word2", sep=" "))
+```
+
+
+```{r}
+diario_bigram_filtered<-diario_bigram_separated %>% 
+                            filter(!word1 %in% stop_words$word) %>%
+                            filter(!word2 %in% stop_words$word)
+```
+
+remove numbers
+
+```{r}
+diario_bigram_word1numbers<-parse_number(diario_bigram_filtered$word1)
+```
+
+```{r}
+diario_bigram_word2numbers<-parse_number(diario_bigram_filtered$word2)
+```
+
+
+```{r}
+diario_bigram_filtered<-cbind(diario_bigram_filtered, diario_bigram_word1numbers, diario_bigram_word2numbers)
+```
+
+
+```{r}
+diario_bigram_filtered<-diario_bigram_filtered %>% 
+                          filter(is.na(diario_bigram_word1numbers)) %>% 
+                          filter(is.na(diario_bigram_word2numbers))
+```
+
+```{r}
+diario_bigram_filtered_unite<-diario_bigram_filtered %>% 
+                                unite(bigram, word1, word2, sep=" ")
+```
+
+```{r}
+diario_bigram_top_ten<-diario_bigram_filtered_unite %>% 
+                        slice_max(n, n=10)
+```
+
+
+```{r}
+bigram_graph<-
+  ggplot(diario_bigram_top_ten, aes(x=reorder(bigram, n), y=n))+
+    geom_bar(stat="identity")+
+      coord_flip()+
+      xlab("")+
+      ylab("Frequency")+
+      ggtitle("Ten Most Frequent Co-Occuring Words in Diario Advertisements")+
+      labs(caption = "Source: El Diario Project")
+```
+
+
+```{r}
+bigram_graph
 ```
 
 
