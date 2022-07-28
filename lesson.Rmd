@@ -6,6 +6,7 @@
 library(tm)
 library(tidyverse)
 library(wordcloud2)
+library(quanteda)
 ```
 
 
@@ -222,6 +223,34 @@ bigram_graph<-
 bigram_graph
 ```
 
+# keywords in context
 
+
+```{r}
+kwic_token<-tokens(tidy_diario$text)
+```
+
+```{r}
+business_keyword_context<-kwic(kwic_token, pattern="business", valuetype="fixed", window=3)
+```
+
+```{r, eval=F}
+business_keyword_context
+```
+
+
+```{r, echo=F}
+business_keyword_context %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+
+https://search.r-project.org/CRAN/refmans/quanteda/html/kwic.html
 
 
