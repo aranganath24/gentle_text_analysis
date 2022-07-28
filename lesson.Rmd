@@ -7,6 +7,7 @@ library(tm)
 library(tidyverse)
 library(wordcloud2)
 library(quanteda)
+library(tidytext)
 ```
 
 
@@ -25,104 +26,25 @@ diario_files<-list.files(pattern=".txt")
 ```{r, echo=-1}
 setwd("/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts")
 # Create corpus from diario adverts
-diario_adverts<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
+diario_adverts_corpus<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
 ```
-
-
-# Creating a Term Document Matrix
-
 
 ```{r}
-# creates tdm
-tdm_diario_adverts<-as.matrix(TermDocumentMatrix(diario_adverts, 
-                                  control=list(removePunctuation = TRUE,
-                                          stopwords = TRUE,
-                                          tolower = TRUE,
-                                          stemming = FALSE,
-                                          removeNumbers = TRUE,
-                                          bounds = list(global = c(3, Inf)))))
+diario_adverts_corpus
 ```
 
-```{r, echo=F, warning=F, message=F}
-library(DT)
-tdm_diario_adverts_selection<-tdm_diario_adverts[1:25,1:25]
-```
+# Creating a tidy dataframe from a text corpus
 
-```{r, eval=F}
-# prints "tdm_diario_adverts"
-tdm_diario_adverts
+```{r}
+diario_adverts_tidy<-tidy(diario_adverts_corpus)
 ```
 
 ```{r, echo=F}
-tdm_diario_adverts_selection %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
-  deferRender = TRUE,
-  scrollY = 350,
-  scrollX = 350,
-  dom = "t",
-  scroller = TRUE,
-  fixedColumns = list(leftColumns = 1)
-))
-```
-
-# Visualizing Word Frequencies
-
-```{r}
-# word frequencies
-word_frequencies<-sort(rowSums(tdm_diario_adverts), decreasing=TRUE)
-```
-
-```{r}
-# Make data frame
-df_word_frequencies <- data.frame(word = names(word_frequencies),freq=word_frequencies)
-```
-
-
-## Creating a Chart of Word Frequencies
-
-```{r}
-# ten most frequent words
-df_ten<-df_word_frequencies %>% 
-        slice_max(freq, n=10)
-```
-
-```{r}
-diario_frequency_graph<-
-  ggplot(df_ten, aes(x=reorder(word, freq), y=freq))+
-    geom_bar(stat="identity")+
-      coord_flip()+
-      xlab("")+
-      ylab("Frequency")+
-      ggtitle("Ten Most Frequent Words in Diario Advertisements")+
-      labs(caption = "Source: El Diario Project")
-```
-
-
-```{r}
-diario_frequency_graph
-```
-
-
-## Creating a Word Cloud of Word Frequencies
-
-
-```{r}
-# make word cloud
-wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
-```
-
-
-# Create bigram
-
-```{r}
-tidy_diario<-tidy(diario_adverts)
-```
-
-```{r}
-tidy_diario_head<-head(tidy_diario, 25)
+tidy_diario_head<-head(diario_adverts_tidy, 25)
 ```
 
 ```{r, eval=F}
-tidy_diario
+diario_adverts_tidy
 ```
 
 ```{r, echo=F}
@@ -136,9 +58,127 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 ))
 ```
 
+# Creating a word frequency table
 
 ```{r}
-diario_bigram<-tidy_diario %>% 
+spanish_stopwords<-as.data.frame(stopwords("spanish"))
+```
+
+```{r, message=F, warning=F}
+diario_frequency_table<-diario_adverts_tidy %>% 
+                        unnest_tokens(word, text) %>% 
+                        count(word, sort=TRUE) %>% 
+                        filter(!word %in% stop_words$word) %>% 
+                        filter(!word %in% spanish_stopwords$`stopwords("spanish")`)
+```
+
+```{r, message=F, warning=F}
+diario_frequency_table_numbers<-parse_number(diario_frequency_table$word)
+```
+
+```{r}
+diario_frequency_table<-cbind(diario_frequency_table, diario_frequency_table_numbers)
+```
+
+```{r}
+diario_frequency_table<-diario_frequency_table %>% 
+                        filter(is.na(diario_frequency_table_numbers))
+```
+
+```{r}
+diario_frequency_table<-diario_frequency_table %>% 
+                        select(-diario_frequency_table_numbers)
+```
+
+```{r, echo=F}
+diario_frequency_table_head<-head(diario_frequency_table, 50)
+```
+
+```{r, eval=F}
+diario_frequency_table
+```
+
+```{r, echo=F}
+diario_frequency_table_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+# Visualizing word frequency data
+
+## Charting word frequencies
+
+### Extracting dataframe of ten most frequent words
+
+```{r}
+diario_top_ten<-diario_frequency_table %>% 
+                slice_max(n, n=10)
+```
+
+```{r, eval=F}
+diario_top_ten
+```
+
+```{r, echo=F}
+diario_top_ten %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+### Using ggplot2 to make chart of ten most frequent words
+
+```{r}
+diario_frequency_graph<-
+  ggplot(diario_top_ten, aes(x=reorder(word, n), y=n))+
+    geom_bar(stat="identity")+
+      coord_flip()+
+      xlab("")+
+      ylab("Frequency")+
+      ggtitle("Ten Most Frequent Words in Diario Advertisements")+
+      labs(caption = "Source: El Diario Project")
+```
+
+```{r}
+diario_frequency_graph
+```
+
+## Creating a word cloud
+
+```{r}
+# make word cloud
+wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
+```
+
+# Extracting bigrams
+
+```{r, eval=F}
+diario_adverts_tidy
+```
+
+```{r, echo=F}
+tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+\
+
+```{r}
+diario_bigram<-diario_adverts_tidy %>% 
                   unnest_tokens(bigram, text, token="ngrams", n=2) %>% 
                   count(bigram, sort=TRUE)
 ```
@@ -161,8 +201,9 @@ diario_bigram_head %>% datatable(extensions=c("Scroller", "FixedColumns"), optio
   fixedColumns = list(leftColumns = 1)
 ))
 ```
+\
 
-```{r}
+```{r, warning=F, message=F}
 diario_bigram_separated<-diario_bigram %>% 
                           separate(bigram, c("word1", "word2", sep=" "))
 ```
@@ -176,11 +217,11 @@ diario_bigram_filtered<-diario_bigram_separated %>%
 
 remove numbers
 
-```{r}
+```{r, message=F, warning=F}
 diario_bigram_word1numbers<-parse_number(diario_bigram_filtered$word1)
 ```
 
-```{r}
+```{r, message=F, warning=F}
 diario_bigram_word2numbers<-parse_number(diario_bigram_filtered$word2)
 ```
 
@@ -201,11 +242,74 @@ diario_bigram_filtered_unite<-diario_bigram_filtered %>%
                                 unite(bigram, word1, word2, sep=" ")
 ```
 
+```{r, echo=F}
+diario_bigram_filtered_unite_head<-head(diario_bigram_filtered_unite, 50)
+```
+
+```{r, eval=F}
+diario_bigram_filtered_unite
+```
+
+
+```{r, echo=F}
+diario_bigram_filtered_unite_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+\
+
+```{r}
+diario_bigram_filtered_unite<-diario_bigram_filtered_unite %>% 
+                              select(-c(diario_bigram_word1numbers, diario_bigram_word2numbers))
+```
+
+```{r, eval=F}
+diario_bigram_filtered_unite
+```
+
+```{r, echo=F}
+diario_bigram_filtered_unite_head2<-head(diario_bigram_filtered_unite, 50)
+```
+
+```{r, echo=F}
+diario_bigram_filtered_unite_head2 %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+
+# Visualizing bigrams
+
 ```{r}
 diario_bigram_top_ten<-diario_bigram_filtered_unite %>% 
                         slice_max(n, n=10)
 ```
 
+```{r, eval=F}
+diario_bigram_top_ten
+```
+
+```{r, echo=F}
+diario_bigram_top_ten %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+\
 
 ```{r}
 bigram_graph<-
@@ -223,8 +327,7 @@ bigram_graph<-
 bigram_graph
 ```
 
-# keywords in context
-
+# Extracting keywords in context
 
 ```{r}
 kwic_token<-tokens(tidy_diario$text)
@@ -237,7 +340,6 @@ business_keyword_context<-kwic(kwic_token, pattern="business", valuetype="fixed"
 ```{r, eval=F}
 business_keyword_context
 ```
-
 
 ```{r, echo=F}
 business_keyword_context %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(

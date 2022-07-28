@@ -159,14 +159,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1" data-path="getting-started-with-r-studio.html"><a href="getting-started-with-r-studio.html#load-libraries"><i class="fa fa-check"></i><b>2.1</b> Load libraries</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="reading-in-a-text-corpus.html"><a href="reading-in-a-text-corpus.html"><i class="fa fa-check"></i><b>3</b> Reading in a Text Corpus</a></li>
-<li class="chapter" data-level="4" data-path="creating-a-term-document-matrix.html"><a href="creating-a-term-document-matrix.html"><i class="fa fa-check"></i><b>4</b> Creating a Term Document Matrix</a></li>
-<li class="chapter" data-level="5" data-path="visualizing-word-frequencies.html"><a href="visualizing-word-frequencies.html"><i class="fa fa-check"></i><b>5</b> Visualizing Word Frequencies</a>
+<li class="chapter" data-level="4" data-path="creating-a-tidy-dataframe-from-a-text-corpus.html"><a href="creating-a-tidy-dataframe-from-a-text-corpus.html"><i class="fa fa-check"></i><b>4</b> Creating a tidy dataframe from a text corpus</a></li>
+<li class="chapter" data-level="5" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html"><i class="fa fa-check"></i><b>5</b> Creating a word frequency table</a></li>
+<li class="chapter" data-level="6" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html"><i class="fa fa-check"></i><b>6</b> Visualizing word frequency data</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="visualizing-word-frequencies.html"><a href="visualizing-word-frequencies.html#creating-a-chart-of-word-frequencies"><i class="fa fa-check"></i><b>5.1</b> Creating a Chart of Word Frequencies</a></li>
-<li class="chapter" data-level="5.2" data-path="visualizing-word-frequencies.html"><a href="visualizing-word-frequencies.html#creating-a-word-cloud-of-word-frequencies"><i class="fa fa-check"></i><b>5.2</b> Creating a Word Cloud of Word Frequencies</a></li>
+<li class="chapter" data-level="6.1" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#charting-word-frequencies"><i class="fa fa-check"></i><b>6.1</b> Charting word frequencies</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#extracting-dataframe-of-ten-most-frequent-words"><i class="fa fa-check"></i><b>6.1.1</b> Extracting dataframe of ten most frequent words</a></li>
+<li class="chapter" data-level="6.1.2" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#using-ggplot2-to-make-chart-of-ten-most-frequent-words"><i class="fa fa-check"></i><b>6.1.2</b> Using ggplot2 to make chart of ten most frequent words</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="create-bigram.html"><a href="create-bigram.html"><i class="fa fa-check"></i><b>6</b> Create bigram</a></li>
-<li class="chapter" data-level="7" data-path="keywords-in-context.html"><a href="keywords-in-context.html"><i class="fa fa-check"></i><b>7</b> keywords in context</a></li>
+<li class="chapter" data-level="6.2" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>6.2</b> Creating a word cloud</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="extracting-bigrams.html"><a href="extracting-bigrams.html"><i class="fa fa-check"></i><b>7</b> Extracting bigrams</a></li>
+<li class="chapter" data-level="8" data-path="visualizing-bigrams.html"><a href="visualizing-bigrams.html"><i class="fa fa-check"></i><b>8</b> Visualizing bigrams</a></li>
+<li class="chapter" data-level="9" data-path="extracting-keywords-in-context.html"><a href="extracting-keywords-in-context.html"><i class="fa fa-check"></i><b>9</b> Extracting keywords in context</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -193,7 +199,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="getting-started-with-r-studio.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
 <span id="cb1-2"><a href="getting-started-with-r-studio.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="getting-started-with-r-studio.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud2)</span>
-<span id="cb1-4"><a href="getting-started-with-r-studio.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span></code></pre></div>
+<span id="cb1-4"><a href="getting-started-with-r-studio.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb1-5"><a href="getting-started-with-r-studio.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span></code></pre></div>
 </div>
 </div>
             </section>
