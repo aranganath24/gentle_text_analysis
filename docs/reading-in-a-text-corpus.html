@@ -25,14 +25,14 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-07-28" />
+<meta name="date" content="2022-07-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="getting-started-with-r-studio.html"/>
+<link rel="prev" href="preliminaries-getting-started-with-r-studio.html"/>
 <link rel="next" href="creating-a-tidy-dataframe-from-a-text-corpus.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -154,9 +154,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
-<li class="chapter" data-level="2" data-path="getting-started-with-r-studio.html"><a href="getting-started-with-r-studio.html"><i class="fa fa-check"></i><b>2</b> Getting Started with R Studio</a>
+<li class="chapter" data-level="2" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html"><i class="fa fa-check"></i><b>2</b> Preliminaries: Getting Started with R Studio</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="getting-started-with-r-studio.html"><a href="getting-started-with-r-studio.html#load-libraries"><i class="fa fa-check"></i><b>2.1</b> Load libraries</a></li>
+<li class="chapter" data-level="2.1" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#load-libraries"><i class="fa fa-check"></i><b>2.1</b> Load libraries</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="reading-in-a-text-corpus.html"><a href="reading-in-a-text-corpus.html"><i class="fa fa-check"></i><b>3</b> Reading in a Text Corpus</a></li>
 <li class="chapter" data-level="4" data-path="creating-a-tidy-dataframe-from-a-text-corpus.html"><a href="creating-a-tidy-dataframe-from-a-text-corpus.html"><i class="fa fa-check"></i><b>4</b> Creating a tidy dataframe from a text corpus</a></li>
@@ -194,12 +194,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="reading-in-a-text-corpus" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Reading in a Text Corpus</h1>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="reading-in-a-text-corpus.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="reading-in-a-text-corpus.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in diario adverts</span></span>
-<span id="cb3-2"><a href="reading-in-a-text-corpus.html#cb3-2" aria-hidden="true" tabindex="-1"></a>diario_files<span class="ot">&lt;-</span><span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">&quot;.txt&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="reading-in-a-text-corpus.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create corpus from diario adverts</span></span>
-<span id="cb4-2"><a href="reading-in-a-text-corpus.html#cb4-2" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="reading-in-a-text-corpus.html#cb5-1" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="reading-in-a-text-corpus.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in diario adverts</span></span>
+<span id="cb2-2"><a href="reading-in-a-text-corpus.html#cb2-2" aria-hidden="true" tabindex="-1"></a>diario_files<span class="ot">&lt;-</span><span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">&quot;.txt&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="reading-in-a-text-corpus.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create corpus from diario adverts</span></span>
+<span id="cb3-2"><a href="reading-in-a-text-corpus.html#cb3-2" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="reading-in-a-text-corpus.html#cb4-1" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus</span></code></pre></div>
 <pre><code>## &lt;&lt;VCorpus&gt;&gt;
 ## Metadata:  corpus specific: 0, document level (indexed): 0
 ## Content:  documents: 254</code></pre>
@@ -209,7 +208,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="getting-started-with-r-studio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="preliminaries-getting-started-with-r-studio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="creating-a-tidy-dataframe-from-a-text-corpus.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

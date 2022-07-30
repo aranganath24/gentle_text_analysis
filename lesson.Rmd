@@ -1,4 +1,4 @@
-# Getting Started with R Studio
+# Preliminaries: Getting Started with R Studio
 
 ## Load libraries
 
@@ -13,12 +13,8 @@ library(tidytext)
 
 # Reading in a Text Corpus
 
-```{r}
-setwd("/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts")
-```
-
 ```{r, echo=-1}
-setwd("/Users/adra7980/Documents/diario_text/2019.11.14-ElDiarioCorpus/adverts")
+setwd("2019.11.14-ElDiarioCorpus/adverts")
 # read in diario adverts
 diario_files<-list.files(pattern=".txt")
 ```

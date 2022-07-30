@@ -1,5 +1,5 @@
 introduction
-getting-started-with-r-studio
+preliminaries-getting-started-with-r-studio
 load-libraries
 reading-in-a-text-corpus
 creating-a-tidy-dataframe-from-a-text-corpus
