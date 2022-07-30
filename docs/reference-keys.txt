@@ -1,6 +1,15 @@
+fig:unnamed-chunk-1
+fig:unnamed-chunk-3
+fig:unnamed-chunk-8
 introduction
 preliminaries-getting-started-with-r-studio
+r-and-r-studio-installation
+windows-installation-instructions
+macos-installation-instructions
+the-r-studio-interface
+install-packages
 load-libraries
+set-working-directory
 reading-in-a-text-corpus
 creating-a-tidy-dataframe-from-a-text-corpus
 creating-a-word-frequency-table
@@ -12,3 +21,4 @@ creating-a-word-cloud
 extracting-bigrams
 visualizing-bigrams
 extracting-keywords-in-context
+further-reading

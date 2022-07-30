@@ -156,7 +156,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html"><i class="fa fa-check"></i><b>2</b> Preliminaries: Getting Started with R Studio</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#load-libraries"><i class="fa fa-check"></i><b>2.1</b> Load libraries</a></li>
+<li class="chapter" data-level="2.1" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#r-and-r-studio-installation"><i class="fa fa-check"></i><b>2.1</b> R and R Studio Installation</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#windows-installation-instructions"><i class="fa fa-check"></i><b>2.1.1</b> Windows Installation Instructions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#macos-installation-instructions"><i class="fa fa-check"></i><b>2.1.2</b> macOS Installation Instructions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#the-r-studio-interface"><i class="fa fa-check"></i><b>2.2</b> The R Studio Interface</a></li>
+<li class="chapter" data-level="2.3" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#install-packages"><i class="fa fa-check"></i><b>2.3</b> Install Packages</a></li>
+<li class="chapter" data-level="2.4" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#load-libraries"><i class="fa fa-check"></i><b>2.4</b> Load libraries</a></li>
+<li class="chapter" data-level="2.5" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#set-working-directory"><i class="fa fa-check"></i><b>2.5</b> Set Working Directory</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="reading-in-a-text-corpus.html"><a href="reading-in-a-text-corpus.html"><i class="fa fa-check"></i><b>3</b> Reading in a Text Corpus</a></li>
 <li class="chapter" data-level="4" data-path="creating-a-tidy-dataframe-from-a-text-corpus.html"><a href="creating-a-tidy-dataframe-from-a-text-corpus.html"><i class="fa fa-check"></i><b>4</b> Creating a tidy dataframe from a text corpus</a></li>
@@ -173,6 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="extracting-bigrams.html"><a href="extracting-bigrams.html"><i class="fa fa-check"></i><b>7</b> Extracting bigrams</a></li>
 <li class="chapter" data-level="8" data-path="visualizing-bigrams.html"><a href="visualizing-bigrams.html"><i class="fa fa-check"></i><b>8</b> Visualizing bigrams</a></li>
 <li class="chapter" data-level="9" data-path="extracting-keywords-in-context.html"><a href="extracting-keywords-in-context.html"><i class="fa fa-check"></i><b>9</b> Extracting keywords in context</a></li>
+<li class="chapter" data-level="10" data-path="further-reading.html"><a href="further-reading.html"><i class="fa fa-check"></i><b>10</b> Further Reading</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -194,23 +203,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="visualizing-bigrams" class="section level1" number="8">
 <h1><span class="header-section-number">8</span> Visualizing bigrams</h1>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="visualizing-bigrams.html#cb34-1" aria-hidden="true" tabindex="-1"></a>diario_bigram_top_ten<span class="ot">&lt;-</span>diario_bigram_filtered_unite <span class="sc">%&gt;%</span> </span>
-<span id="cb34-2"><a href="visualizing-bigrams.html#cb34-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">slice_max</span>(n, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="visualizing-bigrams.html#cb35-1" aria-hidden="true" tabindex="-1"></a>diario_bigram_top_ten</span></code></pre></div>
-<div id="htmlwidget-d21cd6c2d2bd02890b79" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d21cd6c2d2bd02890b79">{"x":{"filter":"none","vertical":false,"extensions":["Scroller","FixedColumns"],"data":[["1","2","3","4","5","6","7","8","9","10"],["el diario","umas eop","boulder colorado","colorado boulder","mexican food","fri sat","umc games","business students","denver colorado","address city"],[null,null,null,null,null,null,null,null,null,null],[64,31,30,19,18,17,16,15,15,14]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>bigram<\/th>\n      <th> <\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"deferRender":true,"scrollY":350,"scrollX":350,"dom":"t","scroller":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="visualizing-bigrams.html#cb38-1" aria-hidden="true" tabindex="-1"></a>diario_bigram_top_ten<span class="ot">&lt;-</span>diario_bigram_filtered_unite <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="visualizing-bigrams.html#cb38-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">slice_max</span>(n, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="visualizing-bigrams.html#cb39-1" aria-hidden="true" tabindex="-1"></a>diario_bigram_top_ten</span></code></pre></div>
+<div id="htmlwidget-d7586a33a1edcda40683" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d7586a33a1edcda40683">{"x":{"filter":"none","vertical":false,"extensions":["Scroller","FixedColumns"],"data":[["1","2","3","4","5","6","7","8","9","10"],["el diario","umas eop","boulder colorado","colorado boulder","mexican food","fri sat","umc games","business students","denver colorado","address city"],[null,null,null,null,null,null,null,null,null,null],[64,31,30,19,18,17,16,15,15,14]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>bigram<\/th>\n      <th> <\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"deferRender":true,"scrollY":350,"scrollX":350,"dom":"t","scroller":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><br />
 </p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="visualizing-bigrams.html#cb36-1" aria-hidden="true" tabindex="-1"></a>bigram_graph<span class="ot">&lt;-</span></span>
-<span id="cb36-2"><a href="visualizing-bigrams.html#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(diario_bigram_top_ten, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(bigram, n), <span class="at">y=</span>n))<span class="sc">+</span></span>
-<span id="cb36-3"><a href="visualizing-bigrams.html#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
-<span id="cb36-4"><a href="visualizing-bigrams.html#cb36-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
-<span id="cb36-5"><a href="visualizing-bigrams.html#cb36-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
-<span id="cb36-6"><a href="visualizing-bigrams.html#cb36-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&quot;Frequency&quot;</span>)<span class="sc">+</span></span>
-<span id="cb36-7"><a href="visualizing-bigrams.html#cb36-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">&quot;Ten Most Frequent Co-Occuring Words in Diario Advertisements&quot;</span>)<span class="sc">+</span></span>
-<span id="cb36-8"><a href="visualizing-bigrams.html#cb36-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Source: El Diario Project&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="visualizing-bigrams.html#cb37-1" aria-hidden="true" tabindex="-1"></a>bigram_graph</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="visualizing-bigrams.html#cb40-1" aria-hidden="true" tabindex="-1"></a>bigram_graph<span class="ot">&lt;-</span></span>
+<span id="cb40-2"><a href="visualizing-bigrams.html#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(diario_bigram_top_ten, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">reorder</span>(bigram, n), <span class="at">y=</span>n))<span class="sc">+</span></span>
+<span id="cb40-3"><a href="visualizing-bigrams.html#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>)<span class="sc">+</span></span>
+<span id="cb40-4"><a href="visualizing-bigrams.html#cb40-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">coord_flip</span>()<span class="sc">+</span></span>
+<span id="cb40-5"><a href="visualizing-bigrams.html#cb40-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)<span class="sc">+</span></span>
+<span id="cb40-6"><a href="visualizing-bigrams.html#cb40-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ylab</span>(<span class="st">&quot;Frequency&quot;</span>)<span class="sc">+</span></span>
+<span id="cb40-7"><a href="visualizing-bigrams.html#cb40-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">&quot;Ten Most Frequent Co-Occuring Words in Diario Advertisements&quot;</span>)<span class="sc">+</span></span>
+<span id="cb40-8"><a href="visualizing-bigrams.html#cb40-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Source: El Diario Project&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="visualizing-bigrams.html#cb41-1" aria-hidden="true" tabindex="-1"></a>bigram_graph</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 </div>
             </section>
 

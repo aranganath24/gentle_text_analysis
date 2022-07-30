@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Reading in a Text Corpus | A Gentle Introduction to Text Analysis in R</title>
-  <meta name="description" content="3 Reading in a Text Corpus | A Gentle Introduction to Text Analysis in R" />
+  <title>10 Further Reading | A Gentle Introduction to Text Analysis in R</title>
+  <meta name="description" content="10 Further Reading | A Gentle Introduction to Text Analysis in R" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Reading in a Text Corpus | A Gentle Introduction to Text Analysis in R" />
+  <meta property="og:title" content="10 Further Reading | A Gentle Introduction to Text Analysis in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Reading in a Text Corpus | A Gentle Introduction to Text Analysis in R" />
+  <meta name="twitter:title" content="10 Further Reading | A Gentle Introduction to Text Analysis in R" />
   
   
   
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="preliminaries-getting-started-with-r-studio.html"/>
-<link rel="next" href="creating-a-tidy-dataframe-from-a-text-corpus.html"/>
+<link rel="prev" href="extracting-keywords-in-context.html"/>
+
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -201,24 +201,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="reading-in-a-text-corpus" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Reading in a Text Corpus</h1>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="reading-in-a-text-corpus.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in diario adverts</span></span>
-<span id="cb6-2"><a href="reading-in-a-text-corpus.html#cb6-2" aria-hidden="true" tabindex="-1"></a>diario_files<span class="ot">&lt;-</span><span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">&quot;.txt&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="reading-in-a-text-corpus.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create corpus from diario adverts</span></span>
-<span id="cb7-2"><a href="reading-in-a-text-corpus.html#cb7-2" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="reading-in-a-text-corpus.html#cb8-1" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus</span></code></pre></div>
-<pre><code>## &lt;&lt;VCorpus&gt;&gt;
-## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 254</code></pre>
+<div id="further-reading" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Further Reading</h1>
+<p><a href="https://search.r-project.org/CRAN/refmans/quanteda/html/kwic.html" class="uri">https://search.r-project.org/CRAN/refmans/quanteda/html/kwic.html</a></p>
+
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="preliminaries-getting-started-with-r-studio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="creating-a-tidy-dataframe-from-a-text-corpus.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="extracting-keywords-in-context.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

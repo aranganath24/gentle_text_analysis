@@ -156,7 +156,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html"><i class="fa fa-check"></i><b>2</b> Preliminaries: Getting Started with R Studio</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#load-libraries"><i class="fa fa-check"></i><b>2.1</b> Load libraries</a></li>
+<li class="chapter" data-level="2.1" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#r-and-r-studio-installation"><i class="fa fa-check"></i><b>2.1</b> R and R Studio Installation</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#windows-installation-instructions"><i class="fa fa-check"></i><b>2.1.1</b> Windows Installation Instructions</a></li>
+<li class="chapter" data-level="2.1.2" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#macos-installation-instructions"><i class="fa fa-check"></i><b>2.1.2</b> macOS Installation Instructions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#the-r-studio-interface"><i class="fa fa-check"></i><b>2.2</b> The R Studio Interface</a></li>
+<li class="chapter" data-level="2.3" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#install-packages"><i class="fa fa-check"></i><b>2.3</b> Install Packages</a></li>
+<li class="chapter" data-level="2.4" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#load-libraries"><i class="fa fa-check"></i><b>2.4</b> Load libraries</a></li>
+<li class="chapter" data-level="2.5" data-path="preliminaries-getting-started-with-r-studio.html"><a href="preliminaries-getting-started-with-r-studio.html#set-working-directory"><i class="fa fa-check"></i><b>2.5</b> Set Working Directory</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="reading-in-a-text-corpus.html"><a href="reading-in-a-text-corpus.html"><i class="fa fa-check"></i><b>3</b> Reading in a Text Corpus</a></li>
 <li class="chapter" data-level="4" data-path="creating-a-tidy-dataframe-from-a-text-corpus.html"><a href="creating-a-tidy-dataframe-from-a-text-corpus.html"><i class="fa fa-check"></i><b>4</b> Creating a tidy dataframe from a text corpus</a></li>
@@ -173,6 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="extracting-bigrams.html"><a href="extracting-bigrams.html"><i class="fa fa-check"></i><b>7</b> Extracting bigrams</a></li>
 <li class="chapter" data-level="8" data-path="visualizing-bigrams.html"><a href="visualizing-bigrams.html"><i class="fa fa-check"></i><b>8</b> Visualizing bigrams</a></li>
 <li class="chapter" data-level="9" data-path="extracting-keywords-in-context.html"><a href="extracting-keywords-in-context.html"><i class="fa fa-check"></i><b>9</b> Extracting keywords in context</a></li>
+<li class="chapter" data-level="10" data-path="further-reading.html"><a href="further-reading.html"><i class="fa fa-check"></i><b>10</b> Further Reading</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -194,13 +203,144 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="preliminaries-getting-started-with-r-studio" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Preliminaries: Getting Started with R Studio</h1>
-<div id="load-libraries" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Load libraries</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="preliminaries-getting-started-with-r-studio.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
-<span id="cb1-2"><a href="preliminaries-getting-started-with-r-studio.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="preliminaries-getting-started-with-r-studio.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud2)</span>
-<span id="cb1-4"><a href="preliminaries-getting-started-with-r-studio.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb1-5"><a href="preliminaries-getting-started-with-r-studio.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span></code></pre></div>
+<p>In this preliminary section, we’ll cover basic information that will help you to get started with R Studio.</p>
+<div id="r-and-r-studio-installation" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> R and R Studio Installation</h2>
+<p>If you haven’t already, please go ahead and install R and R Studio. R and R Studio must be installed separately; you should install R first, and then R Studio. R is the bare-bones computing environment, while R Studio is a visually appealing and user-friendly interface that allows users to interact with this environment in an intuitive way. Once you have both installed, you don’t need to open up R and R Studio separately; you only need to interact with R Studio (which will run R in the background).</p>
+<p>The following subsections provide instructions on installing R and R Studio for the macOS and Windows operating systems. These instructions are taken from the “Setup” section of the Data Carpentry Course entitled <a href="https://datacarpentry.org/r-socialsci/setup.html"><em>R for Social Scientists</em></a>. The Data Carpentry page also contains installation instructions for the Linux operating system; if you’re a Linux user, please refer to that page for instructions.</p>
+<p>The Appendix to Garret Grolemund’s book <em>Hands on Programming with R</em> also provides an [excellent overview of the R and R Studio installation process]( <a href="https://rstudio-education.github.io/hopr/">here</a>.</p>
+<div id="windows-installation-instructions" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Windows Installation Instructions</h3>
+<ul>
+<li>Download R from the <a href="https://cran.r-project.org/bin/windows/base/">CRAN website</a></li>
+<li>Run the <code>.exe</code> file that was just downloaded.</li>
+<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">R Studio download page</a> and under <em>Installers</em> select the “Windows” option.</li>
+<li>Double click the file to install R Studio</li>
+<li>Open R Studio to make sure it works.</li>
+</ul>
+</div>
+<div id="macos-installation-instructions" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> macOS Installation Instructions</h3>
+<ul>
+<li>Download R from the <a href="https://cran.r-project.org/bin/macosx/">CRAN website</a></li>
+<li>Select the <code>.pkg</code> file for the latest R version.</li>
+<li>Double click on the downloaded file to install R.</li>
+<li>It is also a good idea to install <a href="https://www.xquartz.org/">XQuartz</a>, which some packages require.</li>
+<li>Go to the <a href="https://www.rstudio.com/products/rstudio/download/#download">R Studio download page</a>, and under <em>Installers</em> select the “macOS” option.</li>
+<li>Double click the file to install R Studio</li>
+<li>Open R Studio to make sure it works.</li>
+</ul>
+</div>
+</div>
+<div id="the-r-studio-interface" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> The R Studio Interface</h2>
+<p>Now that we’ve installed and opened up R Studio, let’s familiarize ourselves with the R Studio interface. When we open up R Studio, we’ll see a window open that looks something like this:</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="pictures/rstudio_window_revised.png" alt="R Studio Interface Open on Desktop" width="100%" />
+<p class="caption">
+Figure 2.1: The R Studio Interface
+</p>
+</div>
+<p>If your interface doesn’t look exactly like this, it shouldn’t be a problem; we would expect to see minor cosmetic differences in the appearance of the interface across operating systems and computers (based on how they’re configured). However, you should see four distinct windows within the larger R Studio interface:</p>
+<ul>
+<li>The <strong>top-left</strong> window is known as the <em>Source</em>.
+<ul>
+<li>The <em>Source</em> window is where we can write our R scripts (including the code associated with this tutorial), and execute those scripts. We can also type in R code into the “Console” window (bottom-left window), but it is preferable to write our code in a script within the source window. That’s because scripts can be saved (while code written into the console cannot); writing scripts therefore allows us to keep track of what we’re doing, and facilitates the reproducibility of our work. Note that in some cases, we may not see a <em>Source</em> window when we first open R Studio. In that case, to start a new script, simply click the <code>File</code> button on the R Studio menu bar, scroll down to <code>New File</code> button, and then select <code>R Script</code> from the menu bar that opens up.</li>
+<li>It’s also worth noting that the outputs of certain functions will appear in the <em>Source</em> window. In the context of our tutorial, when we want to view our datasets, we will use the <code>View()</code> function, which will display the relevant data within a new tab in the <em>Source</em> window.</li>
+</ul></li>
+<li>The <strong>top-right</strong> window is the <em>Environment/History</em> pane of the R Studio interface.
+<ul>
+<li>The “Environment” tab of this window provides information on the datasets we’ve loaded into R Studio, as well as objects we have defined (we’ll talk about objects more later in the tutorial).
+-The “History” tab of the window provides a record of the R commands we’ve run in a given session.</li>
+</ul></li>
+<li>The <strong>bottom-right</strong> window is the <em>Files/Plots/Packages/Help/Viewer</em> window.
+<ul>
+<li>The “Files” tab displays our computer’s directories and file structures and allows us to navigate through them without having to leave the R environment.</li>
+<li>The “Plots” tab is the tab where we can view any visualizations (including maps) that we create. Within the “Plots” tab, make note of the “Zoom” button, which we can use to enlarge the display of our maps and visualizations if they’re too compressed in the “Plots” window. Also, note the “Export” button within the “Plots” tab (next to the “Zoom” button); we can use this button to export the displayed map to a .png or .jpeg file that can be used outside of R Studio (we can also export our visualizations programmatically; we’ll cover how to do so later in the tutorial).</li>
+<li>The “Packages” tab provides information on which packages have been installed, as well as which packages are currently loaded (more on packages in Section 3.4)</li>
+<li>The “Help” tab displays documentation for R packages and functions. If we want to know more about how a package or function work, we can simply type a “?” followed by the package or function’s name (no space between the question mark and the name) and relevant information will be displayed within the “Help” tab.</li>
+<li>The “Viewer” tab displays HTML output. If we write code that generates an HTML file, we can view it within the “Viewer” tab. This will be relevant in the context of creating and viewing dynamic maps, which we’ll cover in Section 4.7 of the tutorial.</li>
+</ul></li>
+<li>The <strong>bottom-left</strong> window is the <em>Console/Terminal/Jobs</em> window.
+<ul>
+<li>The “Console” tab is where we can see our code execute when we run our scripts, as well as certain outputs produced by those scripts. In addition, if there are any error or warning messages, they will be printed to the “Console” tab. We can also type code directly into the console, but as we noted earlier, it is better practice to write our code in a script and then run it from there.</li>
+<li>The “Terminal”, “R Markdown” and “Jobs” tabs are not relevant for the tutorial.</li>
+</ul></li>
+</ul>
+</div>
+<div id="install-packages" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Install Packages</h2>
+<p>R is an open-source programming language for statistical computing that allows users to carry out a wide range of data analysis and visualization tasks (among other things). One of the big advantages of using R is that it has a very large user community among social scientists and statisticians, who frequently publish R packages. One might think of packages as workbooks of sorts, which contain a well-integrated set of R functions, scripts, data, and documentation; these “workbooks” are designed to facilitate certain tasks or implement given procedures. These packages are then shared with the broader community, and at this point, anyone who needs to accomplish the tasks to which the package addresses itself can use the package in the context of their own projects. The ability to use published packages considerably simplifies the work of applied social scientists and digital humanists using R; it means that they rarely have to write code entirely from scratch, and can build on the code that others have published in the form of packages. This allows applied researchers to focus on substantive problems, without having to get too bogged down in complicated programming tasks.</p>
+<p>In the context of this tutorial, extracting even basic information from a text corpus in R would be a relatively complex task if we had to write all our code from scratch. However, because we are able to make use of text mining and visualization packages written by other researchers and programmers, the task is considerably simpler, and will not require any complicated programming.</p>
+<p>In this workshop, we will use the following packages to carry out some basic text mining and data visualization tasks (please click the relevant link to learn more about a given package; note that the tidyverse is not a single package, but rather an entire suite of packages used for common data science and analysis tasks):</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/tm/vignettes/tm.pdf"><em>tm</em></a></li>
+<li><a href="https://www.tidyverse.org"><em>tidyverse</em></a>:</li>
+<li><a href="https://cran.r-project.org/web/packages/wordcloud2/vignettes/wordcloud.html"><em>wordcloud2</em></a></li>
+<li><a href="https://quanteda.io"><em>quanteda</em></a></li>
+<li><a href="https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html"><em>tidytext</em></a></li>
+</ul>
+<p>To install a package in R, we can use the <code>install.packages</code> function. A function is essentially a programming construct that takes a specified input, runs this input (called an “argument”) through a set of procedures, and returns an output. In the code block below, the name of the package we want to install (here, “tm”) is enclosed within quotation marks and placed within parentheses after printing <code>install.packages</code> Running the code below will effectively download the <em>tm</em> package to our computer:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="preliminaries-getting-started-with-r-studio.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installs &quot;tm&quot; package</span></span>
+<span id="cb1-2"><a href="preliminaries-getting-started-with-r-studio.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tm&quot;</span>)</span></code></pre></div>
+<p>To run this code in your own R session:</p>
+<ul>
+<li>First, copy the code from the codeblock above (you can copy the code to your clipboard by hovering over the top-right of the code-block and clicking the “copy” icon; you can also highlight the code and copy from the <code>Edit</code> menu of your browser).</li>
+<li>Then, start a new R script within R Studio; if you want to keep a future record of your work, you may want to save this script to your computer (perhaps in the same folder to which you downloaded the tutorial data). We can save our scripts via the R Studio “File” menu.</li>
+<li>Paste the code into the script, highlight it, and click the “Run” button that is just above the <em>Source</em> window.</li>
+<li>Alternatively, instead of copying/pasting, you can manually type in the code from the codeblock into your script (manually typing in the code is slower, but often a better way to learn than copy/pasting).</li>
+<li>After you’ve run the code, watch the code execute in the console, and look for a message confirming that the package has been successfully installed.</li>
+</ul>
+<p>Below, we can see how that line of code should look in your script, and how to run it:</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<img src="pictures/install_package.png" alt="Installing tm package in R Script" width="100%" />
+<p class="caption">
+Figure 2.2: Installing tm package in R Script
+</p>
+</div>
+<p>Please note that you can follow along with the tutorial on your own computers by transferring all of the subsequent codeblocks into your script in just this way. Run each codeblock in your R Studio environment as you go, and you should be able to replicate the entire tutorial on your computer. You can copy-paste the workshop code if you wish, but we recommend actually retyping the code into your script, since this will help you to more effectively familiarize yourself with the process of writing code in R.</p>
+<p>Note that the codeblocks in the tutorial usually have a comment, prefaced by a hash (“#”). When writing code in R (or any other command-line interface) it is good practice to preface one’s code with brief comments that describe what a block of code is doing. Writing these comments can allow someone else (or your future self) to read and quickly understand the code more easily than otherwise might be the case. The hash before the comment effectively tells R that the subsequent text is a comment, and should be ignored when running a script If one does not preface the comment with a hash, R wouldn’t know to ignore the comment, and would throw an error message.</p>
+<p>Now, let’s install the other packages we mentioned above, using the same <code>install.packages()</code> function:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="preliminaries-getting-started-with-r-studio.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(tidyverse)</span>
+<span id="cb2-2"><a href="preliminaries-getting-started-with-r-studio.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(wordcloud2)</span>
+<span id="cb2-3"><a href="preliminaries-getting-started-with-r-studio.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(quanteda)</span>
+<span id="cb2-4"><a href="preliminaries-getting-started-with-r-studio.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(tidytext)</span></code></pre></div>
+<p>All of the packages we need are now installed!</p>
+</div>
+<div id="load-libraries" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Load libraries</h2>
+<p>However, while our packages are installed, they are not yet ready to use. Before we can use our packages, we must load them into our environment. We can think of the process of loading installed packages into a current R environment as analogous to opening up an application on your phone or computer after it has been installed (even after an application has been installed, you can’t use it until you open it!). To load (i.e. “open”) an R package, we pass the name of the package we want to load as an argument to the <code>library</code> function. For example, if we want to load the <em>tm</em> package into the current environment, we can type:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="preliminaries-getting-started-with-r-studio.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loads tm package into memory</span></span>
+<span id="cb3-2"><a href="preliminaries-getting-started-with-r-studio.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tm)</span></code></pre></div>
+<p>At this point, the full suite of the <em>tm</em> package’s functionality is available for us to use.</p>
+<p>Now, let’s go ahead and load the remainder of the packages that we’ll need:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="preliminaries-getting-started-with-r-studio.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loads remainder of required packages</span></span>
+<span id="cb4-2"><a href="preliminaries-getting-started-with-r-studio.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-3"><a href="preliminaries-getting-started-with-r-studio.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wordcloud2)</span>
+<span id="cb4-4"><a href="preliminaries-getting-started-with-r-studio.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb4-5"><a href="preliminaries-getting-started-with-r-studio.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span></code></pre></div>
+<p>At this point, the packages are loaded and ready to go! One important thing to note regarding the installation and loading of packages is that we only have to install packages once; after a package is installed, there is no need to subsequently reinstall it. However, we must load the packages we need (using the <code>library</code> function) every time we open a new R session. In other words, if we were to close R Studio at this point and open it up later, we would <strong>not</strong> need to install these packages again, but <strong>would</strong> need to load the packages again.</p>
+</div>
+<div id="set-working-directory" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Set Working Directory</h2>
+<p>Before we can bring our data into R Studio and begin the tutorial, we have to specify that data’s location on our computer. This step is known as setting one’s working directory. Before setting the working directory, make sure that you’ve downloaded the ICPSR dataset, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial.</p>
+<p>If you’re unfamiliar with the concept of file paths, the easiest way to set your working directory is through the R Studio menu. To do so, follow these steps:</p>
+<ul>
+<li>First, Click on the “Session” menu on the R Studio menu bar at the top of your screen, and then scroll down to the “Set Working Directory” button in the menu that opens up.</li>
+<li>When you hover over the “Set Working Directory” button, a subsidiary menu that contains a button that says “Choose Directory” will open; click this “Choose Directory” button.</li>
+<li>In the dialog box that opens up, navigate to the directory that contains the ICPSR data, select it, and click “Open”. At this point, your working directory should be set!</li>
+</ul>
+<p>The graphic below demonstrates the process of setting one’s working directory through R Studio’s menus:</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<img src="pictures/setting_wd_revised.png" alt="Setting Working Directory Via Menus" width="100%" />
+<p class="caption">
+Figure 2.3: Setting Working Directory Via Menus
+</p>
+</div>
+<p><strong>Alternatively</strong>, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded ICPSR dataset, you can set the working directly using the <code>setwd()</code> function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the advertisements from the El Diario corpus:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="preliminaries-getting-started-with-r-studio.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets working directory </span></span>
+<span id="cb5-2"><a href="preliminaries-getting-started-with-r-studio.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;019.11.14-ElDiarioCorpus/adverts&quot;</span>)</span></code></pre></div>
+<p>Note that you won’t want to copy and paste the above codeblock, since your file path will be different; be sure to replace the file path above with your own.</p>
 </div>
 </div>
             </section>
