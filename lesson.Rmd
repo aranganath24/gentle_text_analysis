@@ -216,13 +216,17 @@ spanish_stopwords<-as.data.frame(stopwords("spanish"))
 ```
 
 ```{r, message=F, warning=F}
-# Creates word frequency table based on "text" column of "diario_adverts_tidy" object; 
-diario_frequency_table<-diario_adverts_tidy %>% 
-                        unnest_tokens(output=word, input=text, token="words") %>% 
-                        count(word, sort=TRUE) %>% 
-                        filter(!word %in% stop_words$word) %>% 
-                        filter(!word %in% spanish_stopwords$`stopwords("spanish")`)
+# Creates word frequency table based on "text" column of "diario_adverts_tidy" object; the column containing a given word in the final output table is named "word"; the final output table is assigned to an object named "diario_frequency_table"
+diario_frequency_table<-
+  diario_adverts_tidy %>% # declares dataset with relevant text
+    unnest_tokens(output=word, # specifies name of output column (i.e. "word")
+                  input=text, # specifies name of input column containing text data
+                  token="words") %>% # specifies unit for tokenizing
+        count(word, sort=TRUE) %>% # counts frequency of each word in "word" column 
+        filter(!word %in% stop_words$word) %>% # removes English stop words
+        filter(!word %in% spanish_stopwords$`stopwords("spanish")`) # removes Spanish stopwords
 ```
+
 
 ```{r, message=F, warning=F}
 diario_frequency_table_numbers<-parse_number(diario_frequency_table$word)
