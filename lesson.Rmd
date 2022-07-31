@@ -400,18 +400,20 @@ diario_bigram_word2numbers<-parse_number(diario_bigram_filtered$word2)
 ```
 
 ```{r}
-# Adds the 
+# Adds the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" vectors as columns in "diario_bigram_filtered"
 diario_bigram_filtered<-cbind(diario_bigram_filtered, diario_bigram_word1numbers, diario_bigram_word2numbers)
 ```
 
 
 ```{r}
+# Extracts rows in "diario_bigram_filtered" where the "diario_bigram_word1numbers" or "diario_bigram_word2numbers" columns contain an NA value; this effectively deletes rows where the bigram contains a number
 diario_bigram_filtered<-diario_bigram_filtered %>% 
                           filter(is.na(diario_bigram_word1numbers)) %>% 
                           filter(is.na(diario_bigram_word2numbers))
 ```
 
 ```{r}
+# Takes separate words, in the "word1" and "word2" columns of "diario_bigram_filtered", and unites them back into one column, named "bigram"; this updated data frame is assigned to a new object named "diario_bigram_filtered_unite"
 diario_bigram_filtered_unite<-diario_bigram_filtered %>% 
                                 unite(bigram, word1, word2, sep=" ")
 ```
@@ -421,9 +423,9 @@ diario_bigram_filtered_unite_head<-head(diario_bigram_filtered_unite, 50)
 ```
 
 ```{r, eval=F}
+# prints contents of "diario_bigram_filtered_unite"
 diario_bigram_filtered_unite
 ```
-
 
 ```{r, echo=F}
 diario_bigram_filtered_unite_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
@@ -438,11 +440,13 @@ diario_bigram_filtered_unite_head %>% datatable(extensions=c("Scroller", "FixedC
 \
 
 ```{r}
+# removes the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" columns from "diario_bigram_filtered_unite"
 diario_bigram_filtered_unite<-diario_bigram_filtered_unite %>% 
                               select(-c(diario_bigram_word1numbers, diario_bigram_word2numbers))
 ```
 
 ```{r, eval=F}
+# Prints updated contents of "diario_bigram_filtered_unite"
 diario_bigram_filtered_unite
 ```
 
@@ -465,11 +469,13 @@ diario_bigram_filtered_unite_head2 %>% datatable(extensions=c("Scroller", "Fixed
 ## Visualizing bigrams
 
 ```{r}
+# Extracts a data frame of the ten most frequently occurring bigrams in "diario_bigram_filtered_unite" and assigns this data frame to a new object named "diario_bigram_top_ten"
 diario_bigram_top_ten<-diario_bigram_filtered_unite %>% 
                         slice_max(n, n=10)
 ```
 
 ```{r, eval=F}
+# Prints contents of "diario_bigram_top_ten"
 diario_bigram_top_ten
 ```
 
@@ -486,9 +492,10 @@ diario_bigram_top_ten %>% datatable(extensions=c("Scroller", "FixedColumns"), op
 \
 
 ```{r}
+# Creates horizontal bar graph of ten most frequently appearing bigrams in the corpus, arrayed in descending order; the bar graph is assigned to a new object named "bigram_graph"
 bigram_graph<-
   ggplot(diario_bigram_top_ten, aes(x=reorder(bigram, n), y=n))+
-    geom_bar(stat="identity")+
+    geom_col()+
       coord_flip()+
       xlab("")+
       ylab("Frequency")+
@@ -498,20 +505,24 @@ bigram_graph<-
 
 
 ```{r}
+# prints "bigram_graph"
 bigram_graph
 ```
 
 # Extracting keywords in context
 
 ```{r}
+# creates a tokens object based on the "text" column of the "tidy_diario" data frame and assigns it to "kwic_token"
 kwic_token<-tokens(tidy_diario$text)
 ```
 
 ```{r}
+# Extracts contextual text data for the keyword "business", based on a window of 3 words; the resulting data frame containing the contextual information associated with each appearance of the keyword is assigned to a new object named "business_keyword_context"
 business_keyword_context<-kwic(kwic_token, pattern="business", valuetype="fixed", window=3)
 ```
 
 ```{r, eval=F}
+# Prints contents of "business_keyword_context"
 business_keyword_context
 ```
 
