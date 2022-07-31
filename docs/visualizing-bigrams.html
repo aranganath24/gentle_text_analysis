@@ -25,7 +25,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-07-30" />
+<meta name="date" content="2022-07-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,8 +206,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="visualizing-bigrams.html#cb38-1" aria-hidden="true" tabindex="-1"></a>diario_bigram_top_ten<span class="ot">&lt;-</span>diario_bigram_filtered_unite <span class="sc">%&gt;%</span> </span>
 <span id="cb38-2"><a href="visualizing-bigrams.html#cb38-2" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">slice_max</span>(n, <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="visualizing-bigrams.html#cb39-1" aria-hidden="true" tabindex="-1"></a>diario_bigram_top_ten</span></code></pre></div>
-<div id="htmlwidget-d7586a33a1edcda40683" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d7586a33a1edcda40683">{"x":{"filter":"none","vertical":false,"extensions":["Scroller","FixedColumns"],"data":[["1","2","3","4","5","6","7","8","9","10"],["el diario","umas eop","boulder colorado","colorado boulder","mexican food","fri sat","umc games","business students","denver colorado","address city"],[null,null,null,null,null,null,null,null,null,null],[64,31,30,19,18,17,16,15,15,14]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>bigram<\/th>\n      <th> <\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"deferRender":true,"scrollY":350,"scrollX":350,"dom":"t","scroller":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-18517467c3050c758508" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-18517467c3050c758508">{"x":{"filter":"none","vertical":false,"extensions":["Scroller","FixedColumns"],"data":[["1","2","3","4","5","6","7","8","9","10"],["el diario","umas eop","boulder colorado","colorado boulder","mexican food","fri sat","umc games","business students","denver colorado","address city"],[null,null,null,null,null,null,null,null,null,null],[64,31,30,19,18,17,16,15,15,14]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>bigram<\/th>\n      <th> <\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"deferRender":true,"scrollY":350,"scrollX":350,"dom":"t","scroller":true,"fixedColumns":{"leftColumns":1},"columnDefs":[{"className":"dt-right","targets":3},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p><br />
 </p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="visualizing-bigrams.html#cb40-1" aria-hidden="true" tabindex="-1"></a>bigram_graph<span class="ot">&lt;-</span></span>
@@ -219,7 +219,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb40-7"><a href="visualizing-bigrams.html#cb40-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggtitle</span>(<span class="st">&quot;Ten Most Frequent Co-Occuring Words in Diario Advertisements&quot;</span>)<span class="sc">+</span></span>
 <span id="cb40-8"><a href="visualizing-bigrams.html#cb40-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">caption =</span> <span class="st">&quot;Source: El Diario Project&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="visualizing-bigrams.html#cb41-1" aria-hidden="true" tabindex="-1"></a>bigram_graph</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 </div>
             </section>
 
