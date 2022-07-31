@@ -178,10 +178,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.2" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>6.2</b> Creating a word cloud</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="extracting-bigrams.html"><a href="extracting-bigrams.html"><i class="fa fa-check"></i><b>7</b> Extracting bigrams</a></li>
-<li class="chapter" data-level="8" data-path="visualizing-bigrams.html"><a href="visualizing-bigrams.html"><i class="fa fa-check"></i><b>8</b> Visualizing bigrams</a></li>
-<li class="chapter" data-level="9" data-path="extracting-keywords-in-context.html"><a href="extracting-keywords-in-context.html"><i class="fa fa-check"></i><b>9</b> Extracting keywords in context</a></li>
-<li class="chapter" data-level="10" data-path="further-reading.html"><a href="further-reading.html"><i class="fa fa-check"></i><b>10</b> Further Reading</a></li>
+<li class="chapter" data-level="7" data-path="bigrams.html"><a href="bigrams.html"><i class="fa fa-check"></i><b>7</b> Bigrams</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bigrams.html"><a href="bigrams.html#extracting-bigrams-from-a-text-corpus"><i class="fa fa-check"></i><b>7.1</b> Extracting bigrams from a text corpus</a></li>
+<li class="chapter" data-level="7.2" data-path="bigrams.html"><a href="bigrams.html#visualizing-bigrams"><i class="fa fa-check"></i><b>7.2</b> Visualizing bigrams</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="extracting-keywords-in-context.html"><a href="extracting-keywords-in-context.html"><i class="fa fa-check"></i><b>8</b> Extracting keywords in context</a></li>
+<li class="chapter" data-level="9" data-path="further-reading.html"><a href="further-reading.html"><i class="fa fa-check"></i><b>9</b> Further Reading</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -235,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-r-studio-interface" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> The R Studio Interface</h2>
 <p>Now that we’ve installed and opened up R Studio, let’s familiarize ourselves with the R Studio interface. When we open up R Studio, we’ll see a window open that looks something like this:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
 <img src="pictures/rstudio_window_revised.png" alt="R Studio Interface Open on Desktop" width="100%" />
 <p class="caption">
 Figure 2.1: The R Studio Interface
@@ -292,7 +295,7 @@ Figure 2.1: The R Studio Interface
 <li>After you’ve run the code, watch the code execute in the console, and look for a message confirming that the package has been successfully installed.</li>
 </ul>
 <p>Below, we can see how that line of code should look in your script, and how to run it:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-12"></span>
 <img src="pictures/install_package.png" alt="Installing tm package in R Script" width="100%" />
 <p class="caption">
 Figure 2.2: Installing tm package in R Script
@@ -331,7 +334,7 @@ Figure 2.2: Installing tm package in R Script
 <li>In the dialog box that opens up, navigate to the directory that contains the ICPSR data, select it, and click “Open”. At this point, your working directory should be set!</li>
 </ul>
 <p>The graphic below demonstrates the process of setting one’s working directory through R Studio’s menus:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
 <img src="pictures/setting_wd_revised.png" alt="Setting Working Directory Via Menus" width="100%" />
 <p class="caption">
 Figure 2.3: Setting Working Directory Via Menus

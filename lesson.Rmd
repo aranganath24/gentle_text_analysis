@@ -229,19 +229,23 @@ diario_frequency_table<-
 
 
 ```{r, message=F, warning=F}
+# defines a vector that extracts numbers from the "word" column in "diario_frequency_table" and assigns it to a new object named "diario_frequency_table_numbers"
 diario_frequency_table_numbers<-parse_number(diario_frequency_table$word)
 ```
 
 ```{r}
+# updates the existing "diario_frequency_table" data frame by binding "diario_frequency_table_numbers" vector to it
 diario_frequency_table<-cbind(diario_frequency_table, diario_frequency_table_numbers)
 ```
 
 ```{r}
+# extracts all rows in which the "diario_frequency_table_numbers" column of the "diario_frequency_table" data frame is an NA value; this effectively removes all rows in "diario_frequency_table" in which the "word" column has a number
 diario_frequency_table<-diario_frequency_table %>% 
                         filter(is.na(diario_frequency_table_numbers))
 ```
 
 ```{r}
+# deletes the "diario_frequency_table_numbers" from the "diario_frequency_table" dataframe 
 diario_frequency_table<-diario_frequency_table %>% 
                         select(-diario_frequency_table_numbers)
 ```
@@ -251,6 +255,7 @@ diario_frequency_table_head<-head(diario_frequency_table, 50)
 ```
 
 ```{r, eval=F}
+# prints updated contents of "diario_frequency_table"
 diario_frequency_table
 ```
 
@@ -272,11 +277,13 @@ diario_frequency_table_head %>% datatable(extensions=c("Scroller", "FixedColumns
 ### Extracting dataframe of ten most frequent words
 
 ```{r}
+# extracts ten most frequently appearing words from "diario_frequency_table" from "diario_frequency_table" and assigns this data frame to a new object named "diario_top_ten"
 diario_top_ten<-diario_frequency_table %>% 
                 slice_max(n, n=10)
 ```
 
 ```{r, eval=F}
+# prints contents of "diario_top_ten"
 diario_top_ten
 ```
 
@@ -294,9 +301,10 @@ diario_top_ten %>% datatable(extensions=c("Scroller", "FixedColumns"), options =
 ### Using ggplot2 to make chart of ten most frequent words
 
 ```{r}
+# Uses "diario_top_ten" data frame to make horizontal bar chart of ten most frequently used words in corpus, in descending order; the chart is assigned to a new object named "diario_frequency_graph"
 diario_frequency_graph<-
   ggplot(diario_top_ten, aes(x=reorder(word, n), y=n))+
-    geom_bar(stat="identity")+
+    geom_col()+
       coord_flip()+
       xlab("")+
       ylab("Frequency")+
@@ -305,19 +313,23 @@ diario_frequency_graph<-
 ```
 
 ```{r}
+# prints "diario_frequency_graph"
 diario_frequency_graph
 ```
 
 ## Creating a word cloud
 
 ```{r}
-# make word cloud
+# make word cloud based on word frequency information from "df_word_frequencies"
 wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
 ```
 
-# Extracting bigrams
+# Bigrams
+
+## Extracting bigrams from a text corpus
 
 ```{r, eval=F}
+# Prints "diario_adverts_tidy"
 diario_adverts_tidy
 ```
 
@@ -334,6 +346,7 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 \
 
 ```{r}
+# Extracts table of bigram frequencies
 diario_bigram<-diario_adverts_tidy %>% 
                   unnest_tokens(bigram, text, token="ngrams", n=2) %>% 
                   count(bigram, sort=TRUE)
@@ -344,6 +357,7 @@ diario_bigram_head<-head(diario_bigram, 25)
 ```
 
 ```{r, eval=F}
+# prints "diario_bigram"
 diario_bigram
 ```
 
@@ -360,12 +374,14 @@ diario_bigram_head %>% datatable(extensions=c("Scroller", "FixedColumns"), optio
 \
 
 ```{r, warning=F, message=F}
+# Separates bigrams in the "bigram" column of "diario_bigram" into two separate columns, named "word1" and "word2"
 diario_bigram_separated<-diario_bigram %>% 
                           separate(bigram, c("word1", "word2", sep=" "))
 ```
 
 
 ```{r}
+# Removes English stopwords from the "word1" and "word2" columns
 diario_bigram_filtered<-diario_bigram_separated %>% 
                             filter(!word1 %in% stop_words$word) %>%
                             filter(!word2 %in% stop_words$word)
@@ -374,15 +390,17 @@ diario_bigram_filtered<-diario_bigram_separated %>%
 remove numbers
 
 ```{r, message=F, warning=F}
+# Extracts a vector of numbers contained in "word1" of "diario_bigram_filtered" and assigns it to a new object named "diario_bigram_word1numbers"
 diario_bigram_word1numbers<-parse_number(diario_bigram_filtered$word1)
 ```
 
 ```{r, message=F, warning=F}
+# Extracts a vector of numbers contained in "word2" of "diario_bigram_filtered", and assigns it to a new object named "diario_bigram_word2numbers"
 diario_bigram_word2numbers<-parse_number(diario_bigram_filtered$word2)
 ```
 
-
 ```{r}
+# Adds the 
 diario_bigram_filtered<-cbind(diario_bigram_filtered, diario_bigram_word1numbers, diario_bigram_word2numbers)
 ```
 
@@ -444,7 +462,7 @@ diario_bigram_filtered_unite_head2 %>% datatable(extensions=c("Scroller", "Fixed
 ```
 
 
-# Visualizing bigrams
+## Visualizing bigrams
 
 ```{r}
 diario_bigram_top_ten<-diario_bigram_filtered_unite %>% 
