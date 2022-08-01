@@ -384,7 +384,9 @@ diario_bigram_separated<-diario_bigram %>%
 # Removes English stopwords from the "word1" and "word2" columns
 diario_bigram_filtered<-diario_bigram_separated %>% 
                             filter(!word1 %in% stop_words$word) %>%
-                            filter(!word2 %in% stop_words$word)
+                            filter(!word2 %in% stop_words$word) %>% 
+                            filter(!word1 %in% spanish_stopwords$`stopwords("spanish")`) %>% 
+                            filter(!word2 %in% spanish_stopwords$`stopwords("spanish")`)
 ```
 
 remove numbers

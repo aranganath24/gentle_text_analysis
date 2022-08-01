@@ -1,6 +1,6 @@
+fig:unnamed-chunk-2
 fig:unnamed-chunk-4
-fig:unnamed-chunk-6
-fig:unnamed-chunk-11
+fig:unnamed-chunk-9
 introduction
 preliminaries-getting-started-with-r-studio
 r-and-r-studio-installation
