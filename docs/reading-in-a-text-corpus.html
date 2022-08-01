@@ -25,7 +25,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-07-31" />
+<meta name="date" content="2022-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,12 +209,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="reading-in-a-text-corpus.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reads in the filenames for diario advertisements as a character vector, and assigns it to an object named &quot;diario_files&quot;</span></span>
 <span id="cb6-2"><a href="reading-in-a-text-corpus.html#cb6-2" aria-hidden="true" tabindex="-1"></a>diario_files<span class="ot">&lt;-</span><span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">&quot;.txt&quot;</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="reading-in-a-text-corpus.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses the &quot;Corpus&quot; function from the &quot;tm&quot; package to create a new text corpus based on the diario advertisement text files; this corpus is assigned to a new object named &quot;diario_adverts_corpus&quot;</span></span>
-<span id="cb7-2"><a href="reading-in-a-text-corpus.html#cb7-2" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
+<span id="cb7-2"><a href="reading-in-a-text-corpus.html#cb7-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="reading-in-a-text-corpus.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints metadata about the corpus assigned to the &quot;diario_adverts_corpus&quot; object</span></span>
-<span id="cb8-2"><a href="reading-in-a-text-corpus.html#cb8-2" aria-hidden="true" tabindex="-1"></a>diario_adverts_corpus</span></code></pre></div>
+<span id="cb8-2"><a href="reading-in-a-text-corpus.html#cb8-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus</span></code></pre></div>
 <pre><code>## &lt;&lt;VCorpus&gt;&gt;
 ## Metadata:  corpus specific: 0, document level (indexed): 0
-## Content:  documents: 254</code></pre>
+## Content:  documents: 103</code></pre>
 </div>
             </section>
 

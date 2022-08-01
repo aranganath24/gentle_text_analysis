@@ -157,7 +157,7 @@ knitr::include_graphics('pictures/setting_wd_revised.png')
 
 ```{r, eval=F}
 # Sets working directory 
-setwd("019.11.14-ElDiarioCorpus/adverts")
+setwd("019.11.14-ElDiarioCorpus/creatives")
 ```
 
 Note that you won't want to copy and paste the above codeblock, since your file path will be different; be sure to replace the file path above with your own. 
@@ -165,36 +165,36 @@ Note that you won't want to copy and paste the above codeblock, since your file 
 # Reading in a Text Corpus
 
 ```{r, echo=-1}
-setwd("2019.11.14-ElDiarioCorpus/adverts")
+setwd("2019.11.14-ElDiarioCorpus/creatives")
 # reads in the filenames for diario advertisements as a character vector, and assigns it to an object named "diario_files"
 diario_files<-list.files(pattern=".txt")
 ```
 
 ```{r, echo=-1}
-setwd("2019.11.14-ElDiarioCorpus/adverts")
+setwd("2019.11.14-ElDiarioCorpus/creatives")
 # Uses the "Corpus" function from the "tm" package to create a new text corpus based on the diario advertisement text files; this corpus is assigned to a new object named "diario_adverts_corpus"
-diario_adverts_corpus<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
+diario_creatives_corpus<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
 ```
 
 ```{r}
 # prints metadata about the corpus assigned to the "diario_adverts_corpus" object
-diario_adverts_corpus
+diario_creatives_corpus
 ```
 
 # Creating a tidy dataframe from a text corpus
 
 ```{r}
 # Uses the "tidy" function from the "tidytext" package to transform the "diario_adverts_corpus" corpus into a tidy data frame, where each file's textual information is stored as a row in the data frame; this data frame is assigned to a new object named "diario_adverts_tidy"
-diario_adverts_tidy<-tidy(diario_adverts_corpus)
+diario_creatives_tidy<-tidy(diario_creatives_corpus)
 ```
 
 ```{r, echo=F}
-tidy_diario_head<-head(diario_adverts_tidy, 25)
+tidy_diario_head<-head(diario_creatives_tidy, 25)
 ```
 
 ```{r, eval=F}
-# Prints the contents of "diario_adverts_tidy"
-diario_adverts_tidy
+# Prints the contents of "diario_creatives_tidy"
+diario_creatives_tidy
 ```
 
 ```{r, echo=F}
@@ -218,7 +218,7 @@ spanish_stopwords<-as.data.frame(stopwords("spanish"))
 ```{r, message=F, warning=F}
 # Creates word frequency table based on "text" column of "diario_adverts_tidy" object; the column containing a given word in the final output table is named "word"; the final output table is assigned to an object named "diario_frequency_table"
 diario_frequency_table<-
-  diario_adverts_tidy %>% # declares dataset with relevant text
+  diario_creatives_tidy %>% # declares dataset with relevant text
     unnest_tokens(output=word, # specifies name of output column (i.e. "word")
                   input=text, # specifies name of input column containing text data
                   token="words") %>% # specifies unit for tokenizing
@@ -321,7 +321,7 @@ diario_frequency_graph
 
 ```{r}
 # make word cloud based on word frequency information from "df_word_frequencies"
-wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
+wordcloud2(data = diario_frequency_table, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
 ```
 
 # Bigrams
@@ -329,8 +329,8 @@ wordcloud2(data = df_word_frequencies, minRotation = 0, maxRotation = 0, ellipti
 ## Extracting bigrams from a text corpus
 
 ```{r, eval=F}
-# Prints "diario_adverts_tidy"
-diario_adverts_tidy
+# Prints "diario_creatives_tidy"
+diario_creatives_tidy
 ```
 
 ```{r, echo=F}
@@ -347,7 +347,7 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 
 ```{r}
 # Extracts table of bigram frequencies
-diario_bigram<-diario_adverts_tidy %>% 
+diario_bigram<-diario_creatives_tidy %>% 
                   unnest_tokens(bigram, text, token="ngrams", n=2) %>% 
                   count(bigram, sort=TRUE)
 ```
@@ -513,17 +513,17 @@ bigram_graph
 
 ```{r}
 # creates a tokens object based on the "text" column of the "tidy_diario" data frame and assigns it to "kwic_token"
-kwic_token<-tokens(tidy_diario$text)
+kwic_token<-tokens(diario_creatives_tidy$text)
 ```
 
 ```{r}
 # Extracts contextual text data for the keyword "business", based on a window of 3 words; the resulting data frame containing the contextual information associated with each appearance of the keyword is assigned to a new object named "business_keyword_context"
-business_keyword_context<-kwic(kwic_token, pattern="business", valuetype="fixed", window=3)
+earth_keyword_context<-kwic(kwic_token, pattern="earth", valuetype="fixed", window=3)
 ```
 
 ```{r, eval=F}
 # Prints contents of "business_keyword_context"
-business_keyword_context
+earth_keyword_context
 ```
 
 ```{r, echo=F}
