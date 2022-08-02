@@ -215,20 +215,29 @@ diario_creatives_corpus
 
 # Creating a tidy dataframe from a text corpus
 
-Once we we have created a text corpus out of the relevant collection of text documents in our directory, we can 
+Once we we have created a text corpus out of the relevant collection of text documents in our directory, we can work directly with this corpus to extract information about our text collection. However, *tm* package corpus objects can sometimes be a bit unwieldy and non-intuitive to work with. Luckily, the *tidytext* package's ```tidy()``` function can quickly transform a *tm* corpus object into a more tractable data frame (i.e. a tabular dataset), in which each text document is assigned its own row, and the entirety of the text associated with each document is stored in a column. Below, we pass our corpus object, ```diario_creatives_corpus```, and pass it as an argument to the ```tidy()``` function; then, we assign the resulting data frame of textual information to a new object named ```diario_creatives_tidy```:
 
 ```{r}
 # Uses the "tidy" function from the "tidytext" package to transform the "diario_adverts_corpus" corpus into a tidy data frame, where each file's textual information is stored as a row in the data frame; this data frame is assigned to a new object named "diario_adverts_tidy"
 diario_creatives_tidy<-tidy(diario_creatives_corpus)
 ```
 
+Now, let's inspect the ```diario_creatives_tidy``` data frame. One way to explore the contents of a data frame object is to simply print the name of the object in the console (or run it in a script); a truncated version of the dataset will then print to the console:
+
+```{r}
+# prints contents of "diario_creatives_tidy" to console
+diario_creatives_tidy
+```
+
+A better option, however, is to view data frame objects in the R Studio data viewer; this allows you to view the entire dataset, with formatting applied to make the information easier to interpret. To view ```diario_creatives_tidy``` in the R Studio Data Viewer, simply pass it as an argument to the ```View()``` function, as below: 
+
 ```{r, echo=F}
 tidy_diario_head<-head(diario_creatives_tidy, 25)
 ```
 
 ```{r, eval=F}
-# Prints the contents of "diario_creatives_tidy"
-diario_creatives_tidy
+# Opens "diario_creatives_tidy" in R Studio data viewer
+View(diario_creatives_tidy)
 ```
 
 ```{r, echo=F}
@@ -241,6 +250,10 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
   fixedColumns = list(leftColumns = 1)
 ))
 ```
+
+*Please note that data frames which are reproduced in this tutorial are sometimes truncated, to preserve memory; you will therefore see fewer rows in data frames within the tutorial material than you will see when inspecting those same data frames within the R Studio data viewer on your computers*
+
+As we noted above, you will note that there is one row for each text document, some metadata associated with each text document, and (most importantly), a column named "text" which contains the full text that is contained in the document that corresponds to a given row. 
 
 # Creating a word frequency table
 
