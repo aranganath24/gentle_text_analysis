@@ -25,7 +25,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-08-01" />
+<meta name="date" content="2022-08-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -206,12 +206,130 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="reading-in-a-text-corpus" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Reading in a Text Corpus</h1>
+<p>The first step in working with text data in R Studio is to load the data which you wish to analyze into your R environment.</p>
+<p>Sometimes, you may only need to analyze the text within a single document, but often, you will want to analyze an entire collection of text documents (known as a corpus). In our case, we want to analyze a corpus comprised of text documents that are part of the “creatives” section of the broader “Diario” project.</p>
+<p>To load the files within this “creatives” directory into R Studio as a corpus, the first step is to read in all of the file names for the text documents that constitute the “creatives” corpus, and store these names within a character vector; a “vector” in R is simply a sequence of elements, and in the case of a character vector, those elements are text strings.</p>
+<p>The code below first reads in the file names from the “creatives” directory, using <code>list.files(pattern=".txt")</code>. The <code>list.files()</code> function produces a character vector of files within a specified directory (if no directory is specified, it defaults to extracting the names of files from the working directory), and the argument to this function, <code>pattern=".txt"</code>, specifies what type of files we want the <code>list.files()</code> function to extract (anything with a “.txt” extension). Finally, it assigns this vector of file names to a new object named <code>diario_files</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="reading-in-a-text-corpus.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reads in the filenames for diario advertisements as a character vector, and assigns it to an object named &quot;diario_files&quot;</span></span>
 <span id="cb6-2"><a href="reading-in-a-text-corpus.html#cb6-2" aria-hidden="true" tabindex="-1"></a>diario_files<span class="ot">&lt;-</span><span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">&quot;.txt&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="reading-in-a-text-corpus.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses the &quot;Corpus&quot; function from the &quot;tm&quot; package to create a new text corpus based on the diario advertisement text files; this corpus is assigned to a new object named &quot;diario_adverts_corpus&quot;</span></span>
-<span id="cb7-2"><a href="reading-in-a-text-corpus.html#cb7-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="reading-in-a-text-corpus.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints metadata about the corpus assigned to the &quot;diario_adverts_corpus&quot; object</span></span>
-<span id="cb8-2"><a href="reading-in-a-text-corpus.html#cb8-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus</span></code></pre></div>
+<p>The concept of object assignment, which we alluded to above, is a fundamental concept when working in a scripting environment; indeed, the ability to easily assign values to objects is what allows us to easily manipulate and process our data in an intuitive manner within a given workflow. To better understand the mechanics of object assignment, let’s briefly step away from our text data, and consider a simple example:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="reading-in-a-text-corpus.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign value 5 to new object named x</span></span>
+<span id="cb7-2"><a href="reading-in-a-text-corpus.html#cb7-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">5</span></span></code></pre></div>
+<p>In the code above, we use R’s assignment operator, <code>&lt;-</code>, to assign the value 5 to an object named “x.” Now that an object named “x” has been created and assigned the value 5, printing “x” in our console (or printing “x” in our script and running it) will return the value 5:</p>
+<p>More generally, the process of assignment effectively equates the output created by the code on the right side of the assignment operator (<code>&lt;-</code>) to an object with a name that is specified on the left side of the assignment operator. Whenever we want to look at the contents of an object (i.e. the output created by the code to the right side of the assignment operator), we simply print the name of the object in the R console (or print the name and run it within a script).</p>
+<p>While the example above was very simple, we can assign virtually any R code, and by extension, the data structure(s) generated by that code (such as datasets, vectors, graphs/plots etc.) to an R object. Above, we assigned the vector of text file names created by <code>list.files(pattern=".txt")</code> to an object named <code>diario_files</code>, and can now confirm that this vector is associated with the <code>diario_files</code> object by printing the object name:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="reading-in-a-text-corpus.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;diario_files&quot; vector</span></span>
+<span id="cb8-2"><a href="reading-in-a-text-corpus.html#cb8-2" aria-hidden="true" tabindex="-1"></a>diario_files</span></code></pre></div>
+<pre><code>##   [1] &quot;1972.10.27-en-creative-Metemorphosis.txt&quot;                       
+##   [2] &quot;1972.10.27-sp-creative-LaTragediaDeRicardoFalcon.txt&quot;           
+##   [3] &quot;1972.11.03-en-creative-BoomerangChicano.txt&quot;                    
+##   [4] &quot;1972.11.03-en-creative-PensamientorsRinche.txt&quot;                 
+##   [5] &quot;1972.11.03-en-creative-PensamientosANewLegendElRaton.txt&quot;       
+##   [6] &quot;1972.11.03-en-creative-PensamientosInTheNameOfGoodWill.txt&quot;     
+##   [7] &quot;1972.11.03-en-creative-PensamientosSaladBowloftheWorld.txt&quot;     
+##   [8] &quot;1972.11.03-sp-creative-PensamientorsVirginia.txt&quot;               
+##   [9] &quot;1972.11.03-sp-creative-PensamientosMiCarnal.txt&quot;                
+##  [10] &quot;1972.12.01-en-creative-MadGenieTerrorizesNeighborhood.txt&quot;      
+##  [11] &quot;1973.01.23-en-creative-VocalistFeatured.txt&quot;                    
+##  [12] &quot;1973.03.06-en-creative-EscuelaTlatelolco.txt&quot;                   
+##  [13] &quot;1973.03.06-en-creative-LaLloronaWeepsOn.txt&quot;                    
+##  [14] &quot;1973.03.20-en-creatives-ElTortillaKid.txt&quot;                      
+##  [15] &quot;1973.03.20-en-creatives-MateskisSourGrapes.txt&quot;                 
+##  [16] &quot;1973.04.10-en-creative-ElTortillaKid.txt&quot;                       
+##  [17] &quot;1973.04.10-en-creative-PhotoRichardGarcia.txt&quot;                  
+##  [18] &quot;1973.04.24-en-creative-ElTortillaKid.txt&quot;                       
+##  [19] &quot;1973.04.24-en-creative-TeamstersHiringHall.txt&quot;                 
+##  [20] &quot;1973.05.05-en-creative-AndWhatShallIDoNow.txt&quot;                  
+##  [21] &quot;1973.05.05-en-creative-BreakSolomonsChains.txt&quot;                 
+##  [22] &quot;1973.05.05-en-creative-FromHoustonToAustin.txt&quot;                 
+##  [23] &quot;1973.05.05-en-creative-TimeHasCome.txt&quot;                         
+##  [24] &quot;1973.05.05-en-creative-Untitled.txt&quot;                            
+##  [25] &quot;1973.05.05-en-creative-Untitled2.txt&quot;                           
+##  [26] &quot;1973.05.05-en-creative-WeAreLaRaza.txt&quot;                         
+##  [27] &quot;1973.05.05-sp-creative-Chicano.txt&quot;                             
+##  [28] &quot;1973.05.05-sp-creative-Obrapafalcon.txt&quot;                        
+##  [29] &quot;1973.06.15-en-creative-SeeTheFunnyU.S.GovernmentWork.txt&quot;       
+##  [30] &quot;1973.06.15-sp-creative-DIANUBLADO.txt&quot;                          
+##  [31] &quot;1973.07.13-en-creative-Escuela.txt&quot;                             
+##  [32] &quot;1973.10.12-en-creative-ADVENTURESRABBLEROUSER.txt&quot;              
+##  [33] &quot;1973.10.26-en-creative-LECHUGUERO.txt&quot;                          
+##  [34] &quot;1973.10.26-sp-en-creative-PabloNerudapoet1904-1973.txt&quot;         
+##  [35] &quot;1973.11.09-en-creative-FinancialAidGame.txt&quot;                    
+##  [36] &quot;1973.12.13-sp-creative-DondeEstaraLaMovimiento.txt&quot;             
+##  [37] &quot;1973.12.13-sp-creative-Manos.txt&quot;                               
+##  [38] &quot;1973.12.13-sp-creative-VersosDeLasPosadas.txt&quot;                  
+##  [39] &quot;1973.12.13-sp-en-creative-NoHasMuertoCompanero.txt&quot;             
+##  [40] &quot;1973.12.13-sp-en-creative-SantosRodriguezKilledByDallasPigs.txt&quot;
+##  [41] &quot;1974.01.25-sp-creative-ANuestroCarinosoAntecesor.txt&quot;           
+##  [42] &quot;1974.02.22-en-creative-APoemByTigre.txt&quot;                        
+##  [43] &quot;1974.03.08-sp-creative-Recetas.txt&quot;                             
+##  [44] &quot;1974.03.22-sp-creative-BatoDelBarrio.txt&quot;                       
+##  [45] &quot;1974.03.22-sp-creative-Recetas.txt&quot;                             
+##  [46] &quot;1974.05.05-en-creative-AMadMan.txt&quot;                             
+##  [47] &quot;1974.05.05-en-creative-Antiperros.txt&quot;                          
+##  [48] &quot;1974.05.05-en-creative-CuandoLaCucarachaCamine.txt&quot;             
+##  [49] &quot;1974.05.05-en-creative-Descanco.txt&quot;                            
+##  [50] &quot;1974.05.05-en-creative-FaceYourFearsCarnal.txt&quot;                 
+##  [51] &quot;1974.05.05-en-creative-Fighters.txt&quot;                            
+##  [52] &quot;1974.05.05-en-creative-HangToughChicano.txt&quot;                    
+##  [53] &quot;1974.05.05-en-creative-LasComadres.txt&quot;                         
+##  [54] &quot;1974.05.05-en-creative-LetYourselfBeSidetrackedByYourGuiro.txt&quot; 
+##  [55] &quot;1974.05.05-en-creative-LosPintos.txt&quot;                           
+##  [56] &quot;1974.05.05-en-creative-MarioSuarez.txt&quot;                         
+##  [57] &quot;1974.05.05-en-creative-OfferingOfManToGod.txt&quot;                  
+##  [58] &quot;1974.05.05-en-creative-Pachucos.txt&quot;                            
+##  [59] &quot;1974.05.05-en-creative-TheOrganizer.txt&quot;                        
+##  [60] &quot;1974.05.05-sp-creative-ALaFlorDeNuestraHerencia.txt&quot;            
+##  [61] &quot;1974.05.05-sp-creative-Antiperros.txt&quot;                          
+##  [62] &quot;1974.05.05-sp-creative-DeColores.txt&quot;                           
+##  [63] &quot;1974.05.05-sp-creative-Descanso.txt&quot;                            
+##  [64] &quot;1974.05.05-sp-creative-LaUnitedFruitCo.txt&quot;                     
+##  [65] &quot;1974.05.05-sp-creative-UnViajeAMexico.txt&quot;                      
+##  [66] &quot;1974.05.05-sp-creative-YoSoyChicano.txt&quot;                        
+##  [67] &quot;1974.05.05-sp-en-creative-Raza.txt&quot;                             
+##  [68] &quot;1974.06.11-en-creative-Inheritance.txt&quot;                         
+##  [69] &quot;1974.10.03-en-creative-Aztlan.txt&quot;                              
+##  [70] &quot;1974.10.03-sp-creative-NewSong.txt&quot;                             
+##  [71] &quot;1974.10.03-sp-en-creative-TeranDerramadorDeFronteras.txt&quot;       
+##  [72] &quot;1975.01.30-en-creative-ChicanoGraphicByLorettaMalacara.txt&quot;     
+##  [73] &quot;1975.01.30-en-creative-HarvardGraduates.txt&quot;                    
+##  [74] &quot;1975.01.30-en-creative-PoetryOfAncientMexicanIndians.txt&quot;       
+##  [75] &quot;1975.01.30-en-creative-TheEarthSoRichInImage.txt&quot;               
+##  [76] &quot;1975.07.17-en-creative-ArturoSylvanoBobianPhotoCaption.txt&quot;     
+##  [77] &quot;1975.07.17-en-creative-ExerciseInFutility-1.txt&quot;                
+##  [78] &quot;1975.07.17-en-creative-ExerciseInFutility-2.txt&quot;                
+##  [79] &quot;1975.07.17-en-creative-Life.txt&quot;                                
+##  [80] &quot;1975.07.17-en-creative-WindsOfAztlan.txt&quot;                       
+##  [81] &quot;1975.07.17-en-sp-creative-CamaYTortillas.txt&quot;                   
+##  [82] &quot;1975.07.17-en-sp-creative-MachoReflections.txt&quot;                 
+##  [83] &quot;1975.10.01-en-creative-LosParrasCantanDeRevolucion.txt&quot;         
+##  [84] &quot;1975.10.01-en-creative-WhenDayIsBorn.txt&quot;                       
+##  [85] &quot;1975.10.01-en-creative-WindOfThePeople.txt&quot;                     
+##  [86] &quot;1975.10.01-sp-creative-CuandoAmaneceElDia.txt&quot;                  
+##  [87] &quot;1975.10.01-sp-creative-TodaLaTierraEntera.txt&quot;                  
+##  [88] &quot;1975.10.01-sp-creative-VientosDelPueblo.txt&quot;                    
+##  [89] &quot;1976.02.01-en-creative-AsTimePasses.txt&quot;                        
+##  [90] &quot;1976.02.01-en-creative-ToLaura.txt&quot;                             
+##  [91] &quot;1977.07.01-sp-creative-LasMujeresDeCuba.txt&quot;                    
+##  [92] &quot;1977.08.01-en-creative-Criticism.txt&quot;                           
+##  [93] &quot;1977.08.01-en-creative-Philanthropyfundingdisregard.txt&quot;        
+##  [94] &quot;1977.08.01-sp-creative-Poemas.txt&quot;                              
+##  [95] &quot;1978.10.01-sp-creative-PoemasdeNicaragua.txt&quot;                   
+##  [96] &quot;1978.11.01-en-creative-AWorldofDreams.txt&quot;                      
+##  [97] &quot;1979.03.13-en-creative-AlternativeEducation.txt&quot;                
+##  [98] &quot;1980.02.01-en-creative-AWarriorInChains.txt&quot;                    
+##  [99] &quot;1983.04.01-en-creative-ChiefLeonardCrowDog.txt&quot;                 
+## [100] &quot;1983.04.01-en-creative-IAmUMAS.txt&quot;                             
+## [101] &quot;1983.04.01-en-creative-LostToOurLand.txt&quot;                       
+## [102] &quot;1983.04.01-en-creative-TogetherWeAreLaRaza.txt&quot;                 
+## [103] &quot;1983.04.01-sp-creative-MiCarnalEsATodoMadre.txt&quot;</code></pre>
+<p>We will use this basic principle of object assignment throughout the lesson.</p>
+<p>Now, let’s use this vector of file names to create a Corpus that contains the text from all of these files. To do so, we’ll use the <em>tm</em> package’s <code>Corpus()</code> function. Below, the first argument to the <code>Corpus()</code> function, <code>URISource(diario_files)</code>, specifies the file names of the text documents from which we want to create our corpus. The second argument, <code>readerControl=list(reader=readPlain))</code>, specifies that we want the <code>Corpus()</code> function to use a plain text reader (“readPlain”) to read in the text data within the documents specified in <code>diario_files</code> (if our files were in a different file format, we would use a different reader that is appropriate to that file format). Finally, we assign the corpus to a new object named <code>diario_creatives_corpus</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="reading-in-a-text-corpus.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses the &quot;Corpus&quot; function from the &quot;tm&quot; package to create a new text corpus based on the diario advertisement text files; this corpus is assigned to a new object named &quot;diario_adverts_corpus&quot;</span></span>
+<span id="cb10-2"><a href="reading-in-a-text-corpus.html#cb10-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
+<p>If we print the name of our corpus object into the console (or run it from a script), we can return some basic metadata about the corpus we’ve just created:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="reading-in-a-text-corpus.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints metadata about the corpus assigned to the &quot;diario_adverts_corpus&quot; object</span></span>
+<span id="cb11-2"><a href="reading-in-a-text-corpus.html#cb11-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus</span></code></pre></div>
 <pre><code>## &lt;&lt;VCorpus&gt;&gt;
 ## Metadata:  corpus specific: 0, document level (indexed): 0
 ## Content:  documents: 103</code></pre>
