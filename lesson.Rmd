@@ -385,9 +385,11 @@ diario_frequency_table<-
 
 You can confirm this by viewing our updated ```diario_frequency_table``` object within the R Studio data viewer. 
 
-
 ### Removing numbers
 
+You may have noticed that some of the "words" in ```diario_frequency_table``` are actually numbers. In certain situations, this may be acceptable, but in other cases, you may want to remove numbers from your word frequency table. In this sub-section, we'll learn one way to do this. 
+
+The first step is to extract a vector that either 
 
 ```{r, message=F, warning=F}
 # defines a vector that extracts numbers from the "word" column in "diario_frequency_table" and assigns it to a new object named "diario_frequency_table_numbers"
@@ -678,7 +680,7 @@ bigram_graph
 
 ```{r}
 # creates a tokens object based on the "text" column of the "tidy_diario" data frame and assigns it to "kwic_token"
-kwic_token<-tokens(diario_creatives_tidy$text)
+kwic_token<-tokens(diario_creatives_tidy$text, remove_punct = TRUE)
 ```
 
 ```{r}
@@ -692,7 +694,7 @@ earth_keyword_context
 ```
 
 ```{r, echo=F}
-business_keyword_context %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+earth_keyword_context %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
   deferRender = TRUE,
   scrollY = 350,
   scrollX = 350,
