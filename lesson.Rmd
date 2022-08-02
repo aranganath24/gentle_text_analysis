@@ -255,24 +255,138 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 
 As we noted above, you will note that there is one row for each text document, some metadata associated with each text document, and (most importantly), a column named "text" which contains the full text that is contained in the document that corresponds to a given row. 
 
+Once we have recast our text corpus into a concise and well-structured data frame, we can begin to extract information of interest from our text data. 
+
 # Creating a word frequency table
 
+A common task in basic text analysis is to identify the frequency with which various words occur in a text collection, and present this information in a table. In this section, we will learn how to transform a tidy text dataframe such as ```diario_creatives_tidy``` into a word frequency table. 
+
+## Tokenize ```diario_creatives_tidy```
+
+The first step in creating a word frequency table is to split our column containing the relevant text ("text" in ```diario_creatives_tidy```) into word tokens; in the context of text analysis, a "token" is the semantic unit of analysis that you wish to use for information extraction purposes. Here, we want to tokenize by single words, since that is the unit of analysis that makes sense when the end-goal is a word frequency table. 
+
+Below, we'll take ```diario_creatives_tidy```, and split the existing "text" column (which contains all of the text associated with a given document) into tokens; in the context of text analysis, a "token" is the semantic unit of analysis that you wish to use for information extraction purposes. Because our desired unit of analysis is a single word, we will use single words as our token. 
+
+In the code below, we first take our existing ```diario_creatives_tidy``` data frame, and then use the ```unnest_tokens()``` function from the *tidytext* package to tokenize the information in the "text" column of ```diario_creatives_tidy``` by word, and return a new data frame where the textual unit of analysis is the word. Note that the ```unnest_tokens()``` function takes three arguments below. The first, ```input=text```, specifies the name of the column in ```diario_creatives_tidy``` that contains the text data we wish to tokenize; here, the name of this desired input column is "text". The second argument, ```token="words"```, specifies that we wish to tokenize the text data in the "text" column at the level of the individual word. Finally, the argument ```output=word``` specifies that the name of the column containing the word data in the new one-token-per-row dataset is to be "word." Finally, the new one-token-per-row dataset that results from the tokenization process is assigned to a new object named ```diario_word_tokenized```:
+
 ```{r}
-# extract Spanish stopwords as a data frame, and assign it to an object named "spanish stopwords"
+diario_word_tokenized<-
+  diario_creatives_tidy %>% # declares dataset with relevant text
+    unnest_tokens(input=text, # specifies name of input column containing text data
+                  token="words", # specifies how to tokenize input column
+                  output=word)  # specifies name of output column containing tokens
+```
+
+Now, go ahead and take a look at the newly tokenized dataset, ```diario_word_tokenized```, within the R Studio data viewer:
+
+```{r}
+# opens "diario_word_tokenized" in R Studio data viewer
+View(diario_word_tokenized)
+```
+
+```{r, echo=F}
+diario_word_tokenized_head<-head(diario_word_tokenized, 50)
+```
+
+```{r, echo=F}
+diario_word_tokenized %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+\
+One feature of the code used to generate a tokenized dataset may require additional elaboration. In particular, the code above uses a "pipe", a symbol that looks like this: ```%>%```. The pipe operator essentially takes whatever is to its left, and then use it as an input to the code on its right. In the code above, the operations on the right of the ```%>%``` are applied to the object on the left of the 
+``` %>%```. In other words, the pipe operator links the code on its two sides, and establishes that the dataset to be tokenized with the code on its right is  ```diario_creatives_tidy```.
+
+## Extract the first draft of a word frequency table based from the tokenized dataset
+
+Now that we have a tokenized dataset of our text collection, ```diario_word_tokenized```, let's use it to create the first draft of a word frequency table. To do so, we will use the ```count()``` function on the ```diario_word_tokenized``` dataset we created above. The ```count()``` function is part of the *dplyr* package, which contains extremely useful functions for data wrangling tasks; *dplyr* is one package within the broader suite of *tidyverse* packages. 
+
+In the code below, we take our tokenized dataset, ```diario_word_tokenized```, and then call the ```count()``` function; the first argument to ```count()```, which is ```word```, specifies the name of the column which contains the values (i.e. words) we'd like to count up (here, the name of that column is "word"). The second argument, ```sort=TRUE```, specifies that the frequency table generated by the ```count()``` function should array the words in descending order of frequency. 
+
+```{r}
+# Uses "count" function to generate a dataset that contains information on the frequency of each word in "diario_word_tokenized"; assigns this newly created dataset (organized in descending order) 
+diario_frequency_table<-diario_word_tokenized %>% 
+                          count(word, sort=TRUE)
+```
+
+Go ahead and view the newly created frequency table, ```diario_frequency_table```, in the R Studio data viewer:
+
+```{r}
+View(diario_frequency_table)
+```
+
+```{r, echo=F}
+diario_frequency_table_head<-head(diario_frequency_table, 50)
+```
+
+```{r}
+diario_frequency_table_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+We now have a word frequency table! The words are contained in the column on the left ("word"), and the frequency of each word is contained in the column on the right ("n"). 
+
+## Cleaning the word frequency table
+
+### Removing stopwords
+
+Having generated this basic word frequency table, it is now time to edit and clean it, so as to ensure that it contains meaningful information. 
+
+One issue with our frequency table (```diario_frequency_table```) that you may have noticed is that many of the words are (predictably) common words that don't really inform us about the distinctive semantic features of the text collection. For example, the word "the" appears 857 times in our collection, but for most research projects, this would be completely uninteresting, and may even obscure more interesting features of interest. When working with text data, it is therefore common practice to excise these common words (known as "stop words") from a dataset of interest, before carrying out any further analysis or visualization tasks 
+
+Let's now go ahead and excise stop words ```diario_frequency_table```. In order to remove stop words, we must first compile them, which can be a tedious task; luckily, however, many text mining and analysis packages provide pre-assembled collections of stop words that we can use off the shelf, without having to define our own. 
+
+Within the *tidytext* package, stop words are contained in a data frame that is assigned to an object named ```stop_words```. We can preview some of these words by printing the contents of ```stop_words``` to the console:
+
+```{r}
+# prints contents of "stop_words"
+stop_words
+```
+
+Alternatively, if you want to see all of the stop words within ```stop_words```, you can view it within the R Studio data viewer (i.e. ```View(stop_words)```).
+
+Because our text documents also contain a meaningful amount of Spanish, it makes sense to also remove Spanish language stop words. The ```stop_words``` data frame from the *tidytext* package only contains English stopwords, but the *tm* package allows users to extract Spanish stopwords by passing the string ```"spanish"``` to its ```stopwords()``` function. Below, we extract Spanish stopwords from the *tm* package's ```stopwords()``` function as a data frame (by passing ```stopwords("spanish")``` as an argument to the ```as.data.frame()``` function), and assign it to a new object named ```spanish_stopwords```:
+
+```{r}
+# extract Spanish stopwords as a data frame, and assign it to an object named "spanish_stopwords"
 spanish_stopwords<-as.data.frame(stopwords("spanish"))
 ```
 
-```{r, message=F, warning=F}
-# Creates word frequency table based on "text" column of "diario_adverts_tidy" object; the column containing a given word in the final output table is named "word"; the final output table is assigned to an object named "diario_frequency_table"
+Feel free to  view ```spanish_stopwords``` within the data viewer by passing it as an argument to the ```View()``` function (i.e. ```View(spanish_stopwords)```). Note that the column containing the stopwords is named ```stopwords("spanish")```.
+
+Now that we have a set of English stopwords (```stop_words```), and a set of Spanish stopwords (```spanish_stopwords```), let's remove these stopwords from our word frequency table (```diario_frequency_table```). 
+
+The code below first declares the ```diario_frequency_table``` object, and establishes that subsequent functions are to modify this object. 
+
+After declaring the object, we remove the English stopwords using ```  filter(!word %in% stop_words$word)```. The ```filter()``` function (which is part of the *dplyr* package), is used to create a subset of an existing dataset, in which all of the rows that satisfy a condition (or set of conditions) are retained (and those which do not satisfy the condition(s) are discarded).  Here, the argument to the ```filter()``` function, which reads ```!word %in% stop_words$word```, can be interpreted as specifying that we wish to subset and retain all of the rows in ```diario_frequency_table``` in which the "word" column (within ```diario_frequency_table```) is NOT equal to any of the words in the "word" column of ```stop_words``` (note that in order to refer to a column from a dataset, we can type the name of the data frame object, followed by a ```$```, followed by the name of the column within the dataset that we'd like to extract). This procedure effectively excises the English stopwords from ```diario_frequency_table```. The ```!``` before ```word``` is a small detail, but important; the exclamation mark is a symbol for logical negation, and without it, the ```filter()``` function would instead subset and retain all of the rows in ```diario_frequency_table``` where the word in the "word" column is an English stopword. 
+
+After excising all of the English stopwords from ```diario_frequency_table```, we call a pipe (```%>%```), to indicate that we want to implement additional changes to ```diario_frequency_table```. We then use the ```filter()``` function to remove Spanish stopwords from ```diario_frequency_table```, with ```filter(!word %in% spanish_stopwords$`stopwords("spanish")`)```. The logic behind this expression is the same as the logic behind the previous expression, that removed English stopwords from the frequency table. That is, the argument to the ```filter()``` function specifies that we want to subset and retain all of the rows in ```diario_frequency_table``` for which the "word" column is NOT one of the Spanish stopwords contained in the ```stopwords("spanish")``` column within the ```spanish_stopwords``` dataset. This effectively removes the words in ```spanish_stopwords``` from ```diario_frequency_table```. 
+
+Finally, we assign the changes we made to ```diario_frequency_table``` (i.e. removing stopwords) back to the existing ```diario_frequency_table``` object with the assignment operator (```<-```) instead of creating a new object; this effectively updates the contents of ```diario_frequency_table```. Before, this data object included the stopwords in ```stop_words``` and ```spanish_stopwords```; now, after assigning the changes back to the existing object, ```diario_frequency_table``` no longer contains these stopwords. 
+
+```{r}
+# Takes the existing "diario_frequency_table" dataset, and removes English and Spanish stopwords from it
 diario_frequency_table<-
-  diario_creatives_tidy %>% # declares dataset with relevant text
-    unnest_tokens(output=word, # specifies name of output column (i.e. "word")
-                  input=text, # specifies name of input column containing text data
-                  token="words") %>% # specifies unit for tokenizing
-        count(word, sort=TRUE) %>% # counts frequency of each word in "word" column 
-        filter(!word %in% stop_words$word) %>% # removes English stop words
-        filter(!word %in% spanish_stopwords$`stopwords("spanish")`) # removes Spanish stopwords
+  diario_frequency_table %>% 
+    filter(!word %in% stop_words$word) %>% # removes English stop words
+    filter(!word %in% spanish_stopwords$`stopwords("spanish")`) # removes Spanish stopwords
 ```
+
+You can confirm this by viewing our updated ```diario_frequency_table``` object within the R Studio data viewer. 
+
+
+### Removing numbers
 
 
 ```{r, message=F, warning=F}
@@ -317,6 +431,7 @@ diario_frequency_table_head %>% datatable(extensions=c("Scroller", "FixedColumns
 ))
 ```
 
+
 # Visualizing word frequency data
 
 ## Charting word frequencies
@@ -355,7 +470,7 @@ diario_frequency_graph<-
       coord_flip()+
       xlab("")+
       ylab("Frequency")+
-      ggtitle("Ten Most Frequent Words in Diario Advertisements")+
+      ggtitle("Ten Most Frequent Words in Diario Creatives")+
       labs(caption = "Source: El Diario Project")
 ```
 
@@ -368,7 +483,7 @@ diario_frequency_graph
 
 ```{r}
 # make word cloud based on word frequency information from "df_word_frequencies"
-wordcloud2(data = diario_frequency_table, minRotation = 0, maxRotation = 0, ellipticity = 0.2)
+wordcloud2(data = diario_frequency_table, minRotation = 0, maxRotation = 0, ellipticity = 0.6)
 ```
 
 # Bigrams
@@ -548,6 +663,7 @@ bigram_graph<-
       coord_flip()+
       xlab("")+
       ylab("Frequency")+
+      scale_y_continuous(breaks=c(0, 2, 4, 6, 8, 10))+
       ggtitle("Ten Most Frequent Co-Occuring Words in Diario Advertisements")+
       labs(caption = "Source: El Diario Project")
 ```

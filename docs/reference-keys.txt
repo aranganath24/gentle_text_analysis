@@ -13,6 +13,11 @@ set-working-directory
 reading-in-a-text-corpus
 creating-a-tidy-dataframe-from-a-text-corpus
 creating-a-word-frequency-table
+tokenize-diario_creatives_tidy
+extract-the-first-draft-of-a-word-frequency-table-based-from-the-tokenized-dataset
+cleaning-the-word-frequency-table
+removing-stopwords
+removing-numbers
 visualizing-word-frequency-data
 charting-word-frequencies
 extracting-dataframe-of-ten-most-frequent-words
