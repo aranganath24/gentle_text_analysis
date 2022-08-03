@@ -1,10 +1,10 @@
 # Install packages
 
 install.packages("tm")
-install.packages(tidyverse)
-install.packages(wordcloud2)
-install.packages(quanteda)
-install.packages(tidytext)
+install.packages("tidyverse")
+install.packages("wordcloud2")
+install.packages("quanteda")
+install.packages("tidytext")
 
 # Load libraries
 library(tm)

@@ -97,10 +97,10 @@ Note that the codeblocks in the tutorial usually have a comment, prefaced by a h
 Now, let's install the other packages we mentioned above, using the same ```install.packages()``` function: 
 
 ```{r, eval=F}
-install.packages(tidyverse)
-install.packages(wordcloud2)
-install.packages(quanteda)
-install.packages(tidytext)
+install.packages("tidyverse")
+install.packages("wordcloud2")
+install.packages("quanteda")
+install.packages("tidytext")
 ```
 
 All of the packages we need are now installed!
