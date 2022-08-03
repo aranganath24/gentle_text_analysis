@@ -129,12 +129,13 @@ library(tidytext)
 At this point, the packages are loaded and ready to go! One important thing to note regarding the installation and loading of packages is that we only have to install packages once; after a package is installed, there is no need to subsequently reinstall it. However, we must load the packages we need (using the ```library``` function) every time we open a new R session. In other words, if we were to close R Studio at this point and open it up later, we would **not** need to install these packages again, but **would** need to load the packages again.  
 
 
-```{r, echo=F}
+```{r, echo=F, warning=F, message=F}
 library(tm)
 library(tidyverse)
 library(wordcloud2)
 library(quanteda)
 library(tidytext)
+library(DT) 
 ```
 
 ## Set Working Directory 
@@ -202,7 +203,7 @@ Now, let's use this vector of file names to create a Corpus that contains the te
 
 ```{r, echo=-1}
 setwd("2019.11.14-ElDiarioCorpus/creatives")
-# Uses the "Corpus" function from the "tm" package to create a new text corpus based on the diario advertisement text files; this corpus is assigned to a new object named "diario_adverts_corpus"
+# Uses the "Corpus" function from the "tm" package to create a new text corpus based on the diario creatives text files; this corpus is assigned to a new object named "diario_adverts_corpus"
 diario_creatives_corpus<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
 ```
 
@@ -270,6 +271,7 @@ Below, we'll take ```diario_creatives_tidy```, and split the existing "text" col
 In the code below, we first take our existing ```diario_creatives_tidy``` data frame, and then use the ```unnest_tokens()``` function from the *tidytext* package to tokenize the information in the "text" column of ```diario_creatives_tidy``` by word, and return a new data frame where the textual unit of analysis is the word. Note that the ```unnest_tokens()``` function takes three arguments below. The first, ```input=text```, specifies the name of the column in ```diario_creatives_tidy``` that contains the text data we wish to tokenize; here, the name of this desired input column is "text". The second argument, ```token="words"```, specifies that we wish to tokenize the text data in the "text" column at the level of the individual word. Finally, the argument ```output=word``` specifies that the name of the column containing the word data in the new one-token-per-row dataset is to be "word." Finally, the new one-token-per-row dataset that results from the tokenization process is assigned to a new object named ```diario_word_tokenized```:
 
 ```{r, warning=F, message=F}
+# Tokenizes "diario_creatives_tidy" by word and assigns the resulting dataset to "diario_word_tokenized"
 diario_word_tokenized<-
   diario_creatives_tidy %>% # declares dataset with relevant text
     unnest_tokens(input=text, # specifies name of input column containing text data
@@ -624,7 +626,7 @@ diario_bigram_head<-head(diario_bigram, 25)
 Now, let's go ahead and view our bigram frequency table in the data viewer. 
 
 ```{r, eval=F}
-# prints "diario_bigram"
+# Views "diario_bigram"
 View(diario_bigram)
 ```
 
@@ -773,7 +775,7 @@ diario_bigram_frequency_final<-diario_bigram_filtered_unite %>%
 Finally, let's view ```diario_bigram_frequency_final``` in the data viewer:
 
 ```{r, eval=F}
-# Prints updated contents of "diario_bigram_filtered_unite"
+# Views diario_bigram_frequency_final in data viewer
 View(diario_bigram_frequency_final)
 ```
 
@@ -808,7 +810,7 @@ diario_bigram_top_ten<-diario_bigram_frequency_final %>%
 Let's view ```diario_bigram_top_ten``` in the data viewer:
 
 ```{r, eval=F}
-# Prints contents of "diario_bigram_top_ten"
+# Views "diario_bigram_top_ten" in data viewer
 View(diario_bigram_top_ten)
 ```
 
@@ -872,7 +874,7 @@ earth_keyword_context<-kwic(kwic_token, pattern="earth", window=3)
 Let's now take a look at ```earth_keyword_context``` within the data viewer:
 
 ```{r, eval=F}
-# Prints contents of "business_keyword_context"
+# Views "earth_keyword_context" in data viewer
 View(earth_keyword_context)
 ```
 

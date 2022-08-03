@@ -21,3 +21,10 @@ This workshop introduces participants to basic text analysis techniques with R, 
 
 The textual data for this workshop was collected from El Diario de la Gente, an independent Chicanx student newspaper published at University of Colorado Boulder, 1972-1983. Founded by then journalism major Juan Espinosa and UMAS, the newspaper covered a wide range of topics, including boycotts and protests, the tragic events surrounding Los Seis de Boulder, and the friction between the Chicanx student community and the CU Boulder administration. The activist newspaper also served as a creative platform for poetry, art, and literature of El Movimiento. The Colorado Historic Newspapers Collection completed digitization in 2019, complete with optical character recognition (OCR) of the text. That fall, a group of digital humanities graduate students created a plain-text corpus for computational analysis - we include parts of that dataset here, which still contains errors from that collection process (e.g., incorrect OCR, encoding errors) to serve as teaching and learning opportunities. The corpus is divided into articles, creatives, notices, and advertisements; see [Digital El Diario](https://digitaleldiario.com) for more details.
 
+# Data and Workshop Materials
+
+All of the data and underlying code for the workshop [can be accessed and downloaded at the GitHub repository](https://github.com/aranganath24/gentle_text_analysis) that underpins this site. If you would like to download the data to follow along in the workshop, but would prefer an alternative to GitHub, you can also download the data from this [Dropbox](https://www.dropbox.com/sh/wm6zjivcsen96fm/AAAlws0YlrQsPiSgmbRZJv-Xa?dl=0) folder. 
+
+
+
+
