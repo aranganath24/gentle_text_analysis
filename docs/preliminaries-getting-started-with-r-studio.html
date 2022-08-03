@@ -25,7 +25,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-08-02" />
+<meta name="date" content="2022-08-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -177,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.1" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#removing-stopwords"><i class="fa fa-check"></i><b>5.3.1</b> Removing stopwords</a></li>
 <li class="chapter" data-level="5.3.2" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#removing-numbers"><i class="fa fa-check"></i><b>5.3.2</b> Removing numbers</a></li>
 </ul></li>
+<li class="chapter" data-level="5.4" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#view-the-final-cleaned-frequency-table"><i class="fa fa-check"></i><b>5.4</b> View the final (cleaned) frequency table</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html"><i class="fa fa-check"></i><b>6</b> Visualizing word frequency data</a>
 <ul>
@@ -185,7 +186,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1.1" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#extracting-dataframe-of-ten-most-frequent-words"><i class="fa fa-check"></i><b>6.1.1</b> Extracting dataframe of ten most frequent words</a></li>
 <li class="chapter" data-level="6.1.2" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#using-ggplot2-to-make-chart-of-ten-most-frequent-words"><i class="fa fa-check"></i><b>6.1.2</b> Using ggplot2 to make chart of ten most frequent words</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#creating-a-word-cloud"><i class="fa fa-check"></i><b>6.2</b> Creating a word cloud</a></li>
+<li class="chapter" data-level="6.2" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html#creating-a-wordcloud"><i class="fa fa-check"></i><b>6.2</b> Creating a wordcloud</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="bigrams.html"><a href="bigrams.html"><i class="fa fa-check"></i><b>7</b> Bigrams</a>
 <ul>
@@ -247,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-r-studio-interface" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> The R Studio Interface</h2>
 <p>Now that we’ve installed and opened up R Studio, let’s familiarize ourselves with the R Studio interface. When we open up R Studio, we’ll see a window open that looks something like this:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
 <img src="pictures/rstudio_window_revised.png" alt="R Studio Interface Open on Desktop" width="100%" />
 <p class="caption">
 Figure 2.1: The R Studio Interface
@@ -304,7 +305,7 @@ Figure 2.1: The R Studio Interface
 <li>After you’ve run the code, watch the code execute in the console, and look for a message confirming that the package has been successfully installed.</li>
 </ul>
 <p>Below, we can see how that line of code should look in your script, and how to run it:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
 <img src="pictures/install_package.png" alt="Installing tm package in R Script" width="100%" />
 <p class="caption">
 Figure 2.2: Installing tm package in R Script
@@ -343,7 +344,7 @@ Figure 2.2: Installing tm package in R Script
 <li>In the dialog box that opens up, navigate to the directory that contains the ICPSR data, select it, and click “Open”. At this point, your working directory should be set!</li>
 </ul>
 <p>The graphic below demonstrates the process of setting one’s working directory through R Studio’s menus:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
 <img src="pictures/setting_wd_revised.png" alt="Setting Working Directory Via Menus" width="100%" />
 <p class="caption">
 Figure 2.3: Setting Working Directory Via Menus
