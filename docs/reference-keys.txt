@@ -2,7 +2,6 @@ fig:unnamed-chunk-1
 fig:unnamed-chunk-3
 fig:unnamed-chunk-8
 introduction
-data-and-workshop-materials
 preliminaries-getting-started-with-r-studio
 r-and-r-studio-installation
 windows-installation-instructions
