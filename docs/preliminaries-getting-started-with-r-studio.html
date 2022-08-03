@@ -190,8 +190,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="bigrams.html"><a href="bigrams.html"><i class="fa fa-check"></i><b>7</b> Bigrams</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="bigrams.html"><a href="bigrams.html#extracting-bigrams-from-a-text-corpus"><i class="fa fa-check"></i><b>7.1</b> Extracting bigrams from a text corpus</a></li>
-<li class="chapter" data-level="7.2" data-path="bigrams.html"><a href="bigrams.html#visualizing-bigrams"><i class="fa fa-check"></i><b>7.2</b> Visualizing bigrams</a></li>
+<li class="chapter" data-level="7.1" data-path="bigrams.html"><a href="bigrams.html#extracting-bigrams-from-a-text-corpus-and-creating-a-bigram-frequency-table"><i class="fa fa-check"></i><b>7.1</b> Extracting bigrams from a text corpus and creating a bigram frequency table</a></li>
+<li class="chapter" data-level="7.2" data-path="bigrams.html"><a href="bigrams.html#cleaning-a-bigram-frequency-table"><i class="fa fa-check"></i><b>7.2</b> Cleaning a bigram frequency table</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="bigrams.html"><a href="bigrams.html#removing-stopwords-from-bigrams"><i class="fa fa-check"></i><b>7.2.1</b> Removing stopwords from bigrams</a></li>
+<li class="chapter" data-level="7.2.2" data-path="bigrams.html"><a href="bigrams.html#removing-numbers-from-bigrams"><i class="fa fa-check"></i><b>7.2.2</b> Removing numbers from bigrams</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="bigrams.html"><a href="bigrams.html#reconstituting-the-bigram-frequency-table-after-cleaning"><i class="fa fa-check"></i><b>7.3</b> Reconstituting the bigram frequency table after cleaning</a></li>
+<li class="chapter" data-level="7.4" data-path="bigrams.html"><a href="bigrams.html#visualizing-bigrams"><i class="fa fa-check"></i><b>7.4</b> Visualizing bigrams</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="extracting-keywords-in-context.html"><a href="extracting-keywords-in-context.html"><i class="fa fa-check"></i><b>8</b> Extracting keywords in context</a></li>
 <li class="chapter" data-level="9" data-path="further-reading.html"><a href="further-reading.html"><i class="fa fa-check"></i><b>9</b> Further Reading</a></li>
@@ -248,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-r-studio-interface" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> The R Studio Interface</h2>
 <p>Now that we’ve installed and opened up R Studio, let’s familiarize ourselves with the R Studio interface. When we open up R Studio, we’ll see a window open that looks something like this:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-32"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
 <img src="pictures/rstudio_window_revised.png" alt="R Studio Interface Open on Desktop" width="100%" />
 <p class="caption">
 Figure 2.1: The R Studio Interface
@@ -305,7 +311,7 @@ Figure 2.1: The R Studio Interface
 <li>After you’ve run the code, watch the code execute in the console, and look for a message confirming that the package has been successfully installed.</li>
 </ul>
 <p>Below, we can see how that line of code should look in your script, and how to run it:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-34"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-3"></span>
 <img src="pictures/install_package.png" alt="Installing tm package in R Script" width="100%" />
 <p class="caption">
 Figure 2.2: Installing tm package in R Script
@@ -336,21 +342,21 @@ Figure 2.2: Installing tm package in R Script
 </div>
 <div id="set-working-directory" class="section level2" number="2.5">
 <h2><span class="header-section-number">2.5</span> Set Working Directory</h2>
-<p>Before we can bring our data into R Studio and begin the tutorial, we have to specify that data’s location on our computer. This step is known as setting one’s working directory. Before setting the working directory, make sure that you’ve downloaded the ICPSR dataset, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial.</p>
+<p>Before we can bring our data into R Studio and begin the tutorial, we have to specify that data’s location on our computer. This step is known as setting one’s working directory. Before setting the working directory, make sure that you’ve downloaded the Diario text data, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial.</p>
 <p>If you’re unfamiliar with the concept of file paths, the easiest way to set your working directory is through the R Studio menu. To do so, follow these steps:</p>
 <ul>
 <li>First, Click on the “Session” menu on the R Studio menu bar at the top of your screen, and then scroll down to the “Set Working Directory” button in the menu that opens up.</li>
 <li>When you hover over the “Set Working Directory” button, a subsidiary menu that contains a button that says “Choose Directory” will open; click this “Choose Directory” button.</li>
-<li>In the dialog box that opens up, navigate to the directory that contains the ICPSR data, select it, and click “Open”. At this point, your working directory should be set!</li>
+<li>In the dialog box that opens up, navigate to the directory that contains the Diario data, select it, and click “Open”. At this point, your working directory should be set!</li>
 </ul>
 <p>The graphic below demonstrates the process of setting one’s working directory through R Studio’s menus:</p>
-<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-39"></span>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
 <img src="pictures/setting_wd_revised.png" alt="Setting Working Directory Via Menus" width="100%" />
 <p class="caption">
 Figure 2.3: Setting Working Directory Via Menus
 </p>
 </div>
-<p><strong>Alternatively</strong>, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded ICPSR dataset, you can set the working directly using the <code>setwd()</code> function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the advertisements from the El Diario corpus:</p>
+<p><strong>Alternatively</strong>, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded Diario text files, you can set the working directly using the <code>setwd()</code> function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the advertisements from the El Diario corpus:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="preliminaries-getting-started-with-r-studio.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sets working directory </span></span>
 <span id="cb5-2"><a href="preliminaries-getting-started-with-r-studio.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;019.11.14-ElDiarioCorpus/creatives&quot;</span>)</span></code></pre></div>
 <p>Note that you won’t want to copy and paste the above codeblock, since your file path will be different; be sure to replace the file path above with your own.</p>

@@ -9,3 +9,15 @@ site: bookdown::bookdown_site
 
 # Introduction
 
+Introduction
+
+This workshop introduces participants to basic text analysis techniques with R, an open-source statistical software widely used in digital scholarship research and teaching. We will tour the interface and cover basic setup and installation, demonstrate how to process and prepare your data, and explore commonly used functions for text analysis, such as word clouds and frequency graphs. This workshop is for beginners to programming; working knowledge of text mining methods is helpful but not required.
+
+**Objectives:** 
+
+* Build familiarity with the R and RStudio interface
+* Practice typing R’s syntax
+* Explore basic text processing
+
+The textual data for this workshop was collected from El Diario de la Gente, an independent Chicanx student newspaper published at University of Colorado Boulder, 1972-1983. Founded by then journalism major Juan Espinosa and UMAS, the newspaper covered a wide range of topics, including boycotts and protests, the tragic events surrounding Los Seis de Boulder, and the friction between the Chicanx student community and the CU Boulder administration. The activist newspaper also served as a creative platform for poetry, art, and literature of El Movimiento. The Colorado Historic Newspapers Collection completed digitization in 2019, complete with optical character recognition (OCR) of the text. That fall, a group of digital humanities graduate students created a plain-text corpus for computational analysis - we include parts of that dataset here, which still contains errors from that collection process (e.g., incorrect OCR, encoding errors) to serve as teaching and learning opportunities. The corpus is divided into articles, creatives, notices, and advertisements; see [Digital El Diario](https://digitaleldiario.com) for more details.
+

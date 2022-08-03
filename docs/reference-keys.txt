@@ -1,6 +1,6 @@
-fig:unnamed-chunk-32
-fig:unnamed-chunk-34
-fig:unnamed-chunk-39
+fig:unnamed-chunk-1
+fig:unnamed-chunk-3
+fig:unnamed-chunk-8
 introduction
 preliminaries-getting-started-with-r-studio
 r-and-r-studio-installation
@@ -25,7 +25,11 @@ extracting-dataframe-of-ten-most-frequent-words
 using-ggplot2-to-make-chart-of-ten-most-frequent-words
 creating-a-wordcloud
 bigrams
-extracting-bigrams-from-a-text-corpus
+extracting-bigrams-from-a-text-corpus-and-creating-a-bigram-frequency-table
+cleaning-a-bigram-frequency-table
+removing-stopwords-from-bigrams
+removing-numbers-from-bigrams
+reconstituting-the-bigram-frequency-table-after-cleaning
 visualizing-bigrams
 extracting-keywords-in-context
 further-reading

@@ -139,13 +139,13 @@ library(tidytext)
 
 ## Set Working Directory 
 
-Before we can bring our data into R Studio and begin the tutorial, we have to specify that data's location on our computer. This step is known as setting one's working directory. Before setting the working directory, make sure that you've downloaded the ICPSR dataset, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial. 
+Before we can bring our data into R Studio and begin the tutorial, we have to specify that data's location on our computer. This step is known as setting one's working directory. Before setting the working directory, make sure that you've downloaded the Diario text data, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial. 
 
 If you're unfamiliar with the concept of file paths, the easiest way to set your working directory is through the R Studio menu. To do so, follow these steps: 
 
 + First, Click on the "Session" menu on the R Studio menu bar at the top of your screen, and then scroll down to the "Set Working Directory" button in the menu that opens up. 
 + When you hover over the "Set Working Directory" button, a subsidiary menu that contains a button that says "Choose Directory" will open; click this "Choose Directory" button. 
-+ In the dialog box that opens up, navigate to the directory that contains the ICPSR data, select it, and click "Open". At this point, your working directory should be set!
++ In the dialog box that opens up, navigate to the directory that contains the Diario data, select it, and click "Open". At this point, your working directory should be set!
 
 The graphic below demonstrates the process of setting one's working directory through R Studio's menus: 
 
@@ -153,7 +153,7 @@ The graphic below demonstrates the process of setting one's working directory th
 knitr::include_graphics('pictures/setting_wd_revised.png')
 ```
 
-**Alternatively**, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded ICPSR dataset, you can set the working directly using the ```setwd()``` function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the advertisements from the El Diario corpus: 
+**Alternatively**, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded Diario text files, you can set the working directly using the ```setwd()``` function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the advertisements from the El Diario corpus: 
 
 ```{r, eval=F}
 # Sets working directory 
@@ -269,7 +269,7 @@ Below, we'll take ```diario_creatives_tidy```, and split the existing "text" col
 
 In the code below, we first take our existing ```diario_creatives_tidy``` data frame, and then use the ```unnest_tokens()``` function from the *tidytext* package to tokenize the information in the "text" column of ```diario_creatives_tidy``` by word, and return a new data frame where the textual unit of analysis is the word. Note that the ```unnest_tokens()``` function takes three arguments below. The first, ```input=text```, specifies the name of the column in ```diario_creatives_tidy``` that contains the text data we wish to tokenize; here, the name of this desired input column is "text". The second argument, ```token="words"```, specifies that we wish to tokenize the text data in the "text" column at the level of the individual word. Finally, the argument ```output=word``` specifies that the name of the column containing the word data in the new one-token-per-row dataset is to be "word." Finally, the new one-token-per-row dataset that results from the tokenization process is assigned to a new object named ```diario_word_tokenized```:
 
-```{r}
+```{r, warning=F, message=F}
 diario_word_tokenized<-
   diario_creatives_tidy %>% # declares dataset with relevant text
     unnest_tokens(input=text, # specifies name of input column containing text data
@@ -324,7 +324,7 @@ View(diario_frequency_table)
 diario_frequency_table_head<-head(diario_frequency_table, 50)
 ```
 
-```{r}
+```{r, echo=F}
 diario_frequency_table_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
   deferRender = TRUE,
   scrollY = 350,
@@ -576,13 +576,17 @@ Take a look at the various arguments to ```wordcloud2()```, and experiment with 
 
 # Bigrams
 
-Sometimes, you will be more interested in tokenizing your text data using a different unit of analysis than the single word. 
+Sometimes, you will be more interested in tokenizing your text data using a different unit of analysis than the single word. There are any number of ways to tokenize a text data collection other than with a single word. A simple extension of tokenizing with a single word is tokenizing by two consecutive words (a unit of analysis known as a bigram).
 
-## Extracting bigrams from a text corpus
+In this section, we'll extend the material in previous sections of the workshop, and learn how to extract and clean bigrams (i.e. consecutive words) from a data collection, develop a simple bigram frequency table, and visualize bigrams using *ggplot2*. 
+
+## Extracting bigrams from a text corpus and creating a bigram frequency table
+
+In order to extract our bigrams, we'll return to the ```diario_creatives_tidy``` dataset we created above, in which each row is associated with a distinct text document from the collection, and the text data for each document is contained in a separate column. Let's remind ourselves of this dataset's structure, by bringing it up again in the R Studio data viewer:
 
 ```{r, eval=F}
-# Prints "diario_creatives_tidy"
-diario_creatives_tidy
+# Views "diario_creatives_tidy" in data viewer
+View(diario_creatives_tidy)
 ```
 
 ```{r, echo=F}
@@ -597,10 +601,19 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 ```
 \
 
-```{r}
+Now, let's extract the rough draft of a bigram frequency table using the same ```unnest_tokens()``` and ```count()``` functions that we used above to generate our single word frequency table. 
+
+In the code below, we first take ```diario_creatives_tidy```, and then use the ```unnest_tokens()``` function to tokenize the text data in the "text" column of ```diario_creatives_tidy``` as bigrams. Instead of setting the token equal to "words" (as above), we set ```token="ngrams"```, and ```n=2```, which, taken together, effectively tokenize the data by consecutive words (i.e. as bigrams). The name of the column containing the bigrams in the tokenized dataset is set to "bigram" (i.e. ```output=bigram```). 
+
+We then take this tokenized dataset, and, using the ```%>%``` operator, feed this tokenized dataset into the ```count()``` function to generate a bigram frequency table. We'll assign this bigram frequency table to a new object named ```diario_bigram```:
+
+```{r, message=F, warning=F}
 # Extracts table of bigram frequencies
 diario_bigram<-diario_creatives_tidy %>% 
-                  unnest_tokens(bigram, text, token="ngrams", n=2) %>% 
+                  unnest_tokens(input=text,
+                                token="ngrams",
+                                n=2,
+                                output=bigram) %>% 
                   count(bigram, sort=TRUE)
 ```
 
@@ -608,9 +621,11 @@ diario_bigram<-diario_creatives_tidy %>%
 diario_bigram_head<-head(diario_bigram, 25)
 ```
 
+Now, let's go ahead and view our bigram frequency table in the data viewer. 
+
 ```{r, eval=F}
 # prints "diario_bigram"
-diario_bigram
+View(diario_bigram)
 ```
 
 ```{r, echo=F}
@@ -625,39 +640,85 @@ diario_bigram_head %>% datatable(extensions=c("Scroller", "FixedColumns"), optio
 ```
 \
 
+## Cleaning a bigram frequency table
+
+Let's now clean our bigram frequency table in the same way that we did above for the word frequency table: by removing any bigrams that include a stopword or a number. In broad strokes, the process of cleaning a bigram frequency table is very similar to cleaning a word frequency table. 
+
+One difference, at the outset, however, is that because a bigram consists of two words, we will temporarily separate out our bigrams into two columns, and clean these columns individually before merging our bigrams back together. 
+
+In the code below, we use the ```separate()``` function to separate out the words in the "bigram" column of ```diario_bigram``` into two columns, named "word1" and "word2", where the separator is a blank space in between words (```sep=" "```). We'll assign this new dataset, with the bigrams separated, to a new object named ```diario_bigram_separated```:
+
 ```{r, warning=F, message=F}
 # Separates bigrams in the "bigram" column of "diario_bigram" into two separate columns, named "word1" and "word2"
 diario_bigram_separated<-diario_bigram %>% 
-                          separate(bigram, c("word1", "word2", sep=" "))
+                          separate(bigram, c("word1", "word2"), sep=" ")
 ```
 
+Now, let's take a look at ```diario_bigram_separated``` within the R Studio data viewer:
+
+```{r}
+View(diario_bigram_separated)
+```
+
+```{r, echo=F}
+diario_bigram_separated_head<-head(diario_bigram_separated, 50)
+```
+
+```{r, echo=F}
+diario_bigram_separated_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+  deferRender = TRUE,
+  scrollY = 350,
+  scrollX = 350,
+  dom = "t",
+  scroller = TRUE,
+  fixedColumns = list(leftColumns = 1)
+))
+```
+
+With this preliminary step out of the way, we'll now remove our stopwords. 
+
+### Removing stopwords from bigrams
+
+In the code below, we take ```diario_bigram_separated```, and then sequentially remove English stopwords from the "word1" and "word2" columns, and Spanish stopwords from the "word1" and "word2" columns. The technique we use to remove these words, using the ```filter()``` function to subset rows within ```diario_bigram_separated``` which do NOT contain any of the specified stopwords, is exactly the same as what we used above to remove stopwords from our word frequency table. The data frame that results from removing the stopwords from ```diario_bigram_separated``` is assigned to a new object named ```diario_bigram_filtered```:
 
 ```{r}
 # Removes English stopwords from the "word1" and "word2" columns
-diario_bigram_filtered<-diario_bigram_separated %>% 
-                            filter(!word1 %in% stop_words$word) %>%
-                            filter(!word2 %in% stop_words$word) %>% 
-                            filter(!word1 %in% spanish_stopwords$`stopwords("spanish")`) %>% 
-                            filter(!word2 %in% spanish_stopwords$`stopwords("spanish")`)
+diario_bigram_filtered<-
+  diario_bigram_separated %>% 
+    filter(!word1 %in% stop_words$word) %>% # removes English stopwords from "word1" column
+    filter(!word2 %in% stop_words$word) %>% # removes English stopwords from "word2" column
+    filter(!word1 %in% spanish_stopwords$`stopwords("spanish")`) %>%  # Removes Spanish stopwords from "word1" column
+    filter(!word2 %in% spanish_stopwords$`stopwords("spanish")`) # Removes spanish stopwords from "word2" column
 ```
 
-remove numbers
+### Removing numbers from bigrams
+
+Now, let's remove numbers from the "word1" and "word2" columns in ```diario_bigram_filtered```. 
+
+First, we'll parse the "word1" column from ```diario_bigram_filtered``` for numbers, and assign the output vector to a new object named ```diario_bigram_word1numbers```:
 
 ```{r, message=F, warning=F}
 # Extracts a vector of numbers contained in "word1" of "diario_bigram_filtered" and assigns it to a new object named "diario_bigram_word1numbers"
 diario_bigram_word1numbers<-parse_number(diario_bigram_filtered$word1)
 ```
 
+Then, we'll parse the "word2" column from ```diario_bigram_filtered``` for numbers, and assign the output vector to a new object named ```diario_bigram_word2numbers```: 
+
 ```{r, message=F, warning=F}
 # Extracts a vector of numbers contained in "word2" of "diario_bigram_filtered", and assigns it to a new object named "diario_bigram_word2numbers"
 diario_bigram_word2numbers<-parse_number(diario_bigram_filtered$word2)
 ```
+
+We'll now add the ```diario_bigram_word1numbers``` and ```diario_bigram_word2numbers``` vectors to the ```diario_bigram_filtered``` dataset as columns:
 
 ```{r}
 # Adds the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" vectors as columns in "diario_bigram_filtered"
 diario_bigram_filtered<-cbind(diario_bigram_filtered, diario_bigram_word1numbers, diario_bigram_word2numbers)
 ```
 
+This yields an updated version of ```diario_bigram_filtered```, which contains information on whether the the text in the columns "word1" and "word2" have numbers. More specifically, the column "diario_bigram_word1numbers" has the value of NA for any word in "word1" that does not contain numbers, and the column "diario_bigram_word2numbers" similarly takes on NA values for any word in "word2" that does not contain numbers. To confirm this, please view ```diario_bigram_filtered``` in the R Studio data viewer (```View(diario_bigram_filtered)```). 
+
+We'll leverage this information to delete all rows in ```diario_bigram_filtered``` for which "word1" or "word2" contains a number. In particular, we'll do this by taking ```diario_bigram_filtered```, and subsetting all rows in which the "diario_bigram_word1numbers" has an NA value (which excises rows in which "word1" contains a number) using the ``filter()``` function, and then subsequently using the same procedure to subset all rows in which "diario_bigram_word2numbers" has an NA value (which excises rows in which "word2" contains a number). We'll assign back these changes to the same ```diario_bigram_filtered``` object, and thereby update the previous contents of the object with these changes. 
 
 ```{r}
 # Extracts rows in "diario_bigram_filtered" where the "diario_bigram_word1numbers" or "diario_bigram_word2numbers" columns contain an NA value; this effectively deletes rows where the bigram contains a number
@@ -666,19 +727,27 @@ diario_bigram_filtered<-diario_bigram_filtered %>%
                           filter(is.na(diario_bigram_word2numbers))
 ```
 
+## Reconstituting the bigram frequency table after cleaning
+
+Now that we've removed stopword and numbers from the "word1" and "word2" columns, let's put our bigram dataset back together into its original form, with one column (named "bigrams") containing the various bigrams in the text collection, and the other column (named "n") containing information on the frequency with which the bigrams appear. 
+
+First, we'll use the ```unite()``` function to paste the separate words in "word1" and "word2" back into one column as bigrams. The code below takes ```diario_bigram_filtered```, and then calls the ```unite()``` function. The first argument, ```bigram```, is the desired name of the new column that results from pasting the columns together. The second and third arguments, ```word1``` and ```word2``` are the columns that we'd like to unite within the new "bigram" column, and the final argument regarding the desired separator (```sep=" "```) indicates that the words in the "word1" and "word2" columns are to be pasted into the "bigram" column with a space in between them. We'll assign this dataset with the restored bigram to a new object named ```diario_bigram_filtered_unite```:
+
 ```{r}
 # Takes separate words, in the "word1" and "word2" columns of "diario_bigram_filtered", and unites them back into one column, named "bigram"; this updated data frame is assigned to a new object named "diario_bigram_filtered_unite"
 diario_bigram_filtered_unite<-diario_bigram_filtered %>% 
                                 unite(bigram, word1, word2, sep=" ")
 ```
 
+Let's now take a look at ```diario_bigram_filtered_unite``` within the R Studio data viewer: 
+
 ```{r, echo=F}
 diario_bigram_filtered_unite_head<-head(diario_bigram_filtered_unite, 50)
 ```
 
 ```{r, eval=F}
-# prints contents of "diario_bigram_filtered_unite"
-diario_bigram_filtered_unite
+# Views "diario_bigram_filtered_unite" in data viewer
+View(diario_bigram_filtered_unite)
 ```
 
 ```{r, echo=F}
@@ -693,23 +762,27 @@ diario_bigram_filtered_unite_head %>% datatable(extensions=c("Scroller", "FixedC
 ```
 \
 
+You'll see that the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" columns, which were created as part of our strategy to remove numbers from the frequency table, are still present in ```diario_bigram_filtered_unite```. Let's remove these columns, which are no longer useful, from the frequency table, by calling the ```select()``` function, and pass a vector of these column names with a minus sign in front. We'll assign the resulting dataset to a new object named ```diario_bigram_frequency_final```:
+
 ```{r}
 # removes the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" columns from "diario_bigram_filtered_unite"
-diario_bigram_filtered_unite<-diario_bigram_filtered_unite %>% 
+diario_bigram_frequency_final<-diario_bigram_filtered_unite %>% 
                               select(-c(diario_bigram_word1numbers, diario_bigram_word2numbers))
 ```
 
+Finally, let's view ```diario_bigram_frequency_final``` in the data viewer:
+
 ```{r, eval=F}
 # Prints updated contents of "diario_bigram_filtered_unite"
-diario_bigram_filtered_unite
+View(diario_bigram_frequency_final)
 ```
 
 ```{r, echo=F}
-diario_bigram_filtered_unite_head2<-head(diario_bigram_filtered_unite, 50)
+diario_bigram_frequency_final_head<-head(diario_bigram_frequency_final, 50)
 ```
 
 ```{r, echo=F}
-diario_bigram_filtered_unite_head2 %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+diario_bigram_frequency_final_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
   deferRender = TRUE,
   scrollY = 350,
   scrollX = 350,
@@ -722,15 +795,21 @@ diario_bigram_filtered_unite_head2 %>% datatable(extensions=c("Scroller", "Fixed
 
 ## Visualizing bigrams
 
+Now that we have the cleaned version of our bigram frequency table (```diario_bigram_frequency_final_head```), let's use it to develop a visualization of the ten most frequently occurring bigrams in the text collection. At this point, the steps involved in creating such a chart are essentially identical to the workflow/code described in Section 6.1 on charting word frequencies. 
+
+First, we'll take ```diario_bigram_frequency_final``` and use the ```slice_max()``` function to extract the bigrams with the ten highest frequencies (i.e. the ten highest values of "n"). We'll assign this subsetted dataset to a new object named  ```diario_bigram_top_ten```:
+
 ```{r}
 # Extracts a data frame of the ten most frequently occurring bigrams in "diario_bigram_filtered_unite" and assigns this data frame to a new object named "diario_bigram_top_ten"
-diario_bigram_top_ten<-diario_bigram_filtered_unite %>% 
+diario_bigram_top_ten<-diario_bigram_frequency_final %>% 
                         slice_max(n, n=10)
 ```
 
+Let's view ```diario_bigram_top_ten``` in the data viewer:
+
 ```{r, eval=F}
 # Prints contents of "diario_bigram_top_ten"
-diario_bigram_top_ten
+View(diario_bigram_top_ten)
 ```
 
 ```{r, echo=F}
@@ -745,19 +824,24 @@ diario_bigram_top_ten %>% datatable(extensions=c("Scroller", "FixedColumns"), op
 ```
 \
 
+Now, let's use ```diario_bigram_top_ten``` to create a horizontal bar chart of the most frequently ocurring bigrams, and assign it to a new object named ```bigram_graph```:
+
 ```{r}
-# Creates horizontal bar graph of ten most frequently appearing bigrams in the corpus, arrayed in descending order; the bar graph is assigned to a new object named "bigram_graph"
+# Creates sideways bar chart of 10 most frequently ocurring bigrams
 bigram_graph<-
-  ggplot(diario_bigram_top_ten, aes(x=reorder(bigram, n), y=n))+
-    geom_col()+
+  ggplot(diario_bigram_top_ten)+
+    geom_col(aes(x=reorder(bigram, n), y=n))+
       coord_flip()+
-      xlab("")+
-      ylab("Frequency")+
-      scale_y_continuous(breaks=c(0, 2, 4, 6, 8, 10))+
-      ggtitle("Ten Most Frequent Co-Occuring Words in Diario Advertisements")+
-      labs(caption = "Source: El Diario Project")
+   labs(title="Ten Most Frequent Bigrams in Diario Creatives",
+         caption = "Source: El Diario Project", 
+         x="", 
+         y="Frequency")+
+    scale_y_continuous(breaks=c(0, 2, 4, 6, 8, 10))
 ```
 
+The code used to generate ```bigram_graph``` above is almost identical to the code used to generate the sideways bar chart in Section 6.1. The only difference is the final line of code, which uses the ```scale_y_continuous()``` function to set custom tick marks for the axis on which frequencies are displayed. 
+
+Let's take a look at our bigram graph, ```bigram_graph```:
 
 ```{r}
 # prints "bigram_graph"
@@ -766,19 +850,30 @@ bigram_graph
 
 # Extracting keywords in context
 
+The idea behind "keywords in context" is that it is often useful to extract a word of interest (i.e. a "keyword") from a text collection along with surrounding words, as as to develop a sense of the context in which that keyword tends to be used. 
+
+In this final section, we'll briefly learn how to use functions from the text mining and analysis package *quanteda* to extract a table which provides contextual information about a given keyword. 
+
+In order to extract a keyword in context using *quanteda*, we first have to create a *quanteda* tokens object. We can do so by passing the column in ```diario_creatives_tidy``` that contains our text data (named "text") to the ```tokens()``` function. We'll also set ```remove_punct=TRUE``` to remove the text's punctuation from our tokens object (since punctuation can interfere with the extraction of the words surrounding a given keyword). We'll assign the resulting token to a new object named ```kwic_token```:
+
+
 ```{r}
 # creates a tokens object based on the "text" column of the "tidy_diario" data frame and assigns it to "kwic_token"
 kwic_token<-tokens(diario_creatives_tidy$text, remove_punct = TRUE)
 ```
 
+Now, we'll use the ```kwic()``` function to extract contextual information about a given keyword. Below, the first argument to ```kwic()``` is our token defined above (```kwic_token```), which contains our text data tokenized by word. The second argument, ```pattern="earth"``` specifies that our keyword of interest is "earth". Finally, the ```window``` argument specifies the number of context words we'd like to extract on either side of the keyword. By setting ```window=3```, the ```kwic()``` function will identify every instance of the word "earth" in the text collection, and return the three words before and the three words after each instance of our keyword, "earth". It will then return a data frame that organizes this contextual information; we'll assign this data frame to a new object named ```earth_keyword_context```:
+
 ```{r}
 # Extracts contextual text data for the keyword "business", based on a window of 3 words; the resulting data frame containing the contextual information associated with each appearance of the keyword is assigned to a new object named "business_keyword_context"
-earth_keyword_context<-kwic(kwic_token, pattern="earth", valuetype="fixed", window=3)
+earth_keyword_context<-kwic(kwic_token, pattern="earth", window=3)
 ```
+
+Let's now take a look at ```earth_keyword_context``` within the data viewer:
 
 ```{r, eval=F}
 # Prints contents of "business_keyword_context"
-earth_keyword_context
+View(earth_keyword_context)
 ```
 
 ```{r, echo=F}
@@ -791,11 +886,13 @@ earth_keyword_context %>% datatable(extensions=c("Scroller", "FixedColumns"), op
   fixedColumns = list(leftColumns = 1)
 ))
 ```
+\
+
+As you can see, the "docname" column contains information about the specific text file in which the "earth" keyword ocurred, and the "pre" and "post" columns provide (respectively) information on the three words before and after each instance of the keyword. 
 
 # Further Reading
 
+There are a variety of useful online resources on text mining and analysis in R that you may wish to look into, if this is a skillset you'd like to develop further. The best place to start is probably the book (available for free online) [Text Mining with R](https://www.tidytextmining.com/index.html), by Julia Silgre and David Robinson. Some of the code in this workshop was adapted from that book, and its various case studies provide an engaging way to learn.
 
-
-https://search.r-project.org/CRAN/refmans/quanteda/html/kwic.html
-
+If you would like to learn more about text mining in R, but feel like it would be beneficial to first get better acquainted with R more generally, the best place to start for applied social scientists and digital humanists is the book [R for Data Science](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund.
 
