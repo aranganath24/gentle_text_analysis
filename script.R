@@ -182,6 +182,7 @@ diario_frequency_graph_inverted<-ggplot(data=diario_top_ten)+
                                         caption = "Source: El Diario Project", 
                                          x="", 
                                          y="Frequency")
+
 # Prints diario_frequency_graph_inverted
 diario_frequency_graph_inverted
 

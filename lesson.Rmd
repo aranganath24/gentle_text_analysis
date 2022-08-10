@@ -175,7 +175,8 @@ The code below first reads in the file names from the "creatives" directory, usi
 
 ```{r, echo=-1}
 setwd("2019.11.14-ElDiarioCorpus/creatives")
-# reads in the filenames for diario advertisements as a character vector, and assigns it to an object named "diario_files"
+# reads in the filenames for diario advertisements as a character vector, and 
+# assigns it to an object named "diario_files"
 diario_files<-list.files(pattern=".txt")
 ```
 
@@ -203,7 +204,9 @@ Now, let's use this vector of file names to create a Corpus that contains the te
 
 ```{r, echo=-1}
 setwd("2019.11.14-ElDiarioCorpus/creatives")
-# Uses the "Corpus" function from the "tm" package to create a new text corpus based on the diario creatives text files; this corpus is assigned to a new object named "diario_adverts_corpus"
+# Uses the "Corpus" function from the "tm" package to create a new text corpus 
+# based on the diario creatives text files; this corpus is assigned to a new 
+# object named "diario_creatives_corpus"
 diario_creatives_corpus<-Corpus(URISource(diario_files), readerControl = list(reader=readPlain))
 ```
 
@@ -219,7 +222,10 @@ diario_creatives_corpus
 Once we we have created a text corpus out of the relevant collection of text documents in our directory, we can work directly with this corpus to extract information about our text collection. However, *tm* package corpus objects can sometimes be a bit unwieldy and non-intuitive to work with. Luckily, the *tidytext* package's ```tidy()``` function can quickly transform a *tm* corpus object into a more tractable data frame (i.e. a tabular dataset), in which each text document is assigned its own row, and the entirety of the text associated with each document is stored in a column. Below, we pass our corpus object, ```diario_creatives_corpus```, and pass it as an argument to the ```tidy()``` function; then, we assign the resulting data frame of textual information to a new object named ```diario_creatives_tidy```:
 
 ```{r}
-# Uses the "tidy" function from the "tidytext" package to transform the "diario_adverts_corpus" corpus into a tidy data frame, where each file's textual information is stored as a row in the data frame; this data frame is assigned to a new object named "diario_adverts_tidy"
+# Uses the "tidy" function from the "tidytext" package to transform the 
+# "diario_adverts_corpus" corpus into a tidy data frame, where each file's 
+# textual information is stored as a row in the data frame; this data frame is 
+# assigned to a new object named "diario_adverts_tidy"
 diario_creatives_tidy<-tidy(diario_creatives_corpus)
 ```
 
@@ -271,7 +277,8 @@ Below, we'll take ```diario_creatives_tidy```, and split the existing "text" col
 In the code below, we first take our existing ```diario_creatives_tidy``` data frame, and then use the ```unnest_tokens()``` function from the *tidytext* package to tokenize the information in the "text" column of ```diario_creatives_tidy``` by word, and return a new data frame where the textual unit of analysis is the word. Note that the ```unnest_tokens()``` function takes three arguments below. The first, ```input=text```, specifies the name of the column in ```diario_creatives_tidy``` that contains the text data we wish to tokenize; here, the name of this desired input column is "text". The second argument, ```token="words"```, specifies that we wish to tokenize the text data in the "text" column at the level of the individual word. Finally, the argument ```output=word``` specifies that the name of the column containing the word data in the new one-token-per-row dataset is to be "word." Finally, the new one-token-per-row dataset that results from the tokenization process is assigned to a new object named ```diario_word_tokenized```:
 
 ```{r, warning=F, message=F}
-# Tokenizes "diario_creatives_tidy" by word and assigns the resulting dataset to "diario_word_tokenized"
+# Tokenizes "diario_creatives_tidy" by word and assigns the resulting dataset to 
+# "diario_word_tokenized"
 diario_word_tokenized<-
   diario_creatives_tidy %>% # declares dataset with relevant text
     unnest_tokens(input=text, # specifies name of input column containing text data
@@ -291,7 +298,7 @@ diario_word_tokenized_head<-head(diario_word_tokenized, 50)
 ```
 
 ```{r, echo=F}
-diario_word_tokenized %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
+diario_word_tokenized_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options = list(
   deferRender = TRUE,
   scrollY = 350,
   scrollX = 350,
@@ -311,7 +318,9 @@ Now that we have a tokenized dataset of our text collection, ```diario_word_toke
 In the code below, we take our tokenized dataset, ```diario_word_tokenized```, and then call the ```count()``` function; the first argument to ```count()```, which is ```word```, specifies the name of the column which contains the values (i.e. words) we'd like to count up (here, the name of that column is "word"). The second argument, ```sort=TRUE```, specifies that the frequency table generated by the ```count()``` function should array the words in descending order of frequency. 
 
 ```{r}
-# Uses "count" function to generate a dataset that contains information on the frequency of each word in "diario_word_tokenized"; assigns this newly created dataset (organized in descending order) 
+# Uses "count" function to generate a dataset that contains information on the 
+# frequency of each word in "diario_word_tokenized"; assigns this newly created 
+# dataset (organized in descending order) 
 diario_frequency_table<-diario_word_tokenized %>% 
                           count(word, sort=TRUE)
 ```
@@ -361,7 +370,8 @@ Alternatively, if you want to see all of the stop words within ```stop_words```,
 Because our text documents also contain a meaningful amount of Spanish, it makes sense to also remove Spanish language stop words. The ```stop_words``` data frame from the *tidytext* package only contains English stopwords, but the *tm* package allows users to extract Spanish stopwords by passing the string ```"spanish"``` to its ```stopwords()``` function. Below, we extract Spanish stopwords from the *tm* package's ```stopwords()``` function as a data frame (by passing ```stopwords("spanish")``` as an argument to the ```as.data.frame()``` function), and assign it to a new object named ```spanish_stopwords```:
 
 ```{r}
-# extract Spanish stopwords as a data frame, and assign it to an object named "spanish_stopwords"
+# extract Spanish stopwords as a data frame, and assign it to an object named 
+# "spanish_stopwords"
 spanish_stopwords<-as.data.frame(stopwords("spanish"))
 ```
 
@@ -378,7 +388,8 @@ After excising all of the English stopwords from ```diario_frequency_table```, w
 Finally, we assign the changes we made to ```diario_frequency_table``` (i.e. removing stopwords) back to the existing ```diario_frequency_table``` object with the assignment operator (```<-```) instead of creating a new object; this effectively updates the contents of ```diario_frequency_table```. Before, this data object included the stopwords in ```stop_words``` and ```spanish_stopwords```; now, after assigning the changes back to the existing object, ```diario_frequency_table``` no longer contains these stopwords. 
 
 ```{r}
-# Takes the existing "diario_frequency_table" dataset, and removes English and Spanish stopwords from it
+# Takes the existing "diario_frequency_table" dataset, and removes English 
+# and Spanish stopwords from it
 diario_frequency_table<-
   diario_frequency_table %>% 
     filter(!word %in% stop_words$word) %>% # removes English stop words
@@ -394,14 +405,17 @@ You may have noticed that some of the "words" in ```diario_frequency_table``` ar
 The first step is to parse each row in the "word" column of ```diario_frequency_table```, and extract the content in the "word" column if it is a number, and return an "NA" value if there are no numbers in the text; this information can be stored as a vector. The code below uses the ```parse_number()``` function to generate such a vector, and assigns this vector to a new object named ```diario_frequency_table_numbers```:
 
 ```{r, message=F, warning=F}
-# defines a vector that extracts numbers from the "word" column in "diario_frequency_table" and assigns it to a new object named "diario_frequency_table_numbers"
+# defines a vector that extracts numbers from the "word" column in 
+# "diario_frequency_table" and assigns it to a new object named 
+# "diario_frequency_table_numbers"
 diario_frequency_table_numbers<-parse_number(diario_frequency_table$word)
 ```
 
 Next, we'll add this vector as a column in the ```diario_frequency_table``` by using the ```cbind()``` function, which is used to bind a vector to a dataset as a column. Below, the first argument to ```cbind()``` is the name of the dataset to which we want to bind the vector, and the second argument is the name of the vector (```diario_frequency_table_numbers```): 
 
 ```{r}
-# updates the existing "diario_frequency_table" data frame by binding "diario_frequency_table_numbers" vector to it
+# updates the existing "diario_frequency_table" data frame by binding 
+# "diario_frequency_table_numbers" vector to it
 diario_frequency_table<-cbind(diario_frequency_table, diario_frequency_table_numbers)
 ```
 
@@ -410,7 +424,9 @@ In the updated ```diario_frequency_table```, we now have a new column (```diario
 Now that we have a column where "NA" values are associated with word in the "word" column that do NOT include numbers, we can use the ```filter()``` function to create a subset of the existing ```diario_frequency_table``` for which the value of the "diario_frequency_table_numbers" column is "NA"; this effectively excises all rows where the value for the "word" column includes a number:
 
 ```{r}
-# extracts all rows in which the "diario_frequency_table_numbers" column of the "diario_frequency_table" data frame is an NA value; this effectively removes all rows in "diario_frequency_table" in which the "word" column has a number
+# extracts all rows in which the "diario_frequency_table_numbers" column of the 
+# "diario_frequency_table" data frame is an NA value; this effectively removes 
+# all rows in "diario_frequency_table" in which the "word" column has a number
 diario_frequency_table<-diario_frequency_table %>% 
                         filter(is.na(diario_frequency_table_numbers))
 ```
@@ -460,7 +476,9 @@ In this subsection, we'll learn how to use *ggplot2*, a data visualization packa
 The first step in creating a chart of the ten most frequently occurring words in the text collection is to take ```diario_frequency_table``` (our word frequency table), and make a new dataset by extracting the ten most frequently ocurring words. Below, we use the ```slice_max``` function from *dplyr* to extract the rows with the ten highest values in the "n" column of ```diario_frequency_table```. The first argument to ```slice_max``` is the name of the column we would like to parse for values, and ```n=10``` specifies that we would like to extract the rows with the ten highest values for the "n" column that contains our word frequencies. Finally, we assign this selection of the rows, which contain the ten most frequently occurring words in ```diario_frequency_table```, to a new object named ```diario_top_ten```:
 
 ```{r}
-# extracts ten most frequently appearing words from "diario_frequency_table" from "diario_frequency_table" and assigns this data frame to a new object named "diario_top_ten"
+# extracts ten most frequently appearing words from "diario_frequency_table" from 
+# "diario_frequency_table" and assigns this data frame to a new object named 
+# "diario_top_ten"
 diario_top_ten<-diario_frequency_table %>% 
                 slice_max(n, n=10)
 ```
@@ -516,7 +534,8 @@ diario_frequency_graph
 This graph is a nice foundation, and *ggplot2* offers extensive customization options. For example, let's say we want to order our words (on the x-axis) in ascending order with respect to their frequency. We can do so by slightly modifying the aesthetic mapping, with the expression ```aes(x=reorder(word, n), y=n)```; by using the ```reorder``` function, we are able to specify that we want the information from the "word" column to be represented on the x-axis (as above), but that we want the words to be ordered with respect to their frequencies (contained in the "n" column); the expression ```y=n``` within ```aes()``` is the same as above. We'll assign this slightly modified plot back to the ```diario_frequency_graph``` object, which effectively updates the previous object with this modification in the order of words along the x-axis: 
 
 ```{r}
-# Creates a bar chart of information in diario_top_ten with "word" on x-axis and ordered with respect to their frequency ("n")
+# Creates a bar chart of information in diario_top_ten with "word" on x-axis 
+# and ordered with respect to their frequency ("n")
 diario_frequency_graph<-
   ggplot(data=diario_top_ten)+
     geom_col(aes(x=reorder(word, n), y=n))+
@@ -536,7 +555,9 @@ diario_frequency_graph
 Sometimes, it may be preferable to invert the x and y cordinates of a bar graph, which creates a "sideways" bar chart with horizontal bars (instead of vertical ones). Because this is a common operation, *ggplot2* provides a ready-made function that allows us to invert coordinates, called ```coord_flip()```. All we have to do to flip our coordinates and create a horizontal/sideways bar chart is to add this function to the code that we wrote above. We'll assign this modified code to a new object named ```diario_frequency_graph_inverted```:
 
 ```{r}
-# Uses "diario_top_ten" data frame to make horizontal bar chart of ten most frequently used words in corpus, in ascending order; the chart is assigned to a new object named "diario_frequency_graph_inverted"
+# Uses "diario_top_ten" data frame to make horizontal bar chart of ten most 
+# frequently used words in corpus, in ascending order; the chart is assigned 
+# to a new object named "diario_frequency_graph_inverted"
 diario_frequency_graph_inverted<-
   ggplot(data=diario_top_ten)+
     geom_col(aes(x=reorder(word, n), y=n))+
@@ -651,7 +672,8 @@ One difference, at the outset, however, is that because a bigram consists of two
 In the code below, we use the ```separate()``` function to separate out the words in the "bigram" column of ```diario_bigram``` into two columns, named "word1" and "word2", where the separator is a blank space in between words (```sep=" "```). We'll assign this new dataset, with the bigrams separated, to a new object named ```diario_bigram_separated```:
 
 ```{r, warning=F, message=F}
-# Separates bigrams in the "bigram" column of "diario_bigram" into two separate columns, named "word1" and "word2"
+# Separates bigrams in the "bigram" column of "diario_bigram" into two separate 
+# columns, named "word1" and "word2"
 diario_bigram_separated<-diario_bigram %>% 
                           separate(bigram, c("word1", "word2"), sep=" ")
 ```
@@ -700,21 +722,24 @@ Now, let's remove numbers from the "word1" and "word2" columns in ```diario_bigr
 First, we'll parse the "word1" column from ```diario_bigram_filtered``` for numbers, and assign the output vector to a new object named ```diario_bigram_word1numbers```:
 
 ```{r, message=F, warning=F}
-# Extracts a vector of numbers contained in "word1" of "diario_bigram_filtered" and assigns it to a new object named "diario_bigram_word1numbers"
+# Extracts a vector of numbers contained in "word1" of "diario_bigram_filtered" 
+# and assigns it to a new object named "diario_bigram_word1numbers"
 diario_bigram_word1numbers<-parse_number(diario_bigram_filtered$word1)
 ```
 
 Then, we'll parse the "word2" column from ```diario_bigram_filtered``` for numbers, and assign the output vector to a new object named ```diario_bigram_word2numbers```: 
 
 ```{r, message=F, warning=F}
-# Extracts a vector of numbers contained in "word2" of "diario_bigram_filtered", and assigns it to a new object named "diario_bigram_word2numbers"
+# Extracts a vector of numbers contained in "word2" of "diario_bigram_filtered", 
+# and assigns it to a new object named "diario_bigram_word2numbers"
 diario_bigram_word2numbers<-parse_number(diario_bigram_filtered$word2)
 ```
 
 We'll now add the ```diario_bigram_word1numbers``` and ```diario_bigram_word2numbers``` vectors to the ```diario_bigram_filtered``` dataset as columns:
 
 ```{r}
-# Adds the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" vectors as columns in "diario_bigram_filtered"
+# Adds the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" vectors 
+# as columns in "diario_bigram_filtered"
 diario_bigram_filtered<-cbind(diario_bigram_filtered, diario_bigram_word1numbers, diario_bigram_word2numbers)
 ```
 
@@ -723,7 +748,10 @@ This yields an updated version of ```diario_bigram_filtered```, which contains i
 We'll leverage this information to delete all rows in ```diario_bigram_filtered``` for which "word1" or "word2" contains a number. In particular, we'll do this by taking ```diario_bigram_filtered```, and subsetting all rows in which the "diario_bigram_word1numbers" has an NA value (which excises rows in which "word1" contains a number) using the ``filter()``` function, and then subsequently using the same procedure to subset all rows in which "diario_bigram_word2numbers" has an NA value (which excises rows in which "word2" contains a number). We'll assign back these changes to the same ```diario_bigram_filtered``` object, and thereby update the previous contents of the object with these changes. 
 
 ```{r}
-# Extracts rows in "diario_bigram_filtered" where the "diario_bigram_word1numbers" or "diario_bigram_word2numbers" columns contain an NA value; this effectively deletes rows where the bigram contains a number
+# Extracts rows in "diario_bigram_filtered" where the 
+# "diario_bigram_word1numbers" or "diario_bigram_word2numbers" columns 
+# contain an NA value; this effectively deletes rows where the bigram contains
+# a number
 diario_bigram_filtered<-diario_bigram_filtered %>% 
                           filter(is.na(diario_bigram_word1numbers)) %>% 
                           filter(is.na(diario_bigram_word2numbers))
@@ -736,7 +764,10 @@ Now that we've removed stopword and numbers from the "word1" and "word2" columns
 First, we'll use the ```unite()``` function to paste the separate words in "word1" and "word2" back into one column as bigrams. The code below takes ```diario_bigram_filtered```, and then calls the ```unite()``` function. The first argument, ```bigram```, is the desired name of the new column that results from pasting the columns together. The second and third arguments, ```word1``` and ```word2``` are the columns that we'd like to unite within the new "bigram" column, and the final argument regarding the desired separator (```sep=" "```) indicates that the words in the "word1" and "word2" columns are to be pasted into the "bigram" column with a space in between them. We'll assign this dataset with the restored bigram to a new object named ```diario_bigram_filtered_unite```:
 
 ```{r}
-# Takes separate words, in the "word1" and "word2" columns of "diario_bigram_filtered", and unites them back into one column, named "bigram"; this updated data frame is assigned to a new object named "diario_bigram_filtered_unite"
+# Takes separate words, in the "word1" and "word2" columns of 
+# "diario_bigram_filtered", and unites them back into one column, 
+# named "bigram"; this updated data frame is assigned to a new object named 
+# "diario_bigram_filtered_unite"
 diario_bigram_filtered_unite<-diario_bigram_filtered %>% 
                                 unite(bigram, word1, word2, sep=" ")
 ```
@@ -767,7 +798,8 @@ diario_bigram_filtered_unite_head %>% datatable(extensions=c("Scroller", "FixedC
 You'll see that the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" columns, which were created as part of our strategy to remove numbers from the frequency table, are still present in ```diario_bigram_filtered_unite```. Let's remove these columns, which are no longer useful, from the frequency table, by calling the ```select()``` function, and pass a vector of these column names with a minus sign in front. We'll assign the resulting dataset to a new object named ```diario_bigram_frequency_final```:
 
 ```{r}
-# removes the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" columns from "diario_bigram_filtered_unite"
+# removes the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" 
+# columns from "diario_bigram_filtered_unite"
 diario_bigram_frequency_final<-diario_bigram_filtered_unite %>% 
                               select(-c(diario_bigram_word1numbers, diario_bigram_word2numbers))
 ```
@@ -802,7 +834,9 @@ Now that we have the cleaned version of our bigram frequency table (```diario_bi
 First, we'll take ```diario_bigram_frequency_final``` and use the ```slice_max()``` function to extract the bigrams with the ten highest frequencies (i.e. the ten highest values of "n"). We'll assign this subsetted dataset to a new object named  ```diario_bigram_top_ten```:
 
 ```{r}
-# Extracts a data frame of the ten most frequently occurring bigrams in "diario_bigram_filtered_unite" and assigns this data frame to a new object named "diario_bigram_top_ten"
+# Extracts a data frame of the ten most frequently occurring bigrams in 
+# "diario_bigram_filtered_unite" and assigns this data frame to a new object 
+# named "diario_bigram_top_ten"
 diario_bigram_top_ten<-diario_bigram_frequency_final %>% 
                         slice_max(n, n=10)
 ```
@@ -860,14 +894,18 @@ In order to extract a keyword in context using *quanteda*, we first have to crea
 
 
 ```{r}
-# creates a tokens object based on the "text" column of the "tidy_diario" data frame and assigns it to "kwic_token"
+# creates a tokens object based on the "text" column of the "tidy_diario" 
+# data frame and assigns it to "kwic_token"
 kwic_token<-tokens(diario_creatives_tidy$text, remove_punct = TRUE)
 ```
 
 Now, we'll use the ```kwic()``` function to extract contextual information about a given keyword. Below, the first argument to ```kwic()``` is our token defined above (```kwic_token```), which contains our text data tokenized by word. The second argument, ```pattern="earth"``` specifies that our keyword of interest is "earth". Finally, the ```window``` argument specifies the number of context words we'd like to extract on either side of the keyword. By setting ```window=3```, the ```kwic()``` function will identify every instance of the word "earth" in the text collection, and return the three words before and the three words after each instance of our keyword, "earth". It will then return a data frame that organizes this contextual information; we'll assign this data frame to a new object named ```earth_keyword_context```:
 
 ```{r}
-# Extracts contextual text data for the keyword "business", based on a window of 3 words; the resulting data frame containing the contextual information associated with each appearance of the keyword is assigned to a new object named "business_keyword_context"
+# Extracts contextual text data for the keyword "business", based on a
+# window of 3 words; the resulting data frame containing the contextual 
+# information associated with each appearance of the keyword is assigned to 
+# a new object named "business_keyword_context"
 earth_keyword_context<-kwic(kwic_token, pattern="earth", window=3)
 ```
 
