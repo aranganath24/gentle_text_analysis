@@ -25,7 +25,7 @@
 <meta name="author" content="Aditya Ranganath" />
 
 
-<meta name="date" content="2022-08-10" />
+<meta name="date" content="2022-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,13 +171,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html"><i class="fa fa-check"></i><b>5</b> Creating a word frequency table</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#tokenize-diario_creatives_tidy"><i class="fa fa-check"></i><b>5.1</b> Tokenize <code>diario_creatives_tidy</code></a></li>
-<li class="chapter" data-level="5.2" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#extract-the-first-draft-of-a-word-frequency-table-based-from-the-tokenized-dataset"><i class="fa fa-check"></i><b>5.2</b> Extract the first draft of a word frequency table based from the tokenized dataset</a></li>
-<li class="chapter" data-level="5.3" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#cleaning-the-word-frequency-table"><i class="fa fa-check"></i><b>5.3</b> Cleaning the word frequency table</a>
+<li class="chapter" data-level="5.2" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#extract-the-first-draft-of-a-word-frequency-table-based-from-the-tokenized-dataset"><i class="fa fa-check"></i><b>5.2</b> Extract the first draft of a word frequency table based from the tokenized dataset</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#removing-stopwords"><i class="fa fa-check"></i><b>5.3.1</b> Removing stopwords</a></li>
-<li class="chapter" data-level="5.3.2" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#removing-numbers"><i class="fa fa-check"></i><b>5.3.2</b> Removing numbers</a></li>
+<li class="chapter" data-level="5.2.1" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#removing-stopwords"><i class="fa fa-check"></i><b>5.2.1</b> Removing stopwords</a></li>
+<li class="chapter" data-level="5.2.2" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#removing-numbers"><i class="fa fa-check"></i><b>5.2.2</b> Removing numbers</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#view-the-final-cleaned-frequency-table"><i class="fa fa-check"></i><b>5.4</b> View the final (cleaned) frequency table</a></li>
+<li class="chapter" data-level="5.3" data-path="creating-a-word-frequency-table.html"><a href="creating-a-word-frequency-table.html#view-the-final-cleaned-frequency-table"><i class="fa fa-check"></i><b>5.3</b> View the final (cleaned) frequency table</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="visualizing-word-frequency-data.html"><a href="visualizing-word-frequency-data.html"><i class="fa fa-check"></i><b>6</b> Visualizing word frequency data</a>
 <ul>
@@ -222,21 +221,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="reading-in-a-text-corpus" class="section level1" number="3">
 <h1><span class="header-section-number">3</span> Reading in a Text Corpus</h1>
-<p>The first step in working with text data in R Studio is to load the data which you wish to analyze into your R environment.</p>
-<p>Sometimes, you may only need to analyze the text within a single document, but often, you will want to analyze an entire collection of text documents (known as a corpus). In our case, we want to analyze a corpus comprised of text documents that are part of the “creatives” section of the broader “Diario” project.</p>
-<p>To load the files within this “creatives” directory into R Studio as a corpus, the first step is to read in all of the file names for the text documents that constitute the “creatives” corpus, and store these names within a character vector; a “vector” in R is simply a sequence of elements, and in the case of a character vector, those elements are text strings.</p>
+<p>The first step when working with text data in R Studio is to load the data which you wish to analyze into your R environment.</p>
+<p>Sometimes, you may only need to analyze the text within a single document, but often, you will want to analyze an entire collection of text documents (known as a corpus). In our case, we want to analyze a corpus comprised of text documents that are part of the “creatives” section of the broader “Diario” text collection.</p>
+<p>To make this more concrete, we can take a look at these “creatives” files on our local computer’s directory:</p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-17"></span>
+<img src="pictures/creative_files.jpeg" alt="Creatives text files stored in local directory" width="100%" />
+<p class="caption">
+Figure 3.1: Creatives text files stored in local directory
+</p>
+</div>
+<p>Our first job is to load all of the individual text files within this “creatives” directory into R Studio as a corpus. To do so, we will first read in all of the file names for the text documents that constitute the “creatives” corpus, and store these names within a character vector; a “vector” in R is simply a sequence of elements, and in the case of a character vector, those elements are text strings.</p>
 <p>The code below first reads in the file names from the “creatives” directory, using <code>list.files(pattern=".txt")</code>. The <code>list.files()</code> function produces a character vector of files within a specified directory (if no directory is specified, it defaults to extracting the names of files from the working directory), and the argument to this function, <code>pattern=".txt"</code>, specifies what type of files we want the <code>list.files()</code> function to extract (anything with a “.txt” extension). Finally, it assigns this vector of file names to a new object named <code>diario_files</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="reading-in-a-text-corpus.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reads in the filenames for diario advertisements as a character vector, and </span></span>
 <span id="cb6-2"><a href="reading-in-a-text-corpus.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># assigns it to an object named &quot;diario_files&quot;</span></span>
 <span id="cb6-3"><a href="reading-in-a-text-corpus.html#cb6-3" aria-hidden="true" tabindex="-1"></a>diario_files<span class="ot">&lt;-</span><span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">&quot;.txt&quot;</span>)</span></code></pre></div>
-<p>The concept of object assignment, which we alluded to above, is a fundamental concept when working in a scripting environment; indeed, the ability to easily assign values to objects is what allows us to easily manipulate and process our data in an intuitive manner within a given workflow. To better understand the mechanics of object assignment, let’s briefly step away from our text data, and consider a simple example:</p>
+<p>The concept of object assignment, which we alluded to above, is a fundamental concept when working in a scripting environment; indeed, the ability to easily assign values to objects is what allows us to easily and intuitively manipulate and process our data in a programmatic setting. To better understand the mechanics of object assignment, let’s briefly step away from our text data, and consider a simple example:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="reading-in-a-text-corpus.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign value 5 to new object named x</span></span>
 <span id="cb7-2"><a href="reading-in-a-text-corpus.html#cb7-2" aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">5</span></span></code></pre></div>
-<p>In the code above, we use R’s assignment operator, <code>&lt;-</code>, to assign the value 5 to an object named “x.” Now that an object named “x” has been created and assigned the value 5, printing “x” in our console (or printing “x” in our script and running it) will return the value 5:</p>
+<p>In the code above, we use R’s assignment operator, <code>&lt;-</code>, to assign the value 5 to an object named <code>x</code>. Now that an object named <code>x</code> has been created and assigned the value 5, printing <code>x</code> in our console (or printing <code>x</code> in our script and running it) will return the value 5:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="reading-in-a-text-corpus.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints value assigned to &quot;x&quot;</span></span>
+<span id="cb8-2"><a href="reading-in-a-text-corpus.html#cb8-2" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
 <p>More generally, the process of assignment effectively equates the output created by the code on the right side of the assignment operator (<code>&lt;-</code>) to an object with a name that is specified on the left side of the assignment operator. Whenever we want to look at the contents of an object (i.e. the output created by the code to the right side of the assignment operator), we simply print the name of the object in the R console (or print the name and run it within a script).</p>
 <p>While the example above was very simple, we can assign virtually any R code, and by extension, the data structure(s) generated by that code (such as datasets, vectors, graphs/plots etc.) to an R object. Above, we assigned the vector of text file names created by <code>list.files(pattern=".txt")</code> to an object named <code>diario_files</code>, and can now confirm that this vector is associated with the <code>diario_files</code> object by printing the object name:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="reading-in-a-text-corpus.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;diario_files&quot; vector</span></span>
-<span id="cb8-2"><a href="reading-in-a-text-corpus.html#cb8-2" aria-hidden="true" tabindex="-1"></a>diario_files</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="reading-in-a-text-corpus.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints contents of &quot;diario_files&quot; vector</span></span>
+<span id="cb10-2"><a href="reading-in-a-text-corpus.html#cb10-2" aria-hidden="true" tabindex="-1"></a>diario_files</span></code></pre></div>
 <pre><code>##   [1] &quot;1972.10.27-en-creative-Metemorphosis.txt&quot;                       
 ##   [2] &quot;1972.10.27-sp-creative-LaTragediaDeRicardoFalcon.txt&quot;           
 ##   [3] &quot;1972.11.03-en-creative-BoomerangChicano.txt&quot;                    
@@ -341,14 +350,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [102] &quot;1983.04.01-en-creative-TogetherWeAreLaRaza.txt&quot;                 
 ## [103] &quot;1983.04.01-sp-creative-MiCarnalEsATodoMadre.txt&quot;</code></pre>
 <p>We will use this basic principle of object assignment throughout the lesson.</p>
-<p>Now, let’s use this vector of file names to create a Corpus that contains the text from all of these files. To do so, we’ll use the <em>tm</em> package’s <code>Corpus()</code> function. Below, the first argument to the <code>Corpus()</code> function, <code>URISource(diario_files)</code>, specifies the file names of the text documents from which we want to create our corpus. The second argument, <code>readerControl=list(reader=readPlain))</code>, specifies that we want the <code>Corpus()</code> function to use a plain text reader (“readPlain”) to read in the text data within the documents specified in <code>diario_files</code> (if our files were in a different file format, we would use a different reader that is appropriate to that file format). Finally, we assign the corpus to a new object named <code>diario_creatives_corpus</code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="reading-in-a-text-corpus.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses the &quot;Corpus&quot; function from the &quot;tm&quot; package to create a new text corpus </span></span>
-<span id="cb10-2"><a href="reading-in-a-text-corpus.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># based on the diario creatives text files; this corpus is assigned to a new </span></span>
-<span id="cb10-3"><a href="reading-in-a-text-corpus.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># object named &quot;diario_creatives_corpus&quot;</span></span>
-<span id="cb10-4"><a href="reading-in-a-text-corpus.html#cb10-4" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
+<p>Now, let’s use this vector of file names to create a Corpus that contains the text from all of these files. To do so, we’ll use the <em>tm</em> package’s <code>Corpus()</code> function. Below, the first argument to the <code>Corpus()</code> function, <code>URISource(diario_files)</code>, specifies the file names of the text documents from which we want to create our corpus. The second argument, <code>readerControl=list(reader=readPlain))</code>, specifies that we want the <code>Corpus()</code> function to use a plain text reader (“readPlain”) to read in the text data within the documents specified in <code>diario_files</code> (if our files were in a different file format, such as PDF, we would use a different reader that is appropriate to that file format). Finally, we assign the corpus to a new object named <code>diario_creatives_corpus</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="reading-in-a-text-corpus.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uses the &quot;Corpus&quot; function from the &quot;tm&quot; package to create a new text corpus </span></span>
+<span id="cb12-2"><a href="reading-in-a-text-corpus.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># based on the diario creatives text files; this corpus is assigned to a new </span></span>
+<span id="cb12-3"><a href="reading-in-a-text-corpus.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># object named &quot;diario_creatives_corpus&quot;</span></span>
+<span id="cb12-4"><a href="reading-in-a-text-corpus.html#cb12-4" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus<span class="ot">&lt;-</span><span class="fu">Corpus</span>(<span class="fu">URISource</span>(diario_files), <span class="at">readerControl =</span> <span class="fu">list</span>(<span class="at">reader=</span>readPlain))</span></code></pre></div>
 <p>If we print the name of our corpus object into the console (or run it from a script), we can return some basic metadata about the corpus we’ve just created:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="reading-in-a-text-corpus.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints metadata about the corpus assigned to the &quot;diario_adverts_corpus&quot; object</span></span>
-<span id="cb11-2"><a href="reading-in-a-text-corpus.html#cb11-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="reading-in-a-text-corpus.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prints metadata about the corpus assigned to the &quot;diario_adverts_corpus&quot; object</span></span>
+<span id="cb13-2"><a href="reading-in-a-text-corpus.html#cb13-2" aria-hidden="true" tabindex="-1"></a>diario_creatives_corpus</span></code></pre></div>
 <pre><code>## &lt;&lt;VCorpus&gt;&gt;
 ## Metadata:  corpus specific: 0, document level (indexed): 0
 ## Content:  documents: 103</code></pre>

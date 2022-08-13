@@ -1,6 +1,7 @@
-fig:unnamed-chunk-1
-fig:unnamed-chunk-3
 fig:unnamed-chunk-8
+fig:unnamed-chunk-10
+fig:unnamed-chunk-15
+fig:unnamed-chunk-17
 introduction
 preliminaries-getting-started-with-r-studio
 r-and-r-studio-installation
@@ -15,7 +16,6 @@ creating-a-tidy-dataframe-from-a-text-corpus
 creating-a-word-frequency-table
 tokenize-diario_creatives_tidy
 extract-the-first-draft-of-a-word-frequency-table-based-from-the-tokenized-dataset
-cleaning-the-word-frequency-table
 removing-stopwords
 removing-numbers
 view-the-final-cleaned-frequency-table
