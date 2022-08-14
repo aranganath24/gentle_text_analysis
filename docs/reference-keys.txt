@@ -3,6 +3,9 @@ fig:unnamed-chunk-3
 fig:unnamed-chunk-8
 fig:unnamed-chunk-10
 introduction
+objectives
+background-on-workshop-data
+accessing-data-and-workshop-materials
 preliminaries-getting-started-with-rstudio
 r-and-rstudio-installation
 windows-installation-instructions
