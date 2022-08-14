@@ -1,22 +1,22 @@
-# Preliminaries: Getting Started with R Studio
+# Preliminaries: Getting Started with RStudio
 
-In this preliminary section, we'll cover basic information that will help you to get started with R Studio. 
+In this preliminary section, we'll cover basic information that will help you to get started with RStudio.
 
-## R and R Studio Installation
+## R and RStudio Installation
 
-If you haven't already, please go ahead and install R and R Studio. R and R Studio must be installed separately; you should install R first, and then R Studio. R is the bare-bones computing environment, while R Studio is a visually appealing and user-friendly interface that allows users to interact with this environment in an intuitive way. Once you have both installed, you don't need to open up R and R Studio separately; you only need to open and interact with R Studio (which will run R in the background). 
+If you haven't already, please go ahead and install both the R and RStudio applications. R and RStudio must be installed separately; you should install R first, and then RStudio. The R application is a bare-bones computing environment that supports statistical computing using the R programming language; RStudio is a visually appealing, feature-rich, and user-friendly interface that allows users to interact with this environment in an intuitive way. Once you have both applications installed, you don't need to open up R and RStudio separately; you only need to open and interact with RStudio (which will run R in the background). 
 
-The following subsections provide instructions on installing R and R Studio for the macOS and Windows operating systems. These instructions are taken from the "Setup" section of the Data Carpentry Course entitled [*R for Social Scientists*](https://datacarpentry.org/r-socialsci/setup.html). The Data Carpentry page also contains installation instructions for the Linux operating system; if you're a Linux user, please refer to that page for instructions. 
+The following subsections provide instructions on installing R and RStudio for the macOS and Windows operating systems. These instructions are taken from the "Setup" section of the Data Carpentry Course entitled [*R for Social Scientists*](https://datacarpentry.org/r-socialsci/setup.html). The Data Carpentry page also contains installation instructions for the Linux operating system; if you're a Linux user, please refer to that page for instructions. 
 
-The Appendix to Garret Grolemund's book *Hands on Programming with R* also provides an [excellent overview of the R and R Studio installation process](https://rstudio-education.github.io/hopr/). 
+The Appendix to Garret Grolemund's book *Hands on Programming with R* also provides an [excellent overview of the R and RStudio installation process](https://rstudio-education.github.io/hopr/). 
 
 ### Windows Installation Instructions
 
 + Download R from the [CRAN website](https://cran.r-project.org/bin/windows/base/)
 + Run the ```.exe``` file that was just downloaded.
-+ Go to the [R Studio download page](https://www.rstudio.com/products/rstudio/download/#download) and under *Installers* select the "Windows" option.
-+ Double click the file to install R Studio
-+ Open R Studio to make sure it works. 
++ Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download) and under *Installers* select the "Windows" option.
++ Double click the file to install RStudio
++ Open RStudio to make sure it works. 
 
 ### macOS Installation Instructions
 
@@ -24,40 +24,39 @@ The Appendix to Garret Grolemund's book *Hands on Programming with R* also provi
 + Select the ```.pkg``` file for the latest R version.
 + Double click on the downloaded file to install R.
 + It is also a good idea to install [XQuartz](https://www.xquartz.org/), which some packages require.
-+ Go to the [R Studio download page](https://www.rstudio.com/products/rstudio/download/#download), and under *Installers* select the "macOS" option.
-+ Double click the file to install R Studio
-+ Open R Studio to make sure it works. 
++ Go to the [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download), and under *Installers* select the "macOS" option.
++ Double click the file to install RStudio
++ Open RStudio to make sure it works. 
 
-## The R Studio Interface 
+## The RStudio Interface 
 
-Now that we've installed and opened up R Studio, let's familiarize ourselves with the R Studio interface. When we open up R Studio, we'll see a window that looks something like this:
+Now that we've installed and opened up RStudio, let's familiarize ourselves with the RStudio interface. When we open up RStudio, we'll see a window that looks something like this:
 
-```{r, echo=FALSE, results='asis', out.width='100%', fig.cap='The R Studio Interface', fig.alt='R Studio Interface Open on Desktop'}
+```{r, echo=FALSE, results='asis', out.width='100%', fig.cap='The RStudio Interface', fig.alt='RStudio Interface Open on Desktop'}
 knitr::include_graphics('pictures/rstudio_window_revised.png')
 ```
 
-If your interface doesn't look exactly like this, it shouldn't be a problem; we would expect to see minor cosmetic differences in the appearance of the interface across operating systems and computers (based on how they're configured). However, you should see four distinct windows within the larger R Studio interface:
+If your interface doesn't look exactly like this, it shouldn't be a problem; we would expect to see minor cosmetic differences in the appearance of the interface across operating systems and computers (based on how they're configured). However, you should see four distinct windows within the larger RStudio interface:
 
 - The **top-left** window is known as the *Source* window. 
-  - The *Source* window is where we can write our R scripts (including the code associated with this tutorial), and execute those scripts. We can also type in R code into the "Console" window (bottom-left window), but it is preferable to write our code in a script within the source window. That's because scripts can be saved (while code written into the console cannot); writing scripts therefore allows us to keep track of what we're doing, and facilitates the reproducibility of our work. Note that in some cases, we may not see a *Source* window when we first open R Studio. In that case, to start a new script, simply click the ```File``` button on the R Studio menu bar, scroll down to ```New File``` button, and then select ```R Script``` from the menu bar that opens up.
+  - The *Source* window is where we can write our R scripts (including the code associated with this tutorial), and execute those scripts. We can also type in R code into the "Console" window (bottom-left window), but it is preferable to write our code in a script within the source window. That's because scripts can be saved (while code written into the console cannot); writing scripts therefore allows us to keep track of what we're doing, and facilitates the reproducibility of our work. Note that in some cases, we may not see a *Source* window when we first open RStudio. In that case, to start a new script, simply click the ```File``` button on the RStudio menu bar, scroll down to ```New File``` button, and then select ```R Script``` from the menu bar that opens up.
   - It's also worth noting that the outputs of certain functions will appear in the *Source* window. In the context of our tutorial, when we want to view our datasets, we will use the ```View()``` function, which will display the relevant data within a new tab in the *Source* window. 
-- The **top-right** window is the *Environment/History* pane of the R Studio interface. 
-  - The "Environment" tab of this window provides information on the datasets we've loaded into R Studio, as well as objects we have defined (we'll talk about objects more later in the tutorial). 
+- The **top-right** window is the *Environment/History* pane of the RStudio interface. 
+  - The "Environment" tab of this window provides information on the datasets we've loaded into RStudio, as well as objects we have defined (we'll talk about objects more later in the tutorial). 
   -The "History" tab of the window provides a record of the R commands we've run in a given session. 
 - The **bottom-right** window is the *Files/Plots/Packages/Help/Viewer* window. 
   - The "Files" tab displays our computer's directories and file structures and allows us to navigate through them without having to leave the R environment. 
-  - The "Plots" tab is the tab where we can view any visualizations that we create. Within the "Plots" tab, make note of the "Zoom" button, which we can use to enlarge the display of our maps and visualizations if they're too compressed in the "Plots" window. Also, note the "Export" button within the "Plots" tab (next to the "Zoom" button); we can use this button to export the displayed visualization to a .png or .jpeg file that can be used outside of R Studio. 
+  - The "Plots" tab is the tab where we can view any visualizations that we create. Within the "Plots" tab, make note of the "Zoom" button, which we can use to enlarge the display of our visualizations if they're too compressed in the "Plots" window. Also, note the "Export" button within the "Plots" tab (next to the "Zoom" button); we can use this button to export the displayed visualization to a .png or .jpeg file that can be used outside of RStudio. 
   - The "Packages" tab provides information on which packages have been installed, as well as which packages are currently loaded (more on packages in Sections 2.3 and 2.4 below)
-  - The "Help" tab displays documentation for R packages and functions. If we want to know more about how a package or function work, we can simply type a "?" followed by the package or function's name (no space between the question mark and the name) and relevant information will be displayed within the "Help" tab. 
+  - The "Help" tab displays documentation for R packages and functions. If you want to know more about how a package or function work, we can simply type a "?" followed by the package or function's name (no space between the question mark and the name) and relevant information will be displayed within the "Help" tab. 
   - The "Viewer" tab displays HTML output. If we write code that generates an HTML file, we can view it within the "Viewer" tab.
 - The **bottom-left** window is the *Console/Terminal/Jobs* window. 
   - The "Console" tab is where we can see our code execute when we run our scripts, as well as certain outputs produced by those scripts. In addition, if there are any error or warning messages, they will be printed to the "Console" tab. We can also type code directly into the console, but as we noted earlier, it is better practice to write our code in a script and then run it from there. 
-  - The "Terminal", "R Markdown" and "Jobs" tabs  are not relevant for the tutorial. 
-
+  - The "Terminal", "R Markdown" and "Jobs" tabs  are not relevant for our workshop.  
 
 ## Install Packages 
 
-R is an open-source programming language for statistical computing that allows users to carry out a wide range of data analysis and visualization tasks (among other things). One of the big advantages of using R is that it has a very large user community among social scientists, statisticians, digital humanists, who frequently publish R packages. One might think of packages as workbooks of sorts, which contain a well-integrated set of R functions, scripts, data, and documentation; these "workbooks" are designed to facilitate certain tasks or implement given procedures. These packages are then shared with the broader community, and at this point, anyone who needs to accomplish the tasks to which the package addresses itself can use the package in the context of their own projects. The ability to use published packages considerably simplifies the work of applied social scientists and digital humanists using R; it means that they rarely have to write code entirely from scratch, and can build on the code that others have published in the form of packages. This allows applied researchers to focus on substantive problems, without having to get too bogged down in complicated programming tasks. 
+R is an open-source programming language for statistical computing that allows users to carry out a wide range of data analysis and visualization tasks (among other things). One of the big advantages of using R is that it has a very large user community among social scientists, statisticians, and digital humanists, who frequently publish R packages. One might think of packages as workbooks of sorts, which contain a well-integrated set of R functions, scripts, data, and documentation; these "workbooks" are designed to facilitate certain tasks or implement useful procedures. These packages are then shared with the broader R user community, and at this point, anyone who needs to accomplish the tasks to which the package addresses itself can use the package in the context of their own projects. The ability to use published packages considerably simplifies the work of digital humanists using R; it means that they rarely have to write code entirely from scratch, and can build on the code that others have published in the form of packages. This allows applied researchers to focus on substantive problems, without having to get too bogged down in complicated programming tasks. 
 
 In the context of this tutorial, extracting even basic information from a text corpus in R would be a relatively complex task if we had to write all our code from scratch. However, because we are able to make use of text mining and visualization packages written by other researchers and programmers, the task is considerably simpler, and will not require any complicated programming. 
 
@@ -79,7 +78,7 @@ install.packages("tm")
 To run this code in your own R session:
 
 * First, copy the code from the codeblock above (you can copy the code to your clipboard by hovering over the top-right of the code-block and clicking the "copy" icon; you can also highlight the code and copy from the ```Edit``` menu of your browser). 
-* Then, start a new R script within R Studio; if you want to keep a future record of your work, you may want to save this script to your computer (perhaps in the same folder to which you downloaded the tutorial data). We can save our scripts via the R Studio "File" menu.
+* Then, start a new R script within RStudio; if you want to keep a future record of your work, you may want to save this script to your computer (perhaps in the same folder to which you downloaded the tutorial data). We can save our scripts via the RStudio "File" menu.
 * Paste the code into the script, highlight it, and click the "Run" button that is just above the *Source* window.
 * Alternatively, instead of copying/pasting, you can manually type in the code from the codeblock into your script (manually typing in the code is slower, but often a better way to learn than copy/pasting). 
 * After you've run the code, watch the code execute in the console, and look for a message confirming that the package has been successfully installed. 
@@ -90,9 +89,9 @@ Below, we can see how that line of code should look in your script, and how to r
 knitr::include_graphics('pictures/install_package.png')
 ```
 
-Please note that you can follow along with the tutorial on your own computers by transferring all of the subsequent codeblocks into your script in just this way. Run each codeblock in your R Studio environment as you go, and you should be able to replicate the entire tutorial on your computer. You can copy-paste the workshop code if you wish, but we recommend actually retyping the code into your script, since this will help you to more effectively familiarize yourself with the process of writing code in R.
+Please note that you can follow along with the tutorial on your own computers by transferring all of the subsequent codeblocks into your script in just this way. Run each codeblock in your RStudio environment as you go, and you should be able to replicate the entire tutorial on your computer. You can copy-paste the workshop code if you wish, but we recommend actually retyping the code into your script, since this will help you to more effectively familiarize yourself with the process of writing code in R.
 
-Note that the codeblocks in the tutorial usually have a comment, prefaced by a hash ("#"). When writing code in R (or any other command-line interface) it is good practice to preface one's code with brief comments that describe what a block of code is doing. Writing these comments can allow someone else (or your future self) to read and quickly understand the code more easily than otherwise might be the case. The hash before the comment effectively tells R that the subsequent text is a comment, and should be ignored when running a script If one does not preface the comment with a hash, R wouldn't know to ignore the comment, and would throw an error message.
+Note that the codeblocks in the tutorial usually have a comment, prefaced by a hash ("#"). When writing code in R (or any other command-line interface) it is good practice to preface one's code with brief comments that describe what a block of code is doing. Writing these comments can allow someone else (or your future self) to read and quickly understand the code more easily than otherwise might be the case. The hash before the comment effectively tells R that the subsequent text is a comment, and should be ignored when running a script. If one does not preface the comment with a hash, R wouldn't know to ignore the comment, and would throw an error message.
 
 Now, let's install the other packages we mentioned above, using the same ```install.packages()``` function: 
 
@@ -126,7 +125,7 @@ library(quanteda)
 library(tidytext)
 ```
 
-At this point, the packages are loaded and ready to go! One important thing to note regarding the installation and loading of packages is that we only have to install packages once; after a package is installed, there is no need to subsequently reinstall it. However, we must load the packages we need (using the ```library``` function) every time we open a new R session. In other words, if we were to close R Studio at this point and open it up later, we would **not** need to install these packages again, but **would** need to load the packages again.  
+At this point, the packages are loaded and ready to go! One important thing to note regarding the installation and loading of packages is that we only have to install packages once; after a package is installed, there is no need to subsequently reinstall it. However, we must load the packages we need (using the ```library``` function) every time we open a new R session. In other words, if we were to close RStudio at this point and open it up later, we would **not** need to install these packages again, but **would** need to load the packages again.  
 
 
 ```{r, echo=F, warning=F, message=F}
@@ -140,32 +139,32 @@ library(DT)
 
 ## Set Working Directory 
 
-Before we can bring our data into R Studio and begin the tutorial, we have to specify that data's location on our computer. This step is known as setting one's working directory. Before setting the working directory, make sure that you've downloaded the Diario text data, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial. 
+Before we can bring our data into RStudio and begin the tutorial, we have to specify that data's location on our computer. This step is known as setting one's working directory. First, make sure that you've downloaded the Diario text data, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial. To complete the workshop tasks, you will want to set your working directory to the "creatives" subdirectory within the main "2019.11.14-ElDiarioCorpus" directory that you downloaded. 
 
-If you're unfamiliar with the concept of file paths, the easiest way to set your working directory is through the R Studio menu. To do so, follow these steps: 
+If you're unfamiliar with the concept of file paths, the easiest way to set your working directory is through the RStudio menu. To use this option, follow these steps: 
 
-+ First, Click on the "Session" menu on the R Studio menu bar at the top of your screen, and then scroll down to the "Set Working Directory" button in the menu that opens up. 
++ First, Click on the "Session" menu on the RStudio menu bar at the top of your screen, and then scroll down to the "Set Working Directory" button in the menu that opens up. 
 + When you hover over the "Set Working Directory" button, a subsidiary menu that contains a button that says "Choose Directory" will open; click this "Choose Directory" button. 
-+ In the dialog box that opens up, navigate to the directory that contains the Diario data, select it, and click "Open". At this point, your working directory should be set!
++ In the dialog box that opens up, navigate to the "creatives" subdirectory within the "2019.11.14-ElDiarioCorpus" folder, select it, and click "Open". At this point, your working directory should be set!
 
-The graphic below demonstrates the process of setting one's working directory through R Studio's menus: 
+The graphic below demonstrates the process of setting one's working directory through RStudio's menus: 
 
 ```{r, echo=FALSE, results='asis', out.width='100%', fig.cap='Setting Working Directory Via Menus'}
 knitr::include_graphics('pictures/setting_wd_revised.png')
 ```
 
-**Alternatively**, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded Diario text files, you can set the working directly using the ```setwd()``` function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the creatives from the El Diario corpus: 
+**Alternatively**, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded Diario "creatives" text files, you can set the working directly using the ```setwd()``` function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the creatives from the El Diario corpus: 
 
 ```{r, eval=F}
 # Sets working directory 
 setwd("019.11.14-ElDiarioCorpus/creatives")
 ```
 
-Note that you won't want to copy and paste the above codeblock, since your file path will be different; be sure to replace the file path above with your own. 
+Note that you won't want to copy and paste the above codeblock, since your file path may be different; be sure to replace the file path above with your own. 
 
 # Reading in a Text Corpus
 
-The first step when working with text data in R Studio is to load the data which you wish to analyze into your R environment.
+The first step when working with text data in RStudio is to load the data which you wish to analyze into your R environment.
 
 Sometimes, you may only need to analyze the text within a single document, but often, you will want to analyze an entire collection of text documents (known as a corpus). In our case, we want to analyze a corpus comprised of text documents that are part of the "creatives" section of the broader "Diario" text collection.
 
@@ -175,13 +174,13 @@ To make this more concrete, we can take a look at these "creatives" files on our
 knitr::include_graphics('pictures/creative_files.jpeg')
 ```
 
-Our first job is to load all of the individual text files within this "creatives" directory into R Studio as a corpus. To do so, we will first read in all of the file names for the text documents that constitute the "creatives" corpus, and store these names within a character vector; a "vector" in R is simply a sequence of elements, and in the case of a character vector, those elements are text strings. 
+Our first job is to load all of the individual text files within this "creatives" directory into RStudio as a corpus. To do so, we will first read in all of the file names for the text documents that constitute the "creatives" corpus, and store these names within a character vector; a "vector" in R is simply a sequence of elements, and in the case of a character vector, those elements are text strings. 
 
 The code below first reads in the file names from the "creatives" directory, using ```list.files(pattern=".txt")```. The ```list.files()``` function produces a character vector of files within a specified directory (if no directory is specified, it defaults to extracting the names of files from the working directory), and the argument to this function, ```pattern=".txt"```, specifies what type of files we want the ```list.files()``` function to extract (anything with a ".txt" extension). Finally, it assigns this vector of file names to a new object named ```diario_files```:
 
 ```{r, echo=-1}
 setwd("2019.11.14-ElDiarioCorpus/creatives")
-# reads in the filenames for diario advertisements as a character vector, and 
+# reads in the filenames for diario creatives as a character vector, and 
 # assigns it to an object named "diario_files"
 diario_files<-list.files(pattern=".txt")
 ```
@@ -234,9 +233,9 @@ Once we have created a text corpus out of the relevant collection of text docume
 
 ```{r}
 # Uses the "tidy" function from the "tidytext" package to transform the 
-# "diario_adverts_corpus" corpus into a tidy data frame, where each file's 
+# "diario_creatives_corpus" corpus into a tidy data frame, where each file's 
 # textual information is stored as a row in the data frame; this data frame is 
-# assigned to a new object named "diario_adverts_tidy"
+# assigned to a new object named "diario_creatives_tidy"
 diario_creatives_tidy<-tidy(diario_creatives_corpus)
 ```
 
@@ -247,14 +246,14 @@ Now, let's inspect the ```diario_creatives_tidy``` data frame. One way to explor
 diario_creatives_tidy
 ```
 
-A better option, however, is to view data frame objects in the R Studio data viewer; this allows you to view the entire dataset, with formatting applied to make the information easier to interpret. To view ```diario_creatives_tidy``` in the R Studio Data Viewer, simply pass it as an argument to the ```View()``` function, as below: 
+A better option, however, is to view data frame objects in the RStudio data viewer; this allows you to view the entire dataset, with formatting applied to make the information easier to interpret. To view ```diario_creatives_tidy``` in the RStudio Data Viewer, simply pass it as an argument to the ```View()``` function, as below: 
 
 ```{r, echo=F}
 tidy_diario_head<-head(diario_creatives_tidy, 25)
 ```
 
 ```{r, eval=F}
-# Opens "diario_creatives_tidy" in R Studio data viewer
+# Opens "diario_creatives_tidy" in RStudio data viewer
 View(diario_creatives_tidy)
 ```
 
@@ -269,7 +268,7 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 ))
 ```
 
-*Please note that data frames which are reproduced in this tutorial are sometimes truncated, to preserve memory; you will therefore see fewer rows in data frames within the tutorial material than you will see when inspecting those same data frames within the R Studio data viewer on your computers*
+*Please note that data frames which are reproduced in this tutorial are sometimes truncated, to preserve memory; you will therefore see fewer rows in data frames within the tutorial material than you will see when inspecting those same data frames within the RStudio data viewer on your computers*
 
 As we noted above, each text document is associated with a unique row. There are several columns that provide metadata associated with the corresponding text document. Most importantly, there is a column named "text" which contains the full text that is contained in the document that corresponds to a given row. 
 
@@ -277,11 +276,11 @@ Once we have recast our text corpus into a concise and well-structured data fram
 
 # Creating a word frequency table
 
-A common task in basic text analysis is to identify the frequency with which various words occur in a text collection, and present this information in a table. In this section, we will learn how to transform a tidy text dataframe such as ```diario_creatives_tidy``` into a word frequency table. 
+A common task in basic text analysis is to identify the frequency with which various words occur in a text collection, and present this information in a table (commonly referred to as a word frequency table). In this section, we will learn how to transform a tidy text dataframe such as ```diario_creatives_tidy``` into a word frequency table. 
 
 ## Tokenize ```diario_creatives_tidy```
 
-The first step in creating a word frequency table is to split our column containing the relevant text ("text" in ```diario_creatives_tidy```) into word tokens; in the context of text analysis, a "token" is the semantic unit of analysis that you wish to use for information extraction purposes. Here, we want to tokenize by single words, since that is the unit of analysis that makes sense when the end-goal is a word frequency table. In other words, gecause our desired unit of analysis is a single word, we will use single words as our token. 
+The first step in creating a word frequency table is to split our column containing the relevant text ("text" in ```diario_creatives_tidy```) into word tokens; in the context of text analysis, a "token" is the semantic unit of analysis that you wish to use for information extraction purposes. Here, we want to tokenize by single words, since that is the unit of analysis that makes sense when the end-goal is a word frequency table. In other words, because our desired unit of analysis is a single word, we will use single words as our token. 
 
 In the code below, we first take our existing ```diario_creatives_tidy``` data frame, and then use the ```unnest_tokens()``` function from the *tidytext* package to tokenize the information in the "text" column of ```diario_creatives_tidy``` by word, and return a new data frame where the textual unit of analysis is the word. Note that the ```unnest_tokens()``` function takes three arguments, described below:
 
@@ -301,10 +300,10 @@ diario_word_tokenized<-
                   output=word)  # specifies name of output column containing tokens
 ```
 
-Now, go ahead and take a look at the newly tokenized dataset, ```diario_word_tokenized```, within the R Studio data viewer:
+Now, go ahead and take a look at the newly tokenized dataset, ```diario_word_tokenized```, within the RStudio data viewer:
 
 ```{r}
-# opens "diario_word_tokenized" in R Studio data viewer
+# opens "diario_word_tokenized" in RStudio data viewer
 View(diario_word_tokenized)
 ```
 
@@ -328,19 +327,20 @@ One feature of the code used to generate a tokenized dataset may require additio
 
 ## Extract the first draft of a word frequency table based from the tokenized dataset
 
-Now that we have tokenized our text collection by words, and organized this information in a word-level dataset (```diario_word_tokenized```), let's use it to create the first draft of a word frequency table. To do so, we will use the ```count()``` function on the ```diario_word_tokenized``` dataset we created above. The ```count()``` function is part of the *dplyr* package, which contains extremely useful functions for data wrangling tasks; *dplyr* is one package within the broader suite of *tidyverse* packages. 
+Now that we have tokenized our text collection by word, and organized this information in a word-level dataset (```diario_word_tokenized```), let's use it to create the first draft of a word frequency table. To do so, we will use the ```count()``` function on the ```diario_word_tokenized``` dataset we created above. The ```count()``` function is part of the *dplyr* package, which contains extremely useful functions for data wrangling tasks; *dplyr* is one package within the broader suite of *tidyverse* packages. 
 
-In the code below, we take our tokenized dataset, ```diario_word_tokenized```, and then call the ```count()``` function; the first argument to ```count()```, which is ```word```, specifies the name of the column which contains the values (i.e. words) we'd like to count up (here, the name of that column is "word"). The second argument, ```sort=TRUE```, specifies that the frequency table generated by the ```count()``` function should array the words in descending order of frequency. We'll assign the resulting dataset, which will contain information on the number of times each distinct word appears in the text collection (stored in a column named "n"), to a new object named ```diario_frequency_table```:
+In the code below, we take our tokenized dataset, ```diario_word_tokenized```, and then call the ```count()``` function; the first argument to ```count()```, which is ```word```, specifies the name of the column which contains the values (i.e. words) whose frequencies we'd like to count up (here, the name of that column is "word"). The second argument, ```sort=TRUE```, specifies that the frequency table generated by the ```count()``` function should array the words in descending order of frequency. We'll assign the resulting dataset, which will contain information on the number of times each distinct word appears in the text collection (stored in a column named "n"), to a new object named ```diario_frequency_table```:
 
 ```{r}
 # Uses "count" function to generate a dataset that contains information on the 
 # frequency of each word in "diario_word_tokenized"; assigns this newly created 
-# dataset (organized in descending order) 
+# dataset (organized in descending order) to object named 
+# "diario_frequency_table"
 diario_frequency_table<-diario_word_tokenized %>% 
                           count(word, sort=TRUE)
 ```
 
-Go ahead and view the newly created frequency table, ```diario_frequency_table```, in the R Studio data viewer:
+Go ahead and view the newly created frequency table, ```diario_frequency_table```, in the RStudio data viewer:
 
 ```{r}
 View(diario_frequency_table)
@@ -361,14 +361,17 @@ diario_frequency_table_head %>% datatable(extensions=c("Scroller", "FixedColumns
 ))
 ```
 
-We now have a word frequency table! The words which appear in the text collection are contained in the column on the left ("word"), and the frequency of each word is contained in the column on the right ("n"). 
-## Cleaning the word frequency table
+We now have a word frequency table! The words which appear in the text collection are contained in the column on the left ("word"), and the frequency of each word is contained in the column on the right ("n").
 
-### Removing stopwords
+## Clean the word frequency table
 
 Having generated this basic word frequency table, it is now time to edit and clean it, so as to ensure that it contains meaningful information. 
 
-One issue with our frequency table (```diario_frequency_table```) that you may have noticed is that many of the words are (predictably) common words that don't really inform us about the distinctive semantic features of the "creatives" text collection. For example, the word "the" appears 857 times in our collection, but for most research projects, this would be completely uninteresting, and may even obscure more interesting features of interest. When working with text data, it is therefore common practice to excise these common words (known as "stop words") from a dataset of interest, before carrying out any further analysis or visualization tasks. 
+### Remove stopwords
+
+Having generated this basic word frequency table, it is now time to edit and clean it, so as to ensure that it contains meaningful information. 
+
+One issue with our frequency table (```diario_frequency_table```) that you may have noticed is that many of the words are (predictably) common words that don't really inform us about the distinctive semantic features of the "creatives" text collection. For example, the word "the" appears 857 times in our collection, but for most research projects, this would be completely uninteresting, and may even obscure more interesting properties of the text collection. When working with text data, it is therefore common practice to excise these common words (known as "stop words") from a dataset of interest, before carrying out any further analysis or visualization tasks. 
 
 Let's now go ahead and excise stop words from ```diario_frequency_table```. In order to remove stop words, we must first compile those words, and assemble them in an R data structure (such as a data frame or vector). This can be a tedious task, but luckily, many text mining and analysis packages provide pre-assembled collections of stop words that we can use off the shelf, without having to develop our own from scratch. 
 
@@ -379,7 +382,7 @@ Within the *tidytext* package, stop words are contained in a data frame that is 
 stop_words
 ```
 
-Alternatively, if you want to see all of the stop words within ```stop_words```, you can view it within the R Studio data viewer (i.e. ```View(stop_words)```).
+Alternatively, if you want to see all of the stop words within ```stop_words```, you can view it within the RStudio data viewer (i.e. ```View(stop_words)```).
 
 Because our text documents also contain a meaningful amount of Spanish, it makes sense to also remove Spanish language stop words. The ```stop_words``` data frame from the *tidytext* package only contains English stopwords, but the *tm* package allows users to extract Spanish stopwords by passing the string ```"spanish"``` to its ```stopwords()``` function. Below, we extract Spanish stopwords from the *tm* package's ```stopwords()``` function as a data frame (by passing ```stopwords("spanish")``` as an argument to the ```as.data.frame()``` function), and assign it to a new object named ```spanish_stopwords```:
 
@@ -402,16 +405,16 @@ diario_frequency_table<-
     filter(!word %in% spanish_stopwords$`stopwords("spanish")`) # removes Spanish stopwords
 ```
 
-Let's unpack the code in this codeblock: 
+Let's unpack the code in the previous codeblock: 
 
 * The first element (to the right of the assignment operator), is the name of the object from which we'd like to remove the relevant stopwords, ```diario_frequency_table```. 
 * After declaring the name of the object we'd like to modify, we use a ```%>%``` to connect this object to the subsequent line of code, which removes the English stopwords using ```  filter(!word %in% stop_words$word)```. The ```filter()``` function (which is part of the *dplyr* package), is used to create a subset of an existing dataset, in which all of the rows that satisfy a condition (or set of conditions) are retained (and those which do not satisfy the condition(s) are discarded).  Here, the argument to the ```filter()``` function, which reads ```!word %in% stop_words$word```, can be interpreted as specifying that we wish to subset and retain all of the rows in ```diario_frequency_table``` in which the "word" column (within ```diario_frequency_table```) is NOT equal to any of the words in the "word" column of ```stop_words``` (note that in order to refer to a column from a dataset, we can type the name of the data frame object, followed by a ```$```, followed by the name of the column within the dataset that we'd like to extract). This procedure effectively excises the English stopwords from ```diario_frequency_table```. The ```!``` before ```word``` is a small detail, but important; the exclamation mark is a symbol for logical negation, and without it, the ```filter()``` function would instead subset and retain all of the rows in ```diario_frequency_table``` where the word in the "word" column *is* an English stopword. 
 * After excising all of the English stopwords from ```diario_frequency_table```, we call a pipe (```%>%```), to indicate that we want to implement additional changes to ```diario_frequency_table```. We then use the ```filter()``` function to remove Spanish stopwords from ```diario_frequency_table```, with ```filter(!word %in% spanish_stopwords$`stopwords("spanish")`)```. The logic behind this expression is the same as the logic behind the previous expression, which removed English stopwords from the frequency table. That is, the argument to the ```filter()``` function specifies that we want to subset and retain all of the rows in ```diario_frequency_table``` for which the "word" column is NOT one of the Spanish stopwords contained in the ```stopwords("spanish")``` column within the ```spanish_stopwords``` dataset. This effectively removes the words in ```spanish_stopwords``` from ```diario_frequency_table```. 
 * Finally, we assign the changes we made to ```diario_frequency_table``` (i.e. removing stopwords) back to the existing ```diario_frequency_table``` object with the assignment operator (```<-```) instead of creating a new object; this effectively updates the contents of ```diario_frequency_table```. Before, this data object included the stopwords in ```stop_words``` and ```spanish_stopwords```; now, after assigning the changes back to the existing object, ```diario_frequency_table``` no longer contains these stopwords. 
 
-You can confirm that the stopwords have been removed by viewing our updated ```diario_frequency_table``` object within the R Studio data viewer. 
+You can confirm that the stopwords have been removed by viewing our updated ```diario_frequency_table``` object within the RStudio data viewer. 
 
-### Removing numbers
+### Remove numbers
 
 You may have noticed that some of the "words" in ```diario_frequency_table``` are actually numbers. In certain situations, this may be acceptable, but in other cases, you may want to remove numbers from your word frequency table. In this sub-section, we'll learn one way to do this. 
 
@@ -432,7 +435,7 @@ Next, we'll add this vector as a column in the ```diario_frequency_table``` by u
 diario_frequency_table<-cbind(diario_frequency_table, diario_frequency_table_numbers)
 ```
 
-In the updated ```diario_frequency_table```, we now have a new column (```diario_frequency_table_numbers```) which contains any numbers from the corresponding "word" column on the same row, and an "NA" value if there are no numbers in the corresponding "word" column. You can confirm this by viewing ```diario_frequency_table``` in the R Studio data viewer. 
+In the updated ```diario_frequency_table```, we now have a new column (```diario_frequency_table_numbers```) which contains any numbers from the corresponding "word" column on the same row, and an "NA" value if there are no numbers in the corresponding "word" column. You can confirm this by viewing ```diario_frequency_table``` in the RStudio data viewer. 
 
 Now that we have a new column that contains "NA" values when the corresponding word in the "word" column does NOT include numbers, we can use the ```filter()``` function to create a subset of the existing ```diario_frequency_table``` for which the value of the "diario_frequency_table_numbers" column is "NA"; this effectively excises all rows where the value for the "word" column includes a number:
 
@@ -461,7 +464,7 @@ diario_frequency_table_head<-head(diario_frequency_table, 50)
 ```
 
 ```{r, eval=F}
-# Views updated "diario_frequency_table" in R Studio data viewer
+# Views updated "diario_frequency_table" in RStudio data viewer
 View(diario_frequency_table)
 ```
 
@@ -537,7 +540,7 @@ diario_frequency_graph<-
          y="Frequency")
 ```
 
-To see the plot we just created, we can print the name of the object to which it has been assigned, ```diario_frequency_graph```, within our console; it will appear in the "Plots" tab on the bottom-right of your R Studio interface. 
+To see the plot we just created, we can print the name of the object to which it has been assigned, ```diario_frequency_graph```, within our console; it will appear in the "Plots" tab on the bottom-right of your RStudio interface. 
 
 ```{r}
 # prints "diario_frequency_graph"
@@ -606,7 +609,7 @@ if we want to inspect the documentation for the ```wordcloud2()``` function, we 
 ?wordcloud2
 ```
 
-After running that code in your console, you will see the function's documentation open up in the "Help" tab on the bottom-right window of your R Studio interface. 
+After running that code in your console, you will see the function's documentation open up in the "Help" tab on the bottom-right window of your RStudio interface. 
 
 Take a look at the various arguments to ```wordcloud2()```, and experiment with some of them to try and customize the appearance of the wordcloud we created above. 
 
@@ -618,7 +621,7 @@ In this section, we'll extend the material in previous sections of the workshop,
 
 ## Extracting bigrams from a text corpus and creating a bigram frequency table
 
-In order to extract our bigrams, we'll return to the ```diario_creatives_tidy``` dataset we created above, in which each row is associated with a distinct text document from the collection, and the text data for each document is contained in a separate column. Let's remind ourselves of this dataset's structure, by bringing it up again in the R Studio data viewer:
+In order to extract our bigrams, we'll return to the ```diario_creatives_tidy``` dataset we created above, in which each row is associated with a distinct text document from the collection, and the text data for each document is contained in a separate column. Let's remind ourselves of this dataset's structure, by bringing it up again in the RStudio data viewer:
 
 ```{r, eval=F}
 # Views "diario_creatives_tidy" in data viewer
@@ -693,7 +696,7 @@ diario_bigram_separated<-diario_bigram %>%
                           separate(bigram, c("word1", "word2"), sep=" ")
 ```
 
-Now, let's take a look at ```diario_bigram_separated``` within the R Studio data viewer:
+Now, let's take a look at ```diario_bigram_separated``` within the RStudio data viewer:
 
 ```{r}
 View(diario_bigram_separated)
@@ -758,7 +761,7 @@ We'll now add the ```diario_bigram_word1numbers``` and ```diario_bigram_word2num
 diario_bigram_filtered<-cbind(diario_bigram_filtered, diario_bigram_word1numbers, diario_bigram_word2numbers)
 ```
 
-This yields an updated version of ```diario_bigram_filtered```, which now contains information on whether the the text in the columns "word1" and "word2" have numbers. More specifically, the column "diario_bigram_word1numbers" takes the value " NA" for any word in "word1" that does not contain numbers, and the column "diario_bigram_word2numbers" similarly takes on "NA" values for any word in "word2" that does not contain numbers. To confirm this, please view ```diario_bigram_filtered``` in the R Studio data viewer (```View(diario_bigram_filtered)```). 
+This yields an updated version of ```diario_bigram_filtered```, which now contains information on whether the the text in the columns "word1" and "word2" have numbers. More specifically, the column "diario_bigram_word1numbers" takes the value " NA" for any word in "word1" that does not contain numbers, and the column "diario_bigram_word2numbers" similarly takes on "NA" values for any word in "word2" that does not contain numbers. To confirm this, please view ```diario_bigram_filtered``` in the RStudio data viewer (```View(diario_bigram_filtered)```). 
 
 We'll leverage this information to delete all rows in ```diario_bigram_filtered``` for which "word1" or "word2" contains a number. In particular, we'll do this by taking ```diario_bigram_filtered```, and subsetting all rows in which the "diario_bigram_word1numbers" has an NA value (which excises rows in which "word1" contains a number) using the ``filter()``` function, and then subsequently using the same procedure to subset all rows in which "diario_bigram_word2numbers" has an NA value (which excises rows in which "word2" contains a number). We'll assign these changes back to the same ```diario_bigram_filtered``` object, and thereby update the previous contents of the objects. 
 
@@ -787,7 +790,7 @@ diario_bigram_filtered_unite<-diario_bigram_filtered %>%
                                 unite(bigram, word1, word2, sep=" ")
 ```
 
-Let's now take a look at ```diario_bigram_filtered_unite``` within the R Studio data viewer: 
+Let's now take a look at ```diario_bigram_filtered_unite``` within the RStudio data viewer: 
 
 ```{r, echo=F}
 diario_bigram_filtered_unite_head<-head(diario_bigram_filtered_unite, 50)
