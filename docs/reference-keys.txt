@@ -28,8 +28,8 @@ creating-a-wordcloud
 bigrams
 extracting-bigrams-from-a-text-corpus-and-creating-a-bigram-frequency-table
 cleaning-a-bigram-frequency-table
-removing-stopwords-from-bigrams
-removing-numbers-from-bigrams
+remove-stopwords-from-bigrams
+remove-numbers-from-bigrams
 reconstituting-the-bigram-frequency-table-after-cleaning
 visualizing-bigrams
 extracting-keywords-in-context
