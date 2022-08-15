@@ -137,9 +137,9 @@ library(tidytext)
 library(DT) 
 ```
 
-## Set Working Directory 
+## Set working directory 
 
-Before we can bring our data into RStudio and begin the tutorial, we have to specify that data's location on our computer. This step is known as setting one's working directory. First, make sure that you've downloaded the Diario text data, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial. To complete the workshop tasks, you will want to set your working directory to the "creatives" subdirectory within the main "2019.11.14-ElDiarioCorpus" directory that you downloaded. 
+Before we can bring our workshop data into RStudio and begin the tutorial, we have to specify that data's location on our computer. This step is known as setting one's working directory. First, make sure that you've downloaded the Diario text data, and have placed it in a directory (i.e. folder) on your computer that is specifically dedicated to this tutorial. To complete the workshop tasks, you will want to set your working directory to the "creatives" subdirectory within the main "2019.11.14-ElDiarioCorpus" directory that you downloaded. 
 
 If you're unfamiliar with the concept of file paths, the easiest way to set your working directory is through the RStudio menu. To use this option, follow these steps: 
 
@@ -153,7 +153,7 @@ The graphic below demonstrates the process of setting one's working directory th
 knitr::include_graphics('pictures/setting_wd_revised.png')
 ```
 
-**Alternatively**, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded Diario "creatives" text files, you can set the working directly using the ```setwd()``` function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the creatives from the El Diario corpus: 
+**Alternatively**, if you are familiar with the concept of file paths, and know the file path to the folder containing the downloaded El Diario "creatives" text files, you can directly set the working directory using the ```setwd()``` function, where the argument to the function is the relevant file path enclosed in quotation marks. For example, the following code sets the working directory to the folder containing the creatives from the El Diario corpus: 
 
 ```{r, eval=F}
 # Sets working directory 
@@ -166,7 +166,7 @@ Note that you won't want to copy and paste the above codeblock, since your file 
 
 The first step when working with text data in RStudio is to load the data which you wish to analyze into your R environment.
 
-Sometimes, you may only need to analyze the text within a single document, but often, you will want to analyze an entire collection of text documents (known as a corpus). In our case, we want to analyze a corpus comprised of text documents that are part of the "creatives" section of the broader "Diario" text collection.
+Sometimes, you may only need to analyze the text within a single document, but often, you will want to analyze an entire collection of text documents (known as a corpus). In our case, we want to analyze a corpus comprised of text documents that are part of the "creatives" section of the broader "El Diario" text collection.
 
 To make this more concrete, we can take a look at these "creatives" files on our local computer's directory:
 
@@ -176,7 +176,7 @@ knitr::include_graphics('pictures/creative_files.jpeg')
 
 Our first job is to load all of the individual text files within this "creatives" directory into RStudio as a corpus. To do so, we will first read in all of the file names for the text documents that constitute the "creatives" corpus, and store these names within a character vector; a "vector" in R is simply a sequence of elements, and in the case of a character vector, those elements are text strings. 
 
-The code below first reads in the file names from the "creatives" directory, using ```list.files(pattern=".txt")```. The ```list.files()``` function produces a character vector of files within a specified directory (if no directory is specified, it defaults to extracting the names of files from the working directory), and the argument to this function, ```pattern=".txt"```, specifies what type of files we want the ```list.files()``` function to extract (anything with a ".txt" extension). Finally, it assigns this vector of file names to a new object named ```diario_files```:
+The code below first reads in the file names from the "creatives" directory, using ```list.files(pattern=".txt")```. The ```list.files()``` function produces a character vector of files within a specified directory (if no directory is specified, as is the case here, it defaults to extracting the names of files from the working directory), and the argument to this function, ```pattern=".txt"```, specifies what type of files we want the ```list.files()``` function to extract (anything with a ".txt" extension). Finally, it assigns this vector of file names to a new object named ```diario_files```:
 
 ```{r, echo=-1}
 setwd("2019.11.14-ElDiarioCorpus/creatives")
@@ -192,7 +192,7 @@ The concept of object assignment, which we alluded to above, is a fundamental co
 x<-5
 ```
 
-In the code above, we use R's assignment operator, ```<-```, to assign the value 5 to an object named ```x```. Now that an object named ```x``` has been created and assigned the value 5, printing ```x``` in our console (or printing ```x``` in our script and running it) will return the value 5: 
+In the code above, we use R's assignment operator, ```<-```, to assign the value 5 to an object named ```x```. Now that an object named ```x``` has been created and assigned the value 5, printing ```x``` in our console (or printing ```x``` in our script and running it) will return the value that has been assigned to the ```x``` object, i.e. 5: 
 
 ```{r}
 # prints value assigned to "x"
@@ -210,7 +210,7 @@ diario_files
 
 We will use this basic principle of object assignment throughout the lesson.
 
-Now, let's use this vector of file names to create a Corpus that contains the text from all of these files. To do so, we'll use the *tm* package's ```Corpus()``` function. Below, the first argument to the ```Corpus()``` function, ```URISource(diario_files)```, specifies the file names of the text documents from which we want to create our corpus. The second argument, ```readerControl=list(reader=readPlain))```, specifies that we want the ```Corpus()``` function to use a plain text reader ("readPlain") to read in the text data within the documents specified in ```diario_files``` (if our files were in a different file format, such as PDF, we would use a different reader that is appropriate to that file format). Finally, we assign the corpus to a new object named ```diario_creatives_corpus```:
+Now, let's use this vector of file names to create a corpus object that contains the text from all of these files. To do so, we'll use the *tm* package's ```Corpus()``` function. Below, the first argument to the ```Corpus()``` function, ```URISource(diario_files)```, specifies the file names of the text documents from which we want to create our corpus. The second argument, ```readerControl=list(reader=readPlain))```, specifies that we want the ```Corpus()``` function to use a plain text reader ("readPlain") to read in the text data within the documents specified in ```diario_files``` (if our files were in a different file format, such as PDF, we would use a different reader that is appropriate to that file format). Finally, we assign the corpus to a new object named ```diario_creatives_corpus```:
 
 ```{r, echo=-1}
 setwd("2019.11.14-ElDiarioCorpus/creatives")
@@ -223,18 +223,18 @@ diario_creatives_corpus<-Corpus(URISource(diario_files), readerControl = list(re
 If we print the name of our corpus object into the console (or run it from a script), we can return some basic metadata about the corpus we've just created:
 
 ```{r}
-# prints metadata about the corpus assigned to the "diario_adverts_corpus" object
+# prints metadata about the corpus assigned to the "diario_creatives_corpus" object
 diario_creatives_corpus
 ```
 
 # Creating a tidy dataframe from a text corpus
 
-Once we have created a text corpus out of the relevant collection of text documents in our directory, we can work directly with this corpus to extract information about our text collection. However, *tm* package corpus objects can sometimes be a bit unwieldy and non-intuitive to work with. Luckily, the *tidytext* package's ```tidy()``` function can quickly transform a *tm* corpus object into a more tractable data frame (i.e. a tabular dataset), in which each text document is assigned its own row, and the entirety of the text associated with each document is stored in a column. Below, we take our corpus object, ```diario_creatives_corpus```, and pass it as an argument to the ```tidy()``` function; then, we assign the resulting data frame of textual information to a new object named ```diario_creatives_tidy```:
+Once we have created a text corpus out of the relevant collection of text documents in our directory, we can work directly with this corpus to extract information about the contents of our text collection. However, *tm* package corpus objects can sometimes be a bit unwieldy and non-intuitive to work with. Luckily, the *tidytext* package's ```tidy()``` function can quickly transform a *tm* corpus object into a more tractable data frame (i.e. a tabular dataset), in which each text document is assigned its own row, and the entirety of the text associated with each document is stored in a column. Below, we take our corpus object, ```diario_creatives_corpus```, and pass it as an argument to the ```tidy()``` function; then, we assign the resulting data frame of textual information to a new object named ```diario_creatives_tidy```:
 
 ```{r}
 # Uses the "tidy" function from the "tidytext" package to transform the 
-# "diario_creatives_corpus" corpus into a tidy data frame, where each file's 
-# textual information is stored as a row in the data frame; this data frame is 
+# "diario_creatives_corpus" corpus into a tidy data frame, where each text file
+# is associated with a row in the data frame; this data frame is 
 # assigned to a new object named "diario_creatives_tidy"
 diario_creatives_tidy<-tidy(diario_creatives_corpus)
 ```
@@ -268,9 +268,9 @@ tidy_diario_head %>% datatable(extensions=c("Scroller", "FixedColumns"), options
 ))
 ```
 
-*Please note that data frames which are reproduced in this tutorial are sometimes truncated, to preserve memory; you will therefore see fewer rows in data frames within the tutorial material than you will see when inspecting those same data frames within the RStudio data viewer on your computers*
+*Please note that data frames which are reproduced in this tutorial are sometimes truncated, to preserve memory and space; you will therefore usually see fewer rows in data frames within the tutorial material than you will see when inspecting those same data frames within the RStudio data viewer on your computers*
 
-As we noted above, each text document is associated with a unique row. There are several columns that provide metadata associated with the corresponding text document. Most importantly, there is a column named "text" which contains the full text that is contained in the document that corresponds to a given row. 
+As we noted above, each text document is associated with a unique row. There are several columns that provide metadata associated with the corresponding text document. Most importantly, there is a column named "text" which contains the full text that is contained in the document associated with the corresponding row. 
 
 Once we have recast our text corpus into a concise and well-structured data frame, we can begin to extract information of interest from our text data. 
 
@@ -322,8 +322,7 @@ diario_word_tokenized_head %>% datatable(extensions=c("Scroller", "FixedColumns"
 ))
 ```
 \
-One feature of the code used to generate a tokenized dataset may require additional elaboration. In particular, the code above uses a "pipe", a symbol that looks like this: ```%>%```. The pipe operator essentially takes whatever is to its left, and then use it as an input to the code on its right. In the code above, the operations on the right of the ```%>%``` are applied to the object on the left of the 
-``` %>%```. In other words, the pipe operator links the code on its two sides, and establishes that the dataset to be tokenized in the manner specified by the code on its right is  ```diario_creatives_tidy```.
+One feature of the code used to generate a tokenized dataset may require additional elaboration. In particular, the code above uses a "pipe", a symbol that looks like this: ```%>%```. The pipe operator essentially takes whatever is to its left, and then uses it as an input to the code on its right. More specifically, in the code above, the operations on the right of the ```%>%``` are applied to the object on the left of the ``` %>%```. In other words, the pipe operator links the code on its two sides, and establishes that the dataset to be tokenized in the manner specified by the code on its right is  ```diario_creatives_tidy```.
 
 ## Extract the first draft of a word frequency table based from the tokenized dataset
 
@@ -369,7 +368,7 @@ Having generated this basic word frequency table, it is now time to edit and cle
 
 ### Remove stopwords
 
-One issue with our frequency table (```diario_frequency_table```) that you may have noticed is that many of the words are (predictably) common words that don't really inform us about the distinctive semantic features of the "creatives" text collection. For example, the word "the" appears 857 times in our collection, but for most research projects, this would be completely uninteresting, and may even obscure more interesting patterns within the text collection. When working with text data, it is therefore common practice to excise these common words (known as "stopwords") from a dataset of interest, before carrying out any further analysis or visualization tasks. 
+One issue with our frequency table (```diario_frequency_table```) that you may have noticed is that many of the words are (predictably enough) common words that don't really inform us about the distinctive semantic features of the "creatives" text collection. For example, the word "the" appears 857 times in our collection, but for most research projects, this would be completely uninteresting, and may even obscure more interesting patterns within the text collection. When working with text data, it is therefore common practice to excise these common words (known as "stopwords") from a dataset of interest, before carrying out any further analysis or visualization tasks. 
 
 Let's now go ahead and excise stopwords from ```diario_frequency_table```. In order to remove stopwords, we must first compile those words, and assemble them in an R data structure (such as a data frame or vector). This can be a tedious task, but luckily, many text mining and analysis packages provide pre-assembled collections of stopwords that we can use off the shelf, without having to develop our own from scratch. 
 
@@ -406,7 +405,7 @@ diario_frequency_table<-
 Let's unpack the code in the previous codeblock: 
 
 * The first element (to the right of the assignment operator), is the name of the object from which we'd like to remove the relevant stopwords, ```diario_frequency_table```. 
-* After declaring the name of the object we'd like to modify, we use a ```%>%``` to connect this object to the subsequent line of code, which removes the English stopwords using ```  filter(!word %in% stop_words$word)```. The ```filter()``` function (which is part of the *dplyr* package), is used to create a subset of an existing dataset, in which all of the rows that satisfy a condition (or set of conditions) are retained (and those which do not satisfy the condition(s) are discarded).  Here, the argument to the ```filter()``` function, which reads ```!word %in% stop_words$word```, can be interpreted as specifying that we wish to subset and retain all of the rows in ```diario_frequency_table``` in which the "word" column (within ```diario_frequency_table```) is NOT equal to any of the words in the "word" column of ```stop_words``` (note that in order to refer to a column from a dataset, we can type the name of the data frame object, followed by a ```$```, followed by the name of the column within the dataset). This procedure effectively excises the English stopwords from ```diario_frequency_table```. The ```!``` before ```word``` is a small detail, but important; the exclamation mark is a symbol for logical negation, and without it, the ```filter()``` function would instead subset and retain all of the rows in ```diario_frequency_table``` where the word in the "word" column *is* an English stopword. 
+* After declaring the name of the object we'd like to modify, we use a ```%>%``` to connect this object to the subsequent line of code, which removes the English stopwords using ```  filter(!word %in% stop_words$word)```. The ```filter()``` function (which is part of the *dplyr* package), is used to create a subset of an existing dataset, in which all of the rows that satisfy a condition (or set of conditions) are retained (and those which do not satisfy the condition(s) are discarded).  Here, the argument to the ```filter()``` function, which reads ```!word %in% stop_words$word```, can be interpreted as specifying that we wish to subset and retain all of the rows in ```diario_frequency_table``` in which the "word" column (within ```diario_frequency_table```) is NOT equal to any of the words in the "word" column of ```stop_words``` (note that in order to refer to a column from a dataset, we can type the name of the data frame object, followed by a ```$```, followed by the name of the column within the data frame). This procedure effectively excises the English stopwords from ```diario_frequency_table```. The ```!``` before ```word``` is a small detail, but important; the exclamation mark is a symbol for logical negation, and without it, the ```filter()``` function would instead subset and retain all of the rows in ```diario_frequency_table``` where the word in the "word" column *is* an English stopword. 
 * After excising all of the English stopwords from ```diario_frequency_table```, we use another pipe (```%>%```), to indicate that we want to implement additional changes to ```diario_frequency_table```. We then use the ```filter()``` function to remove Spanish stopwords from ```diario_frequency_table```, with ```filter(!word %in% spanish_stopwords$`stopwords("spanish")`)```. The logic behind this expression is the same as the logic behind the previous expression, which removed English stopwords from the frequency table. That is, the argument to the ```filter()``` function specifies that we want to subset and retain all of the rows in ```diario_frequency_table``` for which the "word" column is NOT one of the Spanish stopwords contained in the ```stopwords("spanish")``` column within the ```spanish_stopwords``` dataset. This effectively removes the words in ```spanish_stopwords``` from ```diario_frequency_table```. 
 * Finally, we assign the changes we made to ```diario_frequency_table``` (i.e. removing stopwords) back to the existing ```diario_frequency_table``` object with the assignment operator (```<-```) instead of creating a new object; this effectively updates the contents of ```diario_frequency_table```. Before, this data object included the stopwords in ```stop_words``` and ```spanish_stopwords```; now, after assigning the changes back to the existing object, ```diario_frequency_table``` no longer contains these stopwords. 
 
@@ -425,7 +424,7 @@ The first step is to parse each row in the "word" column of ```diario_frequency_
 diario_frequency_table_numbers<-parse_number(diario_frequency_table$word)
 ```
 
-Next, we'll add this vector as a column in the ```diario_frequency_table``` by using the ```cbind()``` function, which is used to bind a vector to a dataset as a column. Below, the first argument to ```cbind()``` is the name of the dataset to which we want to bind the vector (```diario_frequency_table```), and the second argument is the name of the desired vector (```diario_frequency_table_numbers```). We'll assign the resulting dataset (i.e.  ```diario_frequency_table``` with the  ```diario_frequency_table_numbers``` vector added to it as a column) back to ```diario_frequency_table```, which will update the existing ```diario_frequency_table``` object with this new column:  
+Next, we'll add this vector as a column in ```diario_frequency_table``` by using the ```cbind()``` function, which is used to bind a vector to a dataset as a column. Below, the first argument to ```cbind()``` is the name of the dataset to which we want to bind the vector (```diario_frequency_table```), and the second argument is the name of the desired vector (```diario_frequency_table_numbers```). We'll assign the resulting dataset (i.e.  ```diario_frequency_table``` with the  ```diario_frequency_table_numbers``` vector added to it as a column) back to ```diario_frequency_table```, which will update the existing ```diario_frequency_table``` object with this new column:  
 
 ```{r}
 # updates the existing "diario_frequency_table" data frame by binding the
@@ -455,7 +454,7 @@ diario_frequency_table<-diario_frequency_table %>%
 
 ## View the final (cleaned) frequency table
 
-Let's now view our final word frequency table, which we generated by cleaning the draft version of the frequency table (from Section 5.2) by excising stopwords and numbers (in Section 5.3):
+Let's now view our final word frequency table, which we generated by cleaning the draft version of the frequency table (from Section 5.2), by excising stopwords and numbers (in Section 5.3):
 
 ```{r, echo=F}
 diario_frequency_table_head<-head(diario_frequency_table, 50)
@@ -487,9 +486,9 @@ In this subsection, we'll learn how to use *ggplot2*, a data visualization packa
 
 ### Extracting dataframe of ten most frequent words
 
-The first step in creating a chart of the ten most frequently occurring words in the "creatives" text collection is to take ```diario_frequency_table``` (our word frequency table), and make a new dataset by extracting the ten most frequently ocurring words. 
+The first step in creating a chart of the ten most frequently occurring words in the "creatives" text collection is to take ```diario_frequency_table``` (our word frequency table), and make a new dataset by extracting the rows associated with the ten most frequently occurring words (and discarding all other rows). 
 
-Below, we use the ```slice_max()``` function from *dplyr* to extract the rows with the ten highest values in the "n" column of ```diario_frequency_table```. The first argument to ```slice_max``` is the name of the column we would like to parse for values (```n```), and ```n=10``` specifies that we would like to extract the rows with the ten highest values for the "n" column  (i.e. the column that contains our word frequencies). Finally, we assign this selection of the rows, which contain the ten most frequently occurring words in ```diario_frequency_table```, to a new object named ```diario_top_ten```:
+Below, we use the ```slice_max()``` function from *dplyr* to extract the rows with the ten highest values in the "n" column of ```diario_frequency_table```. The first argument to ```slice_max``` is the name of the column we would like to parse for values (```n```), and ```n=10``` specifies that we would like to extract the rows that are associated with the ten highest values for the "n" column  (i.e. the column that contains our word frequencies). Finally, we assign this selection of the rows, which contain the ten most frequently occurring words in ```diario_frequency_table```, to a new object named ```diario_top_ten```:
 
 ```{r}
 # subsets rows from "diario_frequency_table" with ten highest values for "n" 
@@ -537,9 +536,9 @@ diario_frequency_graph<-
 Let's unpack the various elements in the previous codeblock:
 
 * The first function, ```ggplot()```, initializes a new *ggplot* object. The argument to ```ggplot()```, ```data=diario_top_ten```, specifies the underlying data that we would like to use in making our visualization. 
-* Next (note that after initializing *ggplot*, functions are chained together with a "+"), the ```geom_col()``` function specifies that we want to make a bar graph (there are various other "geom" functions within *ggplot2* that correspond to different types of visualizations, such as scatterplots, line graph, boxplot etc.). The expression within the ```geom_col()``` function, ```aes(x=word, y=n)```, is known as an "aesthetic mapping", which is defined within the ```aes()``` function. An aesthetic mapping describes how we want to map the properties of our data onto the visual features of our bar chart; the phrase ```x=word, y=n```, specifies that we want information from the "word" column in ```diario_top_ten``` to be represented on our chart's x-axis, and the information from the "n" column in ```diario_top_ten``` to be represented on the y-axis. 
+* Next (note that after initializing *ggplot*, functions are chained together with a "+"), the ```geom_col()``` function specifies that we want to make a bar graph (there are various other "geom" functions within *ggplot2* that correspond to different types of visualizations, such as scatterplots, line graphs, boxplots etc.). The expression within the ```geom_col()``` function, ```aes(x=word, y=n)```, is known as an "aesthetic mapping", which is defined within the ```aes()``` function. An aesthetic mapping describes how we want to map the properties of our data onto the visual features of our bar chart; the phrase ```x=word, y=n```, specifies that we want information from the "word" column in ```diario_top_ten``` to be represented on our chart's x-axis, and the information from the "n" column in ```diario_top_ten``` to be represented on the y-axis. 
 * The ```labs()``` argument (short for "labels") takes several arguments, which allow us to specify a title for our chart, a caption (where we can provide information on the source of our data), and labels for our x-axis ("x") and y-axis ("y"). Note that by setting ```x=""```, we are specifying that we do not wish to label the x-axis (since it is self-explanatory, given the context). 
-* Finally, we assigneed the plot created by this code to a new object named ```diario_frequency_graph```.
+* Finally, we assigned the plot created by this code to a new object named ```diario_frequency_graph```.
 
 To see the plot we just created, we can print the name of the corresponding object, ```diario_frequency_graph```, within our console; the plot will appear in the "Plots" tab on the bottom-right of your RStudio interface. 
 
@@ -548,7 +547,7 @@ To see the plot we just created, we can print the name of the corresponding obje
 diario_frequency_graph
 ```
 
-This graph is a nice foundation, and *ggplot2* offers extensive customization options that allow users to refine their plots. For example, let's say we want to order our words (on the x-axis) in ascending order with respect to their frequency. We can do so by slightly modifying the aesthetic mapping, with the expression ```aes(x=reorder(word, n), y=n)```; by using the ```reorder``` function, we are able to specify that we want the information from the "word" column to be represented on the x-axis (as before), but that we want the words to be ordered with respect to their frequencies (contained in the "n" column); the expression ```y=n``` within ```aes()``` is the same as before. We'll assign this slightly modified plot back to the ```diario_frequency_graph``` object, which effectively updates the previous object with this modification to the order of words along the x-axis: 
+This graph is a nice foundation, and *ggplot2* offers extensive customization options that allow users to refine their plots. For example, let's say we want to order our words (on the x-axis) in ascending order with respect to their frequency. We can do so by slightly modifying the aesthetic mapping, with the expression ```aes(x=reorder(word, n), y=n)```; by using the ```reorder()``` function, we are able to specify that we want the information from the "word" column to be represented on the x-axis (as before), but that we want the words to be ordered with respect to their frequencies (contained in the "n" column); the expression ```y=n``` within ```aes()``` is the same as before. We'll assign this slightly modified plot back to the ```diario_frequency_graph``` object, which effectively updates the previous object with this modification to the order of words along the x-axis: 
 
 ```{r}
 # Creates a bar chart of information in "diario_top_ten" with "word" on x-axis 
@@ -569,7 +568,7 @@ Let's view our updated plot:
 diario_frequency_graph
 ```
 
-Sometimes, it may be preferable to invert the x and y coordinates of a bar graph, which creates a "sideways" bar chart with horizontal bars (instead of vertical ones). Because this is a common operation, *ggplot2* provides a ready-made function that allows us to invert coordinates, called ```coord_flip()```. All we have to do to flip our coordinates and create a horizontal/sideways bar chart is to add this function to the code that we wrote above. We'll assign this modified code to a new object named ```diario_frequency_graph_inverted```:
+Sometimes, it may be preferable to invert the x and y axes of a bar graph, which creates a "sideways" bar chart with horizontal bars (instead of vertical ones). Because this is a common operation, *ggplot2* provides a ready-made function that allows us to invert axes, called ```coord_flip()```. All we have to do to flip our coordinates and create a horizontal/sideways bar chart is to add this function to the code that we wrote above. We'll assign this modified code to a new object named ```diario_frequency_graph_inverted```:
 
 ```{r}
 # Uses "diario_top_ten" data frame to make horizontal bar chart of ten most 
@@ -614,11 +613,11 @@ if we want to inspect the documentation for the ```wordcloud2()``` function, we 
 
 After running that code in your console, you will see the function's documentation open up in the "Help" tab on the bottom-right window of your RStudio interface. 
 
-Take a look at the various arguments to ```wordcloud2()```, and explore manipulating some of those arguments to try and customize the appearance of the wordcloud we created above. 
+Take a look at the various arguments to ```wordcloud2()```, and manipulate some of those arguments to try and customize the appearance of the basic wordcloud we created above. 
 
 # Bigrams
 
-Sometimes, you will be more interested in tokenizing your text data using a different unit of analysis than the single word. There are any number of ways to tokenize a text data collection besides a single word. A simple extension of tokenizing with a single word is tokenizing by two consecutive words, which is a unit of analysis known as a bigram.
+Sometimes, you will be more interested in tokenizing your text data using a different unit of analysis than a single word. There are any number of ways to tokenize a text data collection besides a single word. A simple extension of tokenizing with a single word is tokenizing by two consecutive words, which is a unit of analysis known as a bigram.
 
 In this section, we'll extend the material in previous sections of the workshop, and learn how to extract and clean bigrams (i.e. consecutive words) from a data collection, develop a simple bigram frequency table, and visualize bigrams using *ggplot2*. 
 
@@ -724,7 +723,7 @@ With this preliminary step out of the way, we'll now remove our stopwords.
 
 ### Remove stopwords from bigrams
 
-In the code below, we take ```diario_bigram_separated```, and then sequentially remove English stopwords from the "word1" and "word2" columns, and Spanish stopwords from the "word1" and "word2" columns. The technique we use to remove these words, using the ```filter()``` function to subset rows within ```diario_bigram_separated``` which do NOT contain any of the specified stopwords, is exactly the same as what we used above to remove stopwords from our word frequency table. The data frame that results from removing the stopwords from ```diario_bigram_separated``` is assigned to a new object named ```diario_bigram_filtered```:
+In the code below, we take ```diario_bigram_separated```, and then sequentially remove English stopwords from the "word1" and "word2" columns, and then Spanish stopwords from the "word1" and "word2" columns. The technique we use to remove these words, using the ```filter()``` function to subset rows within ```diario_bigram_separated``` which do NOT contain any of the specified stopwords, is exactly the same as what we used above to remove stopwords from our word frequency table. The data frame that results from removing the stopwords from ```diario_bigram_separated``` is assigned to a new object named ```diario_bigram_filtered```:
 
 ```{r}
 # Removes English and Spanish stopwords from the "word1" and "word2" columns
@@ -766,7 +765,7 @@ We'll now add the ```diario_bigram_word1numbers``` and ```diario_bigram_word2num
 diario_bigram_filtered<-cbind(diario_bigram_filtered, diario_bigram_word1numbers, diario_bigram_word2numbers)
 ```
 
-This yields an updated version of ```diario_bigram_filtered```, which now contains information on whether the text in the "word1" and "word2" columns have numbers. More specifically, the column "diario_bigram_word1numbers" takes the value " NA" for any word in "word1" that does not contain numbers, and the column "diario_bigram_word2numbers" similarly takes on "NA" values for any word in "word2" that does not contain numbers. To confirm this, please view ```diario_bigram_filtered``` in the RStudio data viewer (```View(diario_bigram_filtered)```). 
+This yields an updated version of ```diario_bigram_filtered```, which now contains information on whether the text in the "word1" and "word2" columns have numbers. More specifically, the column "diario_bigram_word1numbers" takes the value " NA" for any word in the corresponding "word1" column that does not contain numbers, and the column "diario_bigram_word2numbers" similarly takes on "NA" values for any word in the corresponding "word2" column that does not contain numbers. To confirm this, please view ```diario_bigram_filtered``` in the RStudio data viewer (```View(diario_bigram_filtered)```). 
 
 We'll leverage this information to delete all rows in ```diario_bigram_filtered``` for which "word1" or "word2" contains a number. In particular, we'll do this by taking ```diario_bigram_filtered```, and using the ```filter()``` function to subset all rows in which the "diario_bigram_word1numbers" column has an NA value (which excises rows in which "word1" contains a number), and then subsequently using the same procedure to subset all rows in which "diario_bigram_word2numbers" has an NA value (which excises rows in which "word2" contains a number). We'll assign these changes back to the same ```diario_bigram_filtered``` object, and thereby update the previous contents of the ```diario_bigram_filtered``` with this new version that has removed numbers from the "word1" and "word2" columns: 
 
@@ -821,7 +820,7 @@ diario_bigram_filtered_unite_head %>% datatable(extensions=c("Scroller", "FixedC
 You'll see that the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" columns, which were created as part of our strategy to remove numbers from the frequency table, are still present in ```diario_bigram_filtered_unite```. Let's remove these columns, which are no longer useful, from the frequency table, by calling the ```select()``` function, and passing a vector of these column names as an argument to the ```select()``` function with a minus sign in front. We'll assign the resulting dataset to a new object named ```diario_bigram_frequency_final```:
 
 ```{r}
-# removes the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" 
+# deletes the "diario_bigram_word1numbers" and "diario_bigram_word2numbers" 
 # columns from "diario_bigram_filtered_unite"
 diario_bigram_frequency_final<-diario_bigram_filtered_unite %>% 
                               select(-c(diario_bigram_word1numbers, diario_bigram_word2numbers))
@@ -857,8 +856,9 @@ Now that we have the cleaned version of our bigram frequency table (```diario_bi
 First, we'll take ```diario_bigram_frequency_final``` and use the ```slice_max()``` function to extract the bigrams with the ten highest frequencies (i.e. the ten highest values of "n"). We'll assign this subsetted dataset to a new object named  ```diario_bigram_top_ten```:
 
 ```{r}
-# Extracts a new data frame of the ten most frequently occurring bigrams in 
-# "diario_bigram_filtered_unite" and assigns this data frame to a new object 
+# Extracts a new data frame by subsetting the 
+# rows associated with the ten most frequently occurring bigrams in 
+# "diario_bigram_filtered_unite", and assigns this data frame to a new object 
 # named "diario_bigram_top_ten"
 diario_bigram_top_ten<-diario_bigram_frequency_final %>% 
                         slice_max(n, n=10)
@@ -883,7 +883,7 @@ diario_bigram_top_ten %>% datatable(extensions=c("Scroller", "FixedColumns"), op
 ```
 \
 
-Now, let's use ```diario_bigram_top_ten``` to create a horizontal bar chart of the most frequently ocurring bigrams, and assign it to a new object named ```bigram_graph```:
+Now, let's use ```diario_bigram_top_ten``` to create a horizontal bar chart of the most frequently occurring bigrams, and assign it to a new object named ```bigram_graph```:
 
 ```{r}
 # Creates sideways bar chart of 10 most frequently ocurring bigrams in Diario
@@ -910,7 +910,7 @@ bigram_graph
 
 # Extracting keywords in context
 
-The idea behind "keywords in context" is that it is often useful to extract a word of interest (i.e. a "keyword") from a text collection along with surrounding words, so as to develop a sense of the context in which that keyword tends to be used within a text collection. 
+The idea behind "keywords in context" is that it is often useful to extract a word of interest (i.e. a "keyword") from a text collection along with its surrounding words, so as to develop a sense of the context in which that keyword tends to be used.
 
 In this final section, we'll briefly learn how to use functions from the text mining and analysis package *quanteda* to extract a table which provides contextual information about a given keyword. 
 
@@ -956,11 +956,19 @@ earth_keyword_context %>% datatable(extensions=c("Scroller", "FixedColumns"), op
 ```
 \
 
-As you can see, the "docname" column contains information about the specific text file in which the "earth" keyword ocurred, and the "pre" and "post" columns provide (respectively) information on the three words before and after each instance of the keyword. 
+As you can see, the "docname" column contains information about the specific text file in which the "earth" keyword ocurred, and the "pre" and "post" columns provide (respectively) information on the three words before and after the keyword, for every instance in which it is used. 
 
 # Further Reading
 
-There are a variety of useful online resources on text mining and analysis in R that you may wish to look into, if this is a skillset you'd like to develop further. The best place to start is probably the book (available for free online) [Text Mining with R](https://www.tidytextmining.com/index.html), by Julia Silgre and David Robinson. Some of the code in this workshop was adapted from that book, and its various case studies provide an engaging way to learn and develop your skills. 
+There are a variety of useful online resources on text mining and analysis in R that you may wish to look into, if this is a skillset you would like to develop further. The best place to start is probably the book (available for free online) [Text Mining with R](https://www.tidytextmining.com/index.html), by Julia Silgre and David Robinson. Some of the code in this workshop was adapted from that book, and its various case studies provide an engaging way to learn and develop your skills. 
 
-If you would like to learn more about text mining in R, but feel like it would be beneficial to first get better acquainted with R more generally, the best place to start for applied social scientists and digital humanists is the book [R for Data Science](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund.
+If you would like to learn more about text mining in R, but feel like it would be beneficial to first get better acquainted with R more generally, the best place to start for applied social scientists and digital humanists is the book [R for Data Science](https://r4ds.had.co.nz/) by Hadley Wickham and Garrett Grolemund. 
+
+If you're looking for a more concise introduction to R, [The Carpentries](https://carpentries.org/) project has developed several useful tutorials on R (among other topics). The [Programming with R](http://swcarpentry.github.io/r-novice-inflammation/) workshop, while not focused on the digital humanities, is a good self-contained and general purpose introduction to the R programming language. Another good option is the [R for Social Scientists](https://datacarpentry.org/r-socialsci/) workshop, if you would like to explore the *tidyverse* in greater depth.  
+
+
+
+
+
+
 

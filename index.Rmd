@@ -11,7 +11,7 @@ site: bookdown::bookdown_site
 
 This workshop introduces participants to basic text analysis techniques with R (an open-source statistical computing language), and RStudio (a user-friendly development environment in which you can write your R code to accomplish your analysis and visualization goals). R and RStudio are widely used in digital scholarship and teaching. 
 
-In what follows, we will tour the RStudio interface and cover basic setup and installation procedures, demonstrate how to process and prepare your text data, and explore functions that help implement common text analysis tasks (such as the creation of word clouds and frequency graphs). This workshop is for beginners to programming; working knowledge of text mining methods is helpful but not required.
+Over the course of the workshop, we will tour the RStudio interface and cover basic setup and installation procedures, demonstrate how to process and prepare your text data, and explore functions that help implement common text analysis tasks (such as the creation of word clouds and frequency graphs). This workshop is for beginners to programming; working knowledge of text mining methods is helpful but not required.
 
 ## Objectives 
 
@@ -28,7 +28,7 @@ The textual data for this workshop was collected from El Diario de la Gente, an 
 
 ## Accessing Data and Workshop Materials
 
-All of the data and underlying code for the workshop [can be accessed and downloaded at the GitHub repository](https://github.com/aranganath24/gentle_text_analysis) that underpins this site. If you would like to download the data to follow along in the workshop, but would prefer an alternative to GitHub, you can also download the data from this [Dropbox folder](https://www.dropbox.com/sh/wm6zjivcsen96fm/AAAlws0YlrQsPiSgmbRZJv-Xa?dl=0). In particular, the workshop's lesson plan uses the text collection contained in the "creatives" subdirectory within the main "2019.11.14-ElDiarioCorpus" directory.    
+All of the data and underlying code for the workshop [can be accessed and downloaded at the GitHub repository](https://github.com/aranganath24/gentle_text_analysis) that underpins this workshop site. If you would like to download the data to follow along in the workshop, but would prefer an alternative to GitHub, you can also download the data from this [Dropbox folder](https://www.dropbox.com/sh/wm6zjivcsen96fm/AAAlws0YlrQsPiSgmbRZJv-Xa?dl=0). Please note that the workshop's lesson plan uses the text collection contained in the "creatives" subdirectory within the main "2019.11.14-ElDiarioCorpus" directory that contains all of the data associated with El Diario.  
 
 
 
